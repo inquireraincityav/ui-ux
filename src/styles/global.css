@@ -1,19 +1,21 @@
 /* ─── Design tokens ─────────────────────────────────────────────── */
 :root {
-  /* Warm paper palette */
-  --paper: #f4efe6;
-  --paper-2: #ece5d6;
-  --ink: #1a1817;
-  --ink-2: #4a4540;
-  --ink-3: #7a7368;
-  --rule: #d9d1c0;
-  --accent: #e05a2b;
-  --accent-2: #f2b544;
+  /* Clean neutral palette on a subtle grid */
+  --paper: #f4f3ef;
+  --paper-2: #ecebe6;
+  --ink: #0e0e0e;
+  --ink-2: #5a5a5a;
+  --ink-3: #9a9a9a;
+  --rule: #e2e0da;
+  --grid-line: rgba(0, 0, 0, 0.045);
+  --grid-size: 32px;
+  --accent: #ff4d5e;         /* soft coral for the "on assignment" pill / active moments */
+  --accent-2: #f6c945;
   --accent-3: #4a7c59;
-  --sticky-yellow: #ffe28a;
-  --sticky-pink: #ffb7c5;
-  --sticky-blue: #a8d5e8;
-  --sticky-green: #c5e0b4;
+  --sticky-yellow: #fff2a6;
+  --sticky-pink: #ffc9d0;
+  --sticky-blue: #b8dcee;
+  --sticky-green: #cfe6bb;
 
   /* Type */
   --font-display: "Fraunces", "Playfair Display", Georgia, serif;
@@ -42,27 +44,29 @@
 }
 
 :root[data-theme="dark"] {
-  --paper: #17161a;
-  --paper-2: #1f1e23;
-  --ink: #f3ede0;
-  --ink-2: #c5bdae;
-  --ink-3: #8a8377;
-  --rule: #2d2b32;
-  --accent: #ff7a4a;
-  --accent-2: #f2b544;
+  --paper: #131313;
+  --paper-2: #1c1c1c;
+  --ink: #f2f0eb;
+  --ink-2: #b8b6b0;
+  --ink-3: #7a7873;
+  --rule: #2a2a2a;
+  --grid-line: rgba(255, 255, 255, 0.045);
+  --accent: #ff6b7a;
+  --accent-2: #f6c945;
   --accent-3: #7cb891;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --paper: #17161a;
-    --paper-2: #1f1e23;
-    --ink: #f3ede0;
-    --ink-2: #c5bdae;
-    --ink-3: #8a8377;
-    --rule: #2d2b32;
-    --accent: #ff7a4a;
-    --accent-2: #f2b544;
+    --paper: #131313;
+    --paper-2: #1c1c1c;
+    --ink: #f2f0eb;
+    --ink-2: #b8b6b0;
+    --ink-3: #7a7873;
+    --rule: #2a2a2a;
+    --grid-line: rgba(255, 255, 255, 0.045);
+    --accent: #ff6b7a;
+    --accent-2: #f6c945;
     --accent-3: #7cb891;
   }
 }
@@ -80,6 +84,11 @@ body {
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: var(--grid-size) var(--grid-size);
+  background-position: -1px -1px;
 }
 
 img, svg, video, canvas { display: block; max-width: 100%; height: auto; }
