@@ -1,0 +1,72 @@
+---
+title: "Case Study One"
+role: "Lead Product Designer"
+year: "2024"
+order: 1
+summary: "One-sentence hook that names the specific problem you fixed and the outcome. Replace this text with your real project."
+client: "Client / Company Name"
+duration: "6 weeks"
+tools:
+  - Figma
+  - Maze
+  - FigJam
+accent: "#e05a2b"
+outcomes:
+  - "Replace this with the real metric — e.g. Task completion time dropped from 3:12 to 1:04."
+  - "Second outcome — support ticket volume on the onboarding step fell 42%."
+  - "Third outcome — the new pattern was adopted across three sibling products."
+---
+
+import BeforeAfterImage from '../../components/BeforeAfterImage.astro';
+import Marker from '../../components/Marker.astro';
+
+## The problem
+
+Set the scene in two short paragraphs. What was the product, who was using it, and what specifically was breaking? Name the metric or the moment you noticed — a support ticket, a funnel drop, a session recording. Keep it concrete.
+
+The reader should finish this section thinking *"okay, I understand what was wrong."*
+
+## The evidence
+
+Below is the original screen. The pulsing markers call out the specific failure points I identified during research. Click any of them to read the finding.
+
+<BeforeAfterImage
+  src="https://placehold.co/1200x720/ece5d6/1a1817?text=Drop+your+before+screenshot+here"
+  alt="Original screen before the redesign"
+  label="Before"
+  caption="Screen: onboarding step 2. Session replays: n=24. Users tested remotely."
+>
+  <Marker x="22%" y="30%" title="Ambiguous primary action" severity="high" side="right" n={1}>
+    The CTA read as a label, not a button. 14 of 24 participants tried tapping the illustration
+    above it before finding this link.
+  </Marker>
+  <Marker x="65%" y="55%" title="Two systems, one screen" severity="med" side="left" n={2}>
+    Form fields used one style, the input on the right used another. Users described the page as
+    "two different apps stitched together."
+  </Marker>
+  <Marker x="45%" y="82%" title="Nowhere to go back" severity="low" side="top" n={3}>
+    No visible way to return to the previous step. Six participants closed the tab rather than
+    lose their entered data.
+  </Marker>
+</BeforeAfterImage>
+
+## The thinking
+
+Talk through the *why* of your redesign, not the *what*. What options did you rule out and why? Which constraint (engineering, business, brand) forced a decision?
+
+> Include a quote that captures the tension. A user quote, a stakeholder quote, or a principle you kept coming back to.
+
+## The change
+
+<BeforeAfterImage
+  src="https://placehold.co/1200x720/f4efe6/e05a2b?text=Drop+your+after+screenshot+here"
+  alt="Redesigned screen"
+  label="After"
+  caption="Same funnel step, 4 weeks after launch."
+/>
+
+Explain what specifically changed — the pattern, the copy, the hierarchy — and why each change addresses one of the failures above. Reference the markers directly ("Marker 1 → the primary action is now a filled button…").
+
+## What I learned
+
+Two or three honest sentences. What would you do differently? What surprised you? This is the section that separates a portfolio from a case study.

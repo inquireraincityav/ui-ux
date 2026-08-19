@@ -1,0 +1,52 @@
+---
+interface Props {
+  color?: 'yellow' | 'pink' | 'blue' | 'green';
+  rotate?: number;
+  className?: string;
+}
+const { color = 'yellow', rotate = -2, className = '' } = Astro.props;
+---
+<div class:list={["sticky", `sticky-${color}`, className]} style={`--rot:${rotate}deg`}>
+  <div class="sticky-inner">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .sticky {
+    --bg: var(--sticky-yellow);
+    background: var(--bg);
+    color: #1a1a1a;
+    padding: 1.25rem 1.25rem 1.5rem;
+    box-shadow:
+      0 1px 1px rgba(0,0,0,0.08),
+      0 8px 14px -6px rgba(0,0,0,0.18);
+    transform: rotate(var(--rot));
+    transition: transform var(--dur-med) var(--ease-out), box-shadow var(--dur-med) var(--ease-out);
+    font-family: var(--font-body);
+    font-size: var(--step-0);
+    line-height: 1.45;
+    max-width: 260px;
+    border-radius: 2px;
+    position: relative;
+  }
+  .sticky::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at top left, rgba(255,255,255,0.4), transparent 60%),
+      radial-gradient(ellipse at bottom right, rgba(0,0,0,0.06), transparent 60%);
+    pointer-events: none;
+  }
+  .sticky:hover {
+    transform: rotate(calc(var(--rot) * 0.4)) translateY(-3px);
+    box-shadow: 0 2px 2px rgba(0,0,0,0.08), 0 14px 22px -6px rgba(0,0,0,0.24);
+    z-index: 3;
+  }
+  .sticky-inner { position: relative; }
+  .sticky-yellow { --bg: var(--sticky-yellow); }
+  .sticky-pink   { --bg: var(--sticky-pink); }
+  .sticky-blue   { --bg: var(--sticky-blue); }
+  .sticky-green  { --bg: var(--sticky-green); }
+</style>

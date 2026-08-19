@@ -1,0 +1,88 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import StickyBoard from '../components/StickyBoard.astro';
+import CaseStudyCard from '../components/CaseStudyCard.astro';
+import { getCollection } from 'astro:content';
+
+const studies = (await getCollection('case-studies', ({ data }) => !data.draft))
+  .sort((a, b) => a.data.order - b.data.order);
+---
+<BaseLayout title="Your Name — UI/UX Portfolio">
+  <Hero />
+
+  <section id="work" class="work">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Selected work · {studies.length} case studies</p>
+        <h2>Every one is a <em>fix</em>.</h2>
+        <p class="section-lead">
+          Not a mood board. Not a pixel showcase. Each case study starts with the screen that was
+          failing and ends with what actually changed after it shipped.
+        </p>
+      </div>
+
+      <div class="cs-list">
+        {studies.map((s) => (
+          <CaseStudyCard
+            title={s.data.title}
+            role={s.data.role}
+            year={s.data.year}
+            summary={s.data.summary}
+            cover={s.data.cover}
+            href={`${import.meta.env.BASE_URL}work/${s.slug}`}
+            accent={s.data.accent}
+            index={s.data.order}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="process">
+    <StickyBoard />
+  </section>
+
+  <section class="closing wrap">
+    <p class="eyebrow">What's next</p>
+    <h2>Have a screen that's failing?</h2>
+    <p class="lede">
+      I take on two engagements at a time. Freelance, contract, or fractional design lead. Send me
+      the URL and one sentence about what's broken.
+    </p>
+    <a href="mailto:inquire.raincityav@gmail.com" class="btn-primary big">Start a conversation →</a>
+  </section>
+</BaseLayout>
+
+<style>
+  .work { padding-block: 6rem 4rem; }
+  .section-head { max-width: 32ch; margin-bottom: 2rem; }
+  h2 em { font-style: italic; color: var(--accent); }
+  .section-lead { color: var(--ink-2); margin-top: 1rem; max-width: 48ch; }
+  .cs-list { margin-top: 3rem; border-bottom: 1px solid var(--rule); }
+
+  .closing {
+    padding-block: 6rem 3rem;
+    text-align: left;
+    max-width: 720px;
+  }
+  .closing h2 { margin-top: 1rem; }
+  .closing .lede {
+    margin-top: 1.25rem;
+    font-size: var(--step-1);
+    color: var(--ink-2);
+  }
+  .btn-primary {
+    display: inline-block;
+    margin-top: 2rem;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 0.85rem 1.4rem;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: transform var(--dur-fast), background var(--dur-fast);
+  }
+  .btn-primary.big { padding: 1.1rem 1.8rem; font-size: var(--step-1); }
+  .btn-primary:hover { transform: translateY(-2px); background: var(--accent); }
+</style>

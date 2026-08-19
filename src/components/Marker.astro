@@ -1,0 +1,138 @@
+---
+interface Props {
+  x: string;           // e.g. "35%"
+  y: string;           // e.g. "60%"
+  title: string;       // one-line label of the failure
+  severity?: 'low' | 'med' | 'high';
+  side?: 'right' | 'left' | 'top' | 'bottom';
+  n?: number;          // optional badge number
+}
+const { x, y, title, severity = 'med', side = 'right', n } = Astro.props;
+---
+<button
+  type="button"
+  class:list={["marker", `sev-${severity}`, `side-${side}`]}
+  style={`left:${x};top:${y};`}
+  aria-expanded="false"
+  aria-label={`Show failure: ${title}`}
+>
+  <span class="marker-dot" aria-hidden="true">
+    <span class="marker-ping"></span>
+    {n && <span class="marker-n">{n}</span>}
+  </span>
+  <span class="marker-card" role="dialog">
+    <span class="marker-card-title">{title}</span>
+    <span class="marker-card-body">
+      <slot />
+    </span>
+  </span>
+</button>
+
+<style>
+  .marker {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    padding: 0;
+    background: none;
+    z-index: 2;
+  }
+  .marker-dot {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 3px var(--paper), 0 2px 6px rgba(0,0,0,0.25);
+    color: var(--paper);
+    font-size: 11px; font-weight: 700;
+    cursor: pointer;
+    transition: transform var(--dur-fast);
+  }
+  .marker:hover .marker-dot { transform: scale(1.15); }
+  .marker[aria-expanded="true"] .marker-dot { transform: scale(1.15); background: var(--ink); }
+  .marker[aria-expanded="true"] { z-index: 5; }
+
+  .sev-low  .marker-dot { background: var(--accent-2); color: var(--ink); }
+  .sev-med  .marker-dot { background: var(--accent); }
+  .sev-high .marker-dot { background: #d93a3a; }
+
+  .marker-ping {
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.35;
+    animation: ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+    z-index: -1;
+  }
+  @keyframes ping {
+    0%   { transform: scale(0.8); opacity: 0.5; }
+    80%  { transform: scale(2.4); opacity: 0; }
+    100% { transform: scale(2.4); opacity: 0; }
+  }
+
+  .marker-card {
+    position: absolute;
+    display: block;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 1rem 1.1rem;
+    border-radius: 8px;
+    width: max-content;
+    max-width: 280px;
+    box-shadow: 0 20px 40px -10px rgba(0,0,0,0.35);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(6px) scale(0.98);
+    transition:
+      opacity var(--dur-med) var(--ease-out),
+      transform var(--dur-med) var(--ease-out);
+    text-align: left;
+    font-family: var(--font-body);
+    font-size: var(--step--1);
+    line-height: 1.5;
+    z-index: 10;
+  }
+  .marker[aria-expanded="true"] .marker-card {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+  }
+  .marker-card-title {
+    display: block;
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    line-height: 1.15;
+    margin-bottom: 0.5rem;
+    color: var(--accent-2);
+  }
+  .marker-card-body { display: block; color: var(--paper); opacity: 0.9; }
+
+  /* placement — arrow-ish nudge from the dot */
+  .side-right  .marker-card { left: 30px; top: 50%; transform: translateY(-50%) translateX(6px) scale(0.98); }
+  .side-left   .marker-card { right: 30px; top: 50%; transform: translateY(-50%) translateX(-6px) scale(0.98); }
+  .side-top    .marker-card { bottom: 30px; left: 50%; transform: translateX(-50%) translateY(-6px) scale(0.98); }
+  .side-bottom .marker-card { top: 30px; left: 50%; transform: translateX(-50%) translateY(6px) scale(0.98); }
+
+  .marker[aria-expanded="true"].side-right  .marker-card { transform: translateY(-50%) translateX(0) scale(1); }
+  .marker[aria-expanded="true"].side-left   .marker-card { transform: translateY(-50%) translateX(0) scale(1); }
+  .marker[aria-expanded="true"].side-top    .marker-card { transform: translateX(-50%) translateY(0) scale(1); }
+  .marker[aria-expanded="true"].side-bottom .marker-card { transform: translateX(-50%) translateY(0) scale(1); }
+
+  /* on small screens, always anchor card below to avoid off-screen */
+  @media (max-width: 640px) {
+    .marker-card,
+    .side-right .marker-card,
+    .side-left .marker-card,
+    .side-top .marker-card,
+    .side-bottom .marker-card {
+      left: 50%; top: 30px; right: auto; bottom: auto;
+      transform: translateX(-50%) translateY(6px) scale(0.98);
+      max-width: min(85vw, 280px);
+    }
+    .marker[aria-expanded="true"] .marker-card {
+      transform: translateX(-50%) translateY(0) scale(1) !important;
+    }
+  }
+</style>

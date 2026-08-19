@@ -1,0 +1,84 @@
+---
+// A screenshot container that hosts <Marker> children. The children render
+// as absolute-positioned pulsing dots; clicking one expands its content in a
+// panel next to the image. Purely CSS + a tiny sprinkle of vanilla JS.
+interface Props {
+  src: string;
+  alt: string;
+  label?: string; // "Before" or "After"
+  caption?: string;
+}
+const { src, alt, label = 'Before', caption } = Astro.props;
+---
+<figure class="baf" data-baf>
+  <div class="baf-frame">
+    <img src={src} alt={alt} loading="lazy" />
+    <div class="baf-markers">
+      <slot />
+    </div>
+    <span class="baf-label">{label}</span>
+  </div>
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>
+
+<script>
+  // Progressive enhancement: click a marker → open its panel, close others.
+  // Escape closes; click outside closes.
+  const containers = document.querySelectorAll<HTMLElement>('[data-baf]');
+
+  containers.forEach((root) => {
+    const markers = root.querySelectorAll<HTMLButtonElement>('.marker');
+
+    const closeAll = () => {
+      markers.forEach((m) => m.setAttribute('aria-expanded', 'false'));
+    };
+
+    markers.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const wasOpen = btn.getAttribute('aria-expanded') === 'true';
+        closeAll();
+        btn.setAttribute('aria-expanded', wasOpen ? 'false' : 'true');
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!root.contains(e.target as Node)) closeAll();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeAll();
+    });
+  });
+</script>
+
+<style>
+  .baf { margin-block: 2.5rem; }
+  .baf-frame {
+    position: relative;
+    border-radius: 8px;
+    overflow: visible; /* let expanded marker cards escape */
+    background: var(--paper-2);
+    border: 1px solid var(--rule);
+    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.15);
+  }
+  .baf-frame img {
+    display: block; width: 100%; height: auto;
+    border-radius: 8px;
+  }
+  .baf-markers { position: absolute; inset: 0; pointer-events: none; }
+  .baf-markers > * { pointer-events: auto; }
+  .baf-label {
+    position: absolute; top: 0.75rem; left: 0.75rem;
+    background: var(--ink); color: var(--paper);
+    font-size: var(--step--1); font-weight: 600;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 0.3rem 0.6rem; border-radius: 3px;
+  }
+  figcaption {
+    margin-top: 0.75rem;
+    font-size: var(--step--1);
+    color: var(--ink-3);
+    text-align: center;
+    font-style: italic;
+  }
+</style>
