@@ -7,7 +7,7 @@ import sitemap from '@astrojs/sitemap';
 // keeps assets loading from the right subpath.
 export default defineConfig({
   site: 'https://inquireraincityav.github.io',
-  base: '/ui-ux',
+  base: '/ui-ux/',
   trailingSlash: 'ignore',
   integrations: [mdx(), sitemap()],
   build: {
