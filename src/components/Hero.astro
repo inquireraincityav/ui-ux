@@ -31,7 +31,12 @@ import Character from './Character.astro';
     </div>
 
     <div class="hero-character" aria-hidden="true">
-      <Character size={340} mood="wave" />
+      <Character
+        size={380}
+        src={`${import.meta.env.BASE_URL}character/idle-front.png`}
+        srcHover={`${import.meta.env.BASE_URL}character/three-quarter-right.png`}
+        alt="Illustrated portrait"
+      />
     </div>
   </div>
 </section>

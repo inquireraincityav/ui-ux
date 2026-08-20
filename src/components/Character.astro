@@ -94,6 +94,9 @@ const {
     width: 100%;
     height: auto;
     display: block;
+    /* Kills white PNG backgrounds on our light paper so the figure sits on the grid.
+       Once the PNGs are alpha-cut (via remove.bg or similar) this stops mattering. */
+    mix-blend-mode: multiply;
   }
   .char-img.hover {
     position: absolute;
@@ -103,6 +106,29 @@ const {
   }
   .character.has-image:hover .char-img.hover {
     opacity: 1;
+  }
+
+  /* Dark mode: multiply against dark = invisible. Show the raw image on
+     a soft "photo card" background instead until PNGs are alpha-cut. */
+  :root[data-theme="dark"] .char-img,
+  :root[data-theme="dark"] .char-video {
+    mix-blend-mode: normal;
+  }
+  :root[data-theme="dark"] .char-image-wrap,
+  :root[data-theme="dark"] .char-video {
+    background: #ffffff;
+    border-radius: 8px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .char-img,
+    :root:not([data-theme="light"]) .char-video {
+      mix-blend-mode: normal;
+    }
+    :root:not([data-theme="light"]) .char-image-wrap,
+    :root:not([data-theme="light"]) .char-video {
+      background: #ffffff;
+      border-radius: 8px;
+    }
   }
   @keyframes float {
     0%, 100% { transform: translateY(0); }
