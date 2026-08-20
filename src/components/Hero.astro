@@ -30,11 +30,15 @@ import Character from './Character.astro';
       </div>
     </div>
 
-    <div class="hero-character" aria-hidden="true">
+    <div class="hero-character">
       <Character
-        size={380}
-        src={`${import.meta.env.BASE_URL}character/idle-front.png`}
-        srcHover={`${import.meta.env.BASE_URL}character/waving.png`}
+        size={400}
+        poses={{
+          front: `${import.meta.env.BASE_URL}character/idle-front.png`,
+          left:  `${import.meta.env.BASE_URL}character/three-quarter-left.png`,
+          right: `${import.meta.env.BASE_URL}character/three-quarter-right.png`,
+          wave:  `${import.meta.env.BASE_URL}character/waving.png`,
+        }}
         alt="Illustrated portrait"
       />
     </div>
