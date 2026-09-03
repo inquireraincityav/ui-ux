@@ -1,111 +1,144 @@
 ---
+import PhoneFrame from './PhoneFrame.astro';
+import BrowserFrame from './BrowserFrame.astro';
+
 interface Props {
   title: string;
-  role: string;
-  year: string;
+  subtitle?: string;
   summary: string;
-  cover?: string;
   href: string;
-  accent?: string;
   index: number;
+  year: string;
+  type: 'web' | 'mobile' | 'both';
+  canvas?: 'light' | 'warm' | 'dark';
+  cover?: string;
+  coverScheme?: 'warm' | 'cool' | 'ink';
 }
-const { title, role, year, summary, cover, href, accent = 'var(--accent)', index } = Astro.props;
+const {
+  title,
+  subtitle,
+  summary,
+  href,
+  index,
+  year,
+  type,
+  canvas = 'light',
+  cover,
+  coverScheme = 'warm',
+} = Astro.props;
+
+const num = String(index).padStart(2, '0');
+const typeLabel =
+  type === 'both' ? 'Web + Mobile'
+  : type === 'mobile' ? 'Mobile'
+  : 'Web';
 ---
-<a class="cs-card" href={href} style={`--card-accent:${accent}`}>
-  <div class="cs-cover">
-    {cover
-      ? <img src={cover} alt="" loading="lazy" />
-      : (
-        <div class="cs-cover-placeholder" aria-hidden="true">
-          <span class="cs-num">{String(index).padStart(2, '0')}</span>
+<article class="case">
+  <a class="case-canvas-link" href={href} aria-label={`Open case study: ${title}`}>
+    <div class={`case-canvas canvas-${canvas}`}>
+      {type === 'mobile' && <PhoneFrame src={cover} alt={title} scheme={coverScheme} scale={0.44} />}
+      {type === 'web'    && <BrowserFrame src={cover} alt={title} scheme={coverScheme} />}
+      {type === 'both'   && (
+        <div class="dual">
+          <BrowserFrame scheme={coverScheme} />
+          <div class="dual-phone">
+            <PhoneFrame scheme={coverScheme} scale={1} />
+          </div>
         </div>
       )}
-    <div class="cs-arrow" aria-hidden="true">→</div>
-  </div>
-
-  <div class="cs-meta">
-    <div class="cs-line">
-      <span class="cs-index">{String(index).padStart(2, '0')}</span>
-      <span class="cs-role">{role}</span>
-      <span class="cs-year">{year}</span>
     </div>
-    <h3 class="cs-title">{title}</h3>
-    <p class="cs-summary">{summary}</p>
+  </a>
+
+  <div class="case-meta">
+    <span>№ {num} — {typeLabel}</span>
+    <span>{year}</span>
   </div>
-</a>
+  <h3 class="case-title">
+    <a href={href}>{title}{subtitle && <span class="subtitle"> — {subtitle}</span>}</a>
+  </h3>
+  <p class="case-desc">{summary}</p>
+</article>
 
 <style>
-  .cs-card {
-    display: grid;
-    grid-template-columns: 1fr;
+  .case {
+    display: flex;
+    flex-direction: column;
     gap: 1.25rem;
+  }
+  .case-canvas-link {
+    display: block;
     text-decoration: none;
     color: inherit;
-    padding-block: 2rem;
-    border-top: 1px solid var(--rule);
-    transition: background var(--dur-med) var(--ease-out);
-    position: relative;
-    isolation: isolate;
   }
-  .cs-card:hover { background: var(--paper-2); }
-  .cs-card:hover .cs-title { color: var(--card-accent); }
-  .cs-card:hover .cs-arrow { transform: translate(6px, -6px); opacity: 1; }
-  .cs-card:hover .cs-cover img,
-  .cs-card:hover .cs-cover-placeholder { transform: scale(1.03); }
-
-  .cs-cover {
-    position: relative;
-    aspect-ratio: 16/9;
-    overflow: hidden;
-    border-radius: 6px;
-    background: var(--paper-2);
+  .case-canvas {
+    aspect-ratio: 4 / 3;
+    border-radius: 4px;
     border: 1px solid var(--rule);
+    padding: clamp(1.5rem, 4%, 3rem);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    transition: transform var(--dur-med) var(--ease-out);
   }
-  .cs-cover img, .cs-cover-placeholder {
-    width: 100%; height: 100%; object-fit: cover;
-    transition: transform var(--dur-slow) var(--ease-out);
+  .case-canvas-link:hover .case-canvas {
+    transform: translateY(-4px);
   }
-  .cs-cover-placeholder {
-    display: grid; place-items: center;
-    background:
-      repeating-linear-gradient(-45deg, transparent 0 12px, var(--rule) 12px 13px),
-      var(--paper-2);
-  }
-  .cs-num {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: clamp(3rem, 8vw, 5rem);
-    color: var(--card-accent);
-    opacity: 0.6;
-  }
-  .cs-arrow {
-    position: absolute; top: 1rem; right: 1rem;
-    width: 44px; height: 44px; border-radius: 50%;
-    background: var(--ink); color: var(--paper);
-    display: grid; place-items: center;
-    font-size: 1.2rem;
-    opacity: 0.85;
-    transition: transform var(--dur-med) var(--ease-out), opacity var(--dur-med) var(--ease-out);
-  }
-  .cs-line {
-    display: flex; gap: 1rem; align-items: center;
-    font-size: var(--step--1); color: var(--ink-3);
-    letter-spacing: 0.02em;
-  }
-  .cs-index { color: var(--card-accent); font-weight: 600; }
-  .cs-title {
-    font-family: var(--font-display);
-    font-size: var(--step-3);
-    margin-top: 0.35rem;
-    transition: color var(--dur-med) var(--ease-out);
-  }
-  .cs-summary { color: var(--ink-2); margin-top: 0.5rem; max-width: 60ch; }
+  .canvas-light { background: var(--canvas); }
+  .canvas-warm  { background: var(--canvas-warm); border-color: #d9c6a8; }
+  .canvas-dark  { background: var(--canvas-dark); border-color: var(--canvas-dark); }
 
-  @media (min-width: 820px) {
-    .cs-card {
-      grid-template-columns: 1.2fr 1fr;
-      gap: 2.5rem;
-      align-items: center;
-    }
+  .case-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: var(--step--2);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .case-title {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    font-variation-settings: "opsz" 24;
+    font-weight: 500;
+    font-size: var(--step-2);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    text-wrap: balance;
+    margin: 0;
+  }
+  .case-title a {
+    color: inherit;
+    text-decoration: none;
+    background-image: linear-gradient(var(--accent), var(--accent));
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    transition: background-size var(--dur-med) var(--ease-out), color var(--dur-fast);
+  }
+  .case-title a:hover {
+    color: var(--accent);
+    background-size: 100% 1px;
+  }
+  .case-title .subtitle { color: var(--ink-3); font-weight: 400; }
+  .case-desc {
+    font-size: var(--step-0);
+    color: var(--ink-2);
+    line-height: 1.55;
+    max-width: 48ch;
+  }
+
+  /* dual-device layout for "both" case studies */
+  .dual {
+    position: relative;
+    width: 100%;
+    display: grid; place-items: center;
+  }
+  .dual-phone {
+    position: absolute;
+    right: -6%; bottom: -12%;
+    width: 32%;
+    z-index: 2;
   }
 </style>

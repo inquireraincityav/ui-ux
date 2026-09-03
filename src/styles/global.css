@@ -1,73 +1,84 @@
-/* ─── Design tokens ─────────────────────────────────────────────── */
+/* ─── Design tokens · Studio ─────────────────────────────────── */
 :root {
-  /* Clean neutral palette on a subtle grid */
-  --paper: #f4f3ef;
-  --paper-2: #ecebe6;
-  --ink: #0e0e0e;
-  --ink-2: #5a5a5a;
-  --ink-3: #9a9a9a;
-  --rule: #e2e0da;
-  --grid-line: rgba(0, 0, 0, 0.045);
-  --grid-size: 32px;
-  --accent: #ff4d5e;         /* soft coral for the "on assignment" pill / active moments */
-  --accent-2: #f6c945;
-  --accent-3: #4a7c59;
-  --sticky-yellow: #fff2a6;
-  --sticky-pink: #ffc9d0;
-  --sticky-blue: #b8dcee;
-  --sticky-green: #cfe6bb;
+  color-scheme: light;
+
+  /* Warm off-white paper with muted stone neutrals */
+  --paper: #f5f4f0;
+  --paper-2: #ecebe5;
+  --ink: #0f0f0e;
+  --ink-2: #4a473f;
+  --ink-3: #837c68;
+  --ink-4: #a89f88;
+  --rule: #dedbd2;
+  --rule-soft: #e6e3d9;
+  --accent: #b8342a;
+  --accent-soft: rgba(184, 52, 42, 0.08);
+
+  /* Semantic surfaces for device canvases */
+  --canvas: #ecebe5;
+  --canvas-warm: #efe3d0;
+  --canvas-dark: #14140f;
 
   /* Type */
-  --font-display: "Fraunces", "Playfair Display", Georgia, serif;
+  --font-display: "Bricolage Grotesque", "Inter", system-ui, sans-serif;
   --font-body: "Inter", system-ui, -apple-system, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
 
-  /* Rhythm */
-  --step--1: clamp(0.83rem, 0.78rem + 0.24vw, 0.94rem);
-  --step-0: clamp(1rem, 0.94rem + 0.31vw, 1.13rem);
-  --step-1: clamp(1.2rem, 1.11rem + 0.44vw, 1.4rem);
-  --step-2: clamp(1.44rem, 1.31rem + 0.65vw, 1.75rem);
-  --step-3: clamp(1.73rem, 1.53rem + 0.98vw, 2.19rem);
-  --step-4: clamp(2.07rem, 1.78rem + 1.47vw, 2.73rem);
-  --step-5: clamp(2.49rem, 2.05rem + 2.19vw, 3.42rem);
-  --step-6: clamp(2.99rem, 2.35rem + 3.19vw, 4.27rem);
+  /* Type scale (tight, editorial rhythm) */
+  --step--2: 0.72rem;
+  --step--1: 0.82rem;
+  --step-0:  0.95rem;
+  --step-1:  clamp(1.05rem, 1rem + 0.25vw, 1.2rem);
+  --step-2:  clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
+  --step-3:  clamp(1.6rem, 1.4rem + 0.9vw, 2rem);
+  --step-4:  clamp(2rem, 1.7rem + 1.4vw, 2.75rem);
+  --step-5:  clamp(2.5rem, 2rem + 2.2vw, 3.5rem);
+  --hero:    clamp(6rem, 15vw, 14rem);
 
   /* Layout */
-  --page-max: 1200px;
-  --gutter: clamp(1rem, 4vw, 3rem);
+  --page-max: 1240px;
+  --gutter: clamp(1.5rem, 5vw, 4rem);
 
   /* Motion */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --dur-fast: 180ms;
+  --dur-fast: 160ms;
   --dur-med: 380ms;
   --dur-slow: 680ms;
 }
 
 :root[data-theme="dark"] {
-  --paper: #131313;
-  --paper-2: #1c1c1c;
+  color-scheme: dark;
+  --paper: #14140f;
+  --paper-2: #1c1c17;
   --ink: #f2f0eb;
-  --ink-2: #b8b6b0;
-  --ink-3: #7a7873;
-  --rule: #2a2a2a;
-  --grid-line: rgba(255, 255, 255, 0.045);
-  --accent: #ff6b7a;
-  --accent-2: #f6c945;
-  --accent-3: #7cb891;
+  --ink-2: #c5bfae;
+  --ink-3: #837c68;
+  --ink-4: #5a544a;
+  --rule: #2a2823;
+  --rule-soft: #22201c;
+  --accent: #f26451;
+  --accent-soft: rgba(242, 100, 81, 0.10);
+  --canvas: #1c1c17;
+  --canvas-warm: #2a231a;
+  --canvas-dark: #0a0a08;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --paper: #131313;
-    --paper-2: #1c1c1c;
+    color-scheme: dark;
+    --paper: #14140f;
+    --paper-2: #1c1c17;
     --ink: #f2f0eb;
-    --ink-2: #b8b6b0;
-    --ink-3: #7a7873;
-    --rule: #2a2a2a;
-    --grid-line: rgba(255, 255, 255, 0.045);
-    --accent: #ff6b7a;
-    --accent-2: #f6c945;
-    --accent-3: #7cb891;
+    --ink-2: #c5bfae;
+    --ink-3: #837c68;
+    --ink-4: #5a544a;
+    --rule: #2a2823;
+    --rule-soft: #22201c;
+    --accent: #f26451;
+    --accent-soft: rgba(242, 100, 81, 0.10);
+    --canvas: #1c1c17;
+    --canvas-warm: #2a231a;
+    --canvas-dark: #0a0a08;
   }
 }
 
@@ -84,36 +95,32 @@ body {
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  background-image:
-    linear-gradient(var(--grid-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-  background-size: var(--grid-size) var(--grid-size);
-  background-position: -1px -1px;
 }
 
 img, svg, video, canvas { display: block; max-width: 100%; height: auto; }
 button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
 a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 3px; }
-a:hover { text-decoration-color: var(--accent); }
+a:hover { color: var(--accent); }
 
 /* ─── Type ──────────────────────────────────────────────────────── */
 h1, h2, h3, h4 {
   font-family: var(--font-display);
-  font-weight: 500;
-  line-height: 1.05;
+  font-optical-sizing: auto;
+  font-weight: 400;
   letter-spacing: -0.02em;
-  font-variation-settings: "opsz" 144, "SOFT" 30;
+  line-height: 1.05;
+  text-wrap: balance;
 }
-h1 { font-size: var(--step-6); }
-h2 { font-size: var(--step-5); }
-h3 { font-size: var(--step-3); }
-h4 { font-size: var(--step-2); }
-p { max-width: 68ch; }
+h1 { font-size: var(--step-5); font-variation-settings: "opsz" 96; font-weight: 300; }
+h2 { font-size: var(--step-4); font-variation-settings: "opsz" 48; font-weight: 400; }
+h3 { font-size: var(--step-2); font-variation-settings: "opsz" 24; font-weight: 500; }
+h4 { font-size: var(--step-1); font-variation-settings: "opsz" 18; font-weight: 500; }
+p  { max-width: 68ch; }
 
 .eyebrow {
   font-family: var(--font-body);
-  font-size: var(--step--1);
-  letter-spacing: 0.14em;
+  font-size: var(--step--2);
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--ink-3);
   font-weight: 500;
@@ -125,10 +132,7 @@ p { max-width: 68ch; }
   margin-inline: auto;
   padding-inline: var(--gutter);
 }
-.stack > * + * { margin-top: 1.25rem; }
-.stack-lg > * + * { margin-top: 2.5rem; }
-
-hr.rule {
+.rule {
   border: 0;
   height: 1px;
   background: var(--rule);

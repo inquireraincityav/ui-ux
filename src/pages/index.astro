@@ -1,88 +1,144 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
-import StickyBoard from '../components/StickyBoard.astro';
 import CaseStudyCard from '../components/CaseStudyCard.astro';
 import { getCollection } from 'astro:content';
 
 const studies = (await getCollection('case-studies', ({ data }) => !data.draft))
   .sort((a, b) => a.data.order - b.data.order);
+const base = import.meta.env.BASE_URL;
 ---
-<BaseLayout title="Your Name — UI/UX Portfolio">
+<BaseLayout title="Your Name — Product designer, web + mobile">
   <Hero />
 
-  <section id="work" class="work">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="eyebrow">Selected work · {studies.length} case studies</p>
-        <h2>Every one is a <em>fix</em>.</h2>
-        <p class="section-lead">
-          Not a mood board. Not a pixel showcase. Each case study starts with the screen that was
-          failing and ends with what actually changed after it shipped.
-        </p>
-      </div>
+  <section id="work" class="work wrap">
+    <header class="work-header">
+      <h2>Five projects worth reading in full.</h2>
+      <div class="subline">Ordered chronologically ↓</div>
+    </header>
 
-      <div class="cs-list">
-        {studies.map((s) => (
-          <CaseStudyCard
-            title={s.data.title}
-            role={s.data.role}
-            year={s.data.year}
-            summary={s.data.summary}
-            cover={s.data.cover}
-            href={`${import.meta.env.BASE_URL}work/${s.slug}`}
-            accent={s.data.accent}
-            index={s.data.order}
-          />
-        ))}
-      </div>
+    <div class="cases">
+      {studies.map((s) => (
+        <CaseStudyCard
+          title={s.data.title}
+          subtitle={s.data.subtitle}
+          summary={s.data.summary}
+          href={`${base}work/${s.slug}`}
+          index={s.data.order}
+          year={s.data.year}
+          type={s.data.type}
+          canvas={s.data.canvas}
+          cover={s.data.cover}
+          coverScheme={s.data.coverScheme}
+        />
+      ))}
     </div>
   </section>
 
-  <section id="process">
-    <StickyBoard />
-  </section>
-
-  <section class="closing wrap">
-    <p class="eyebrow">What's next</p>
-    <h2>Have a screen that's failing?</h2>
-    <p class="lede">
-      I take on two engagements at a time. Freelance, contract, or fractional design lead. Send me
-      the URL and one sentence about what's broken.
-    </p>
-    <a href="mailto:inquire.raincityav@gmail.com" class="btn-primary big">Start a conversation →</a>
+  <section class="close wrap">
+    <div class="close-grid">
+      <div>
+        <p class="eyebrow">Currently</p>
+        <p class="close-line">
+          Available for freelance and contract engagements starting in Q1 2026.
+          Prefer web and mobile product work at the design-and-build stage.
+        </p>
+      </div>
+      <div class="close-cta">
+        <a href="mailto:inquire.raincityav@gmail.com" class="close-link">
+          <span>Say hello</span>
+          <span class="arrow">→</span>
+        </a>
+        <p class="small">inquire.raincityav@gmail.com</p>
+      </div>
+    </div>
   </section>
 </BaseLayout>
 
 <style>
-  .work { padding-block: 6rem 4rem; }
-  .section-head { max-width: 32ch; margin-bottom: 2rem; }
-  h2 em { font-style: italic; color: var(--accent); }
-  .section-lead { color: var(--ink-2); margin-top: 1rem; max-width: 48ch; }
-  .cs-list { margin-top: 3rem; border-bottom: 1px solid var(--rule); }
+  .work {
+    padding-block: 5rem 3rem;
+  }
+  .work-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 2rem;
+    padding-bottom: 3.5rem;
+  }
+  .work-header h2 {
+    max-width: 20ch;
+    margin: 0;
+  }
+  .work-header .subline {
+    font-size: var(--step--2);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    white-space: nowrap;
+    padding-bottom: 0.5rem;
+  }
+  .cases {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem 3.5rem;
+  }
+  @media (max-width: 820px) {
+    .work-header { flex-direction: column; align-items: start; gap: 0.5rem; padding-bottom: 2.5rem; }
+    .cases { grid-template-columns: 1fr; gap: 3rem; }
+  }
 
-  .closing {
-    padding-block: 6rem 3rem;
-    text-align: left;
-    max-width: 720px;
+  .close {
+    padding-block: 5rem 2rem;
+    border-top: 1px solid var(--rule);
+    margin-top: 4rem;
   }
-  .closing h2 { margin-top: 1rem; }
-  .closing .lede {
-    margin-top: 1.25rem;
-    font-size: var(--step-1);
-    color: var(--ink-2);
+  .close-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 3rem;
+    align-items: start;
   }
-  .btn-primary {
-    display: inline-block;
-    margin-top: 2rem;
-    background: var(--ink);
-    color: var(--paper);
-    padding: 0.85rem 1.4rem;
-    border-radius: 999px;
+  .close-line {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    font-variation-settings: "opsz" 32;
+    font-weight: 400;
+    font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    max-width: 32ch;
+    margin-top: 1rem;
+    color: var(--ink);
+  }
+  .close-cta { align-self: end; text-align: right; }
+  .close-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    font-variation-settings: "opsz" 48;
+    font-weight: 400;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--ink);
     text-decoration: none;
-    font-weight: 500;
-    transition: transform var(--dur-fast), background var(--dur-fast);
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid var(--rule);
+    transition: color var(--dur-fast), border-color var(--dur-fast);
   }
-  .btn-primary.big { padding: 1.1rem 1.8rem; font-size: var(--step-1); }
-  .btn-primary:hover { transform: translateY(-2px); background: var(--accent); }
+  .close-link:hover { color: var(--accent); border-color: var(--accent); }
+  .close-link .arrow { color: var(--ink-4); transition: transform var(--dur-med) var(--ease-out); }
+  .close-link:hover .arrow { color: var(--accent); transform: translate(6px, -6px); }
+  .close-cta .small {
+    margin-top: 0.75rem;
+    font-size: var(--step--1);
+    color: var(--ink-3);
+  }
+  @media (max-width: 820px) {
+    .close-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .close-cta { text-align: left; }
+  }
 </style>
