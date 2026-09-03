@@ -1,8 +1,6 @@
 ---
-// Studio index hero. Full-width statement of practice, no giant number
-// gimmick, no character. Editorial in feel: kicker, oversized headline
-// spanning the container, thin rule, description on the left with
-// arrow-linked navigation on the right.
+import Character from './Character.astro';
+const base = import.meta.env.BASE_URL;
 ---
 <section class="hero wrap">
   <div class="kicker">
@@ -13,24 +11,39 @@
     </span>
   </div>
 
-  <h1 class="statement">
-    SJAI Studio designs interfaces for <em>web</em> and <em>mobile</em> products
-    &mdash; built with the person on the other end in mind.
-  </h1>
+  <div class="hero-grid">
+    <div class="hero-character">
+      <Character
+        size={440}
+        poses={{
+          front: `${base}character/idle-front.png`,
+          left:  `${base}character/three-quarter-left.png`,
+          right: `${base}character/three-quarter-right.png`,
+          wave:  `${base}character/waving.png`,
+        }}
+        alt="Portrait"
+      />
+    </div>
 
-  <hr class="statement-rule" />
+    <div class="hero-copy">
+      <h1 class="statement">
+        SJAI Studio designs interfaces for <em>web</em> and <em>mobile</em> products
+        &mdash; built with the person on the other end in mind.
+      </h1>
 
-  <div class="statement-foot">
-    <p class="statement-desc">
-      Short introduction. One or two sentences on what the studio does, who it
-      tends to work with, and where. Replace with your own words.
-    </p>
+      <hr class="statement-rule" />
 
-    <ul class="hero-links">
-      <li><a href="#work"><span>Selected work</span></a></li>
-      <li><a href="/ui-ux/about"><span>About the studio</span></a></li>
-      <li><a href="mailto:inquire.raincityav@gmail.com"><span>Get in touch</span></a></li>
-    </ul>
+      <p class="statement-desc">
+        Short introduction. One or two sentences on what the studio does, who it
+        tends to work with, and where. Replace with your own words.
+      </p>
+
+      <ul class="hero-links">
+        <li><a href="#work"><span>Selected work</span></a></li>
+        <li><a href={`${base}about`}><span>About the studio</span></a></li>
+        <li><a href="mailto:inquire.raincityav@gmail.com"><span>Get in touch</span></a></li>
+      </ul>
+    </div>
   </div>
 </section>
 
@@ -39,6 +52,7 @@
     padding-block: 3rem 5rem;
     border-bottom: 1px solid var(--rule);
   }
+
   .kicker {
     display: flex;
     justify-content: space-between;
@@ -67,17 +81,41 @@
     50%      { box-shadow: 0 0 0 8px rgba(184, 52, 42, 0.02); }
   }
 
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(300px, 1fr) 1.6fr;
+    gap: 3rem 5rem;
+    align-items: center;
+  }
+  .hero-character {
+    display: flex;
+    justify-content: flex-start;
+    align-items: end;
+    position: relative;
+  }
+  .hero-character::before {
+    /* soft warm halo behind the figure so it doesn't float on the paper */
+    content: "";
+    position: absolute;
+    left: -8%; right: 8%; bottom: 0;
+    height: 55%;
+    background: radial-gradient(ellipse at bottom, rgba(184, 52, 42, 0.06), transparent 65%);
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .hero-copy { max-width: 40rem; }
   .statement {
     font-family: var(--font-display);
     font-optical-sizing: auto;
     font-variation-settings: "opsz" 96;
     font-weight: 300;
-    font-size: clamp(2.25rem, 5vw, 4.75rem);
+    font-size: clamp(2rem, 3.6vw, 3.75rem);
     line-height: 1.02;
     letter-spacing: -0.03em;
     color: var(--ink);
     text-wrap: balance;
-    max-width: 22ch;
+    max-width: 20ch;
     margin: 0;
   }
   .statement em {
@@ -85,33 +123,27 @@
     font-variation-settings: "opsz" 96, "wght" 400;
     color: var(--accent);
   }
-
   .statement-rule {
     border: 0;
     height: 1px;
     background: var(--rule);
-    margin: 3rem 0 2rem;
-  }
-
-  .statement-foot {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 3rem 4rem;
-    align-items: start;
+    margin: 2.5rem 0 1.75rem;
+    max-width: 8rem;
   }
   .statement-desc {
-    font-size: var(--step-1);
+    font-size: var(--step-0);
     color: var(--ink-2);
-    line-height: 1.55;
+    line-height: 1.6;
     max-width: 46ch;
-    padding-top: 0.5rem;
+    margin: 0;
   }
   .hero-links {
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 2rem 0 0;
     display: flex;
     flex-direction: column;
+    max-width: 320px;
   }
   .hero-links a {
     display: flex;
@@ -139,9 +171,13 @@
     transform: translateX(3px);
   }
 
-  @media (max-width: 820px) {
+  @media (max-width: 900px) {
     .hero { padding-block: 2rem 3.5rem; }
     .kicker { flex-direction: column; align-items: start; gap: 0.75rem; padding-bottom: 2rem; }
-    .statement-foot { grid-template-columns: 1fr; gap: 2rem; }
+    .hero-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .hero-character { justify-content: center; }
   }
 </style>
