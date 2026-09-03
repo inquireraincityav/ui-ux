@@ -1,6 +1,6 @@
-/* ─── Design tokens · Studio ─────────────────────────────────── */
+/* ─── Design tokens · Studio (light only) ────────────────────── */
 :root {
-  color-scheme: light;
+  color-scheme: light only;
 
   /* Warm off-white paper with muted stone neutrals */
   --paper: #f5f4f0;
@@ -29,57 +29,21 @@
   --step--1: 0.82rem;
   --step-0:  0.95rem;
   --step-1:  clamp(1.05rem, 1rem + 0.25vw, 1.2rem);
-  --step-2:  clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
-  --step-3:  clamp(1.6rem, 1.4rem + 0.9vw, 2rem);
-  --step-4:  clamp(2rem, 1.7rem + 1.4vw, 2.75rem);
-  --step-5:  clamp(2.5rem, 2rem + 2.2vw, 3.5rem);
-  --hero:    clamp(6rem, 15vw, 14rem);
+  --step-2:  clamp(1.25rem, 1.15rem + 0.5vw, 1.55rem);
+  --step-3:  clamp(1.6rem, 1.4rem + 0.9vw, 2.1rem);
+  --step-4:  clamp(2rem, 1.7rem + 1.4vw, 2.85rem);
+  --step-5:  clamp(2.75rem, 2.2rem + 2.5vw, 4rem);
+  --step-6:  clamp(3.5rem, 2.6rem + 4vw, 5.5rem);
 
   /* Layout */
-  --page-max: 1240px;
-  --gutter: clamp(1.5rem, 5vw, 4rem);
+  --page-max: 1440px;
+  --gutter: clamp(1.5rem, 4vw, 3.5rem);
 
   /* Motion */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --dur-fast: 160ms;
   --dur-med: 380ms;
   --dur-slow: 680ms;
-}
-
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --paper: #14140f;
-  --paper-2: #1c1c17;
-  --ink: #f2f0eb;
-  --ink-2: #c5bfae;
-  --ink-3: #837c68;
-  --ink-4: #5a544a;
-  --rule: #2a2823;
-  --rule-soft: #22201c;
-  --accent: #f26451;
-  --accent-soft: rgba(242, 100, 81, 0.10);
-  --canvas: #1c1c17;
-  --canvas-warm: #2a231a;
-  --canvas-dark: #0a0a08;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-    --paper: #14140f;
-    --paper-2: #1c1c17;
-    --ink: #f2f0eb;
-    --ink-2: #c5bfae;
-    --ink-3: #837c68;
-    --ink-4: #5a544a;
-    --rule: #2a2823;
-    --rule-soft: #22201c;
-    --accent: #f26451;
-    --accent-soft: rgba(242, 100, 81, 0.10);
-    --canvas: #1c1c17;
-    --canvas-warm: #2a231a;
-    --canvas-dark: #0a0a08;
-  }
 }
 
 /* ─── Reset ─────────────────────────────────────────────────────── */
@@ -111,7 +75,7 @@ h1, h2, h3, h4 {
   line-height: 1.05;
   text-wrap: balance;
 }
-h1 { font-size: var(--step-5); font-variation-settings: "opsz" 96; font-weight: 300; }
+h1 { font-size: var(--step-6); font-variation-settings: "opsz" 96; font-weight: 300; }
 h2 { font-size: var(--step-4); font-variation-settings: "opsz" 48; font-weight: 400; }
 h3 { font-size: var(--step-2); font-variation-settings: "opsz" 24; font-weight: 500; }
 h4 { font-size: var(--step-1); font-variation-settings: "opsz" 18; font-weight: 500; }
