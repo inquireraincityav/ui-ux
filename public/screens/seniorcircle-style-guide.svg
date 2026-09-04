@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400">
+  <style>
+    text { font-family: 'Helvetica Neue', 'Segoe UI', Arial, sans-serif; }
+  </style>
+  <rect width="1200" height="400" fill="#ffffff" rx="6" />
+  <text x="60" y="42" fill="#0f0f0e" font-size="17" font-weight="700" letter-spacing="0.1em">SENIORCIRCLE</text>
+  <text x="242" y="42" fill="#6b6a65" font-size="13.5" font-weight="400">— Style Guide</text>
+  <line x1="60" y1="56" x2="1140" y2="56" stroke="#d8d7d2" stroke-width="1" />
+  <text x="60" y="95" fill="#8a8985" font-size="10" font-weight="600" letter-spacing="0.14em">COLOR PALETTE</text>
+    <rect x="60" y="115" width="160" height="90" rx="6" fill="#EC6666" />
+    <text x="140.0" y="161.0" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-size="12" font-weight="600" letter-spacing="0.06em" opacity="0.8">#EC6666</text>
+    <text x="140.0" y="225" text-anchor="middle" fill="#6b6a65" font-size="11.5" font-weight="500">Primary Color</text>
+    <rect x="244" y="115" width="160" height="90" rx="6" fill="#E4DCC5" />
+    <text x="324.0" y="161.0" text-anchor="middle" dominant-baseline="central" fill="#000000" font-size="12" font-weight="600" letter-spacing="0.06em" opacity="0.8">#E4DCC5</text>
+    <text x="324.0" y="225" text-anchor="middle" fill="#6b6a65" font-size="11.5" font-weight="500">Backdrop</text>
+    <rect x="428" y="115" width="160" height="90" rx="6" fill="#66A3EC" />
+    <text x="508.0" y="161.0" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-size="12" font-weight="600" letter-spacing="0.06em" opacity="0.8">#66A3EC</text>
+    <text x="508.0" y="225" text-anchor="middle" fill="#6b6a65" font-size="11.5" font-weight="500">Secondary</text>
+    <rect x="612" y="115" width="160" height="90" rx="6" fill="#666666" />
+    <text x="692.0" y="161.0" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-size="12" font-weight="600" letter-spacing="0.06em" opacity="0.8">#666666</text>
+    <text x="692.0" y="225" text-anchor="middle" fill="#6b6a65" font-size="11.5" font-weight="500">Contrast</text>
+    <rect x="796" y="115" width="160" height="90" rx="6" fill="#FFAA00" />
+    <text x="876.0" y="161.0" text-anchor="middle" dominant-baseline="central" fill="#000000" font-size="12" font-weight="600" letter-spacing="0.06em" opacity="0.8">#FFAA00</text>
+    <text x="876.0" y="225" text-anchor="middle" fill="#6b6a65" font-size="11.5" font-weight="500">Accent</text>
+  <text x="60" y="270" fill="#8a8985" font-size="10" font-weight="600" letter-spacing="0.14em">TYPOGRAPHY</text>
+    <text x="60" y="294" fill="#0f0f0e" font-size="13" font-weight="600">App Name &amp; Logo</text>
+    <text x="60" y="316" fill="#8a8985" font-size="11">Typeface: Bodoni 72 Oldstyle · 50pt</text>
+    <text x="60" y="344" fill="#0f0f0e" font-size="24" font-family="Georgia, 'Times New Roman', serif" font-weight="400">SeniorCircle</text>
+    <text x="420" y="294" fill="#0f0f0e" font-size="13" font-weight="600">Subheadings</text>
+    <text x="420" y="316" fill="#8a8985" font-size="11">Typeface: Verdana · 16pt</text>
+    <text x="420" y="344" fill="#0f0f0e" font-size="15" font-family="Verdana, Geneva, sans-serif" font-weight="400">The quick brown fox</text>
+    <text x="780" y="294" fill="#0f0f0e" font-size="13" font-weight="600">Body Text</text>
+    <text x="780" y="316" fill="#8a8985" font-size="11">Typeface: Verdana · 16pt</text>
+    <text x="780" y="344" fill="#0f0f0e" font-size="15" font-family="Verdana, Geneva, sans-serif" font-weight="400">The quick brown fox</text>
+</svg>
