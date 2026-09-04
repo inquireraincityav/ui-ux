@@ -1,26 +1,31 @@
-/* ─── Design tokens ─────────────────────────────────────────────── */
+/* ─── Studio design tokens ──────────────────────────────────────── */
 :root {
-  /* Warm paper palette */
-  --paper: #f4efe6;
-  --paper-2: #ece5d6;
-  --ink: #1a1817;
-  --ink-2: #4a4540;
-  --ink-3: #7a7368;
-  --rule: #d9d1c0;
-  --accent: #e05a2b;
-  --accent-2: #f2b544;
-  --accent-3: #4a7c59;
-  --sticky-yellow: #ffe28a;
-  --sticky-pink: #ffb7c5;
-  --sticky-blue: #a8d5e8;
-  --sticky-green: #c5e0b4;
+  color-scheme: light only;
+
+  /* Palette */
+  --paper: #f5f4f0;
+  --paper-2: #eeedea;
+  --ink: #0f0f0e;
+  --ink-2: #3d3d3a;
+  --ink-3: #6e6e68;
+  --ink-4: #a0a09a;
+  --rule: #ddddd8;
+  --rule-soft: #e8e8e4;
+  --accent: #b8342a;
+  --accent-soft: rgba(184, 52, 42, 0.12);
+
+  /* Canvas tokens for device frames */
+  --canvas: #ecebe5;
+  --canvas-warm: #efe3d0;
+  --canvas-dark: #14140f;
 
   /* Type */
-  --font-display: "Fraunces", "Playfair Display", Georgia, serif;
+  --font-display: "Bricolage Grotesque", system-ui, sans-serif;
   --font-body: "Inter", system-ui, -apple-system, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
 
   /* Rhythm */
+  --step--2: clamp(0.72rem, 0.68rem + 0.18vw, 0.80rem);
   --step--1: clamp(0.83rem, 0.78rem + 0.24vw, 0.94rem);
   --step-0: clamp(1rem, 0.94rem + 0.31vw, 1.13rem);
   --step-1: clamp(1.2rem, 1.11rem + 0.44vw, 1.4rem);
@@ -31,7 +36,7 @@
   --step-6: clamp(2.99rem, 2.35rem + 3.19vw, 4.27rem);
 
   /* Layout */
-  --page-max: 1200px;
+  --page-max: 1440px;
   --gutter: clamp(1rem, 4vw, 3rem);
 
   /* Motion */
@@ -39,32 +44,6 @@
   --dur-fast: 180ms;
   --dur-med: 380ms;
   --dur-slow: 680ms;
-}
-
-:root[data-theme="dark"] {
-  --paper: #17161a;
-  --paper-2: #1f1e23;
-  --ink: #f3ede0;
-  --ink-2: #c5bdae;
-  --ink-3: #8a8377;
-  --rule: #2d2b32;
-  --accent: #ff7a4a;
-  --accent-2: #f2b544;
-  --accent-3: #7cb891;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --paper: #17161a;
-    --paper-2: #1f1e23;
-    --ink: #f3ede0;
-    --ink-2: #c5bdae;
-    --ink-3: #8a8377;
-    --rule: #2d2b32;
-    --accent: #ff7a4a;
-    --accent-2: #f2b544;
-    --accent-3: #7cb891;
-  }
 }
 
 /* ─── Reset ─────────────────────────────────────────────────────── */
@@ -90,10 +69,10 @@ a:hover { text-decoration-color: var(--accent); }
 /* ─── Type ──────────────────────────────────────────────────────── */
 h1, h2, h3, h4 {
   font-family: var(--font-display);
+  font-optical-sizing: auto;
   font-weight: 500;
   line-height: 1.05;
   letter-spacing: -0.02em;
-  font-variation-settings: "opsz" 144, "SOFT" 30;
 }
 h1 { font-size: var(--step-6); }
 h2 { font-size: var(--step-5); }

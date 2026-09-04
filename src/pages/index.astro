@@ -1,88 +1,95 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
-import StickyBoard from '../components/StickyBoard.astro';
 import CaseStudyCard from '../components/CaseStudyCard.astro';
 import { getCollection } from 'astro:content';
 
 const studies = (await getCollection('case-studies', ({ data }) => !data.draft))
   .sort((a, b) => a.data.order - b.data.order);
 ---
-<BaseLayout title="Your Name — UI/UX Portfolio">
+<BaseLayout title="SJAI Studio — UI/UX Portfolio">
   <Hero />
 
-  <section id="work" class="work">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="eyebrow">Selected work · {studies.length} case studies</p>
-        <h2>Every one is a <em>fix</em>.</h2>
-        <p class="section-lead">
-          Not a mood board. Not a pixel showcase. Each case study starts with the screen that was
-          failing and ends with what actually changed after it shipped.
-        </p>
-      </div>
+  <section id="work" class="work wrap">
+    <div class="section-head">
+      <p class="eyebrow">Work</p>
+      <h2>Five projects worth reading in full.</h2>
+    </div>
 
-      <div class="cs-list">
-        {studies.map((s) => (
-          <CaseStudyCard
-            title={s.data.title}
-            role={s.data.role}
-            year={s.data.year}
-            summary={s.data.summary}
-            cover={s.data.cover}
-            href={`${import.meta.env.BASE_URL}work/${s.slug}`}
-            accent={s.data.accent}
-            index={s.data.order}
-          />
-        ))}
-      </div>
+    <div class="cs-grid">
+      {studies.map((s) => (
+        <CaseStudyCard
+          title={s.data.title}
+          subtitle={s.data.subtitle}
+          role={s.data.role}
+          year={s.data.year}
+          summary={s.data.summary}
+          cover={s.data.cover}
+          href={`${import.meta.env.BASE_URL}work/${s.slug}`}
+          index={s.data.order}
+          type={s.data.type}
+          canvas={s.data.canvas}
+          coverScheme={s.data.coverScheme}
+        />
+      ))}
     </div>
   </section>
 
-  <section id="process">
-    <StickyBoard />
-  </section>
-
-  <section class="closing wrap">
-    <p class="eyebrow">What's next</p>
-    <h2>Have a screen that's failing?</h2>
-    <p class="lede">
-      I take on two engagements at a time. Freelance, contract, or fractional design lead. Send me
-      the URL and one sentence about what's broken.
+  <section class="currently wrap">
+    <hr class="rule" />
+    <p class="eyebrow">Currently</p>
+    <p class="currently-text">
+      Taking on freelance and contract work for Q1 2026.
+      <a href="mailto:inquire.raincityav@gmail.com">Say hello →</a>
     </p>
-    <a href="mailto:inquire.raincityav@gmail.com" class="btn-primary big">Start a conversation →</a>
   </section>
 </BaseLayout>
 
 <style>
-  .work { padding-block: 6rem 4rem; }
-  .section-head { max-width: 32ch; margin-bottom: 2rem; }
-  h2 em { font-style: italic; color: var(--accent); }
-  .section-lead { color: var(--ink-2); margin-top: 1rem; max-width: 48ch; }
-  .cs-list { margin-top: 3rem; border-bottom: 1px solid var(--rule); }
+  .work { padding-block: 5rem 4rem; }
+  .section-head { margin-bottom: 3rem; }
+  .section-head h2 {
+    margin-top: 0.75rem;
+    max-width: 20ch;
+    font-weight: 400;
+  }
 
-  .closing {
-    padding-block: 6rem 3rem;
-    text-align: left;
-    max-width: 720px;
+  .cs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem 1.5rem;
   }
-  .closing h2 { margin-top: 1rem; }
-  .closing .lede {
-    margin-top: 1.25rem;
-    font-size: var(--step-1);
+  @media (max-width: 1024px) {
+    .cs-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .cs-grid { grid-template-columns: 1fr; }
+  }
+
+  .currently {
+    padding-block: 0 6rem;
+  }
+  .currently .rule {
+    border: 0;
+    height: 1px;
+    background: var(--rule);
+    margin-bottom: 3rem;
+  }
+  .currently-text {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    font-size: var(--step-2);
     color: var(--ink-2);
+    margin-top: 1rem;
+    max-width: 36ch;
   }
-  .btn-primary {
-    display: inline-block;
-    margin-top: 2rem;
-    background: var(--ink);
-    color: var(--paper);
-    padding: 0.85rem 1.4rem;
-    border-radius: 999px;
+  .currently-text a {
+    color: var(--accent);
     text-decoration: none;
     font-weight: 500;
-    transition: transform var(--dur-fast), background var(--dur-fast);
   }
-  .btn-primary.big { padding: 1.1rem 1.8rem; font-size: var(--step-1); }
-  .btn-primary:hover { transform: translateY(-2px); background: var(--accent); }
+  .currently-text a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
 </style>

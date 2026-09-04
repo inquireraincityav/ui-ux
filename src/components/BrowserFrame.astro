@@ -1,0 +1,99 @@
+---
+interface Props {
+  src?: string;
+  alt?: string;
+  url?: string;
+  scheme?: 'warm' | 'cool' | 'ink';
+}
+const { src, alt = '', url, scheme = 'warm' } = Astro.props;
+const hasSlot = Astro.slots.has('default');
+---
+<div class="browser">
+  <div class="browser-chrome">
+    <div class="traffic" aria-hidden="true">
+      <span class="dot red"></span>
+      <span class="dot yellow"></span>
+      <span class="dot green"></span>
+    </div>
+    {url && <div class="address-bar">{url}</div>}
+  </div>
+  <div class="browser-viewport">
+    {src ? (
+      <img src={src} alt={alt} loading="lazy" />
+    ) : hasSlot ? (
+      <slot />
+    ) : (
+      <div class:list={["browser-placeholder", `scheme-${scheme}`]} aria-hidden="true">
+        <div class="bp-hero"></div>
+        <div class="bp-cols">
+          <div class="bp-col"></div>
+          <div class="bp-col"></div>
+          <div class="bp-col"></div>
+        </div>
+      </div>
+    )}
+  </div>
+</div>
+
+<style>
+  .browser {
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+  .browser-chrome {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 0.75rem;
+    background: #e8e8e6;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .traffic { display: flex; gap: 5px; flex-shrink: 0; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot.red    { background: #ff5f57; }
+  .dot.yellow { background: #ffbd2e; }
+  .dot.green  { background: #28c840; }
+  .address-bar {
+    flex: 1;
+    background: rgba(0,0,0,0.06);
+    border-radius: 4px;
+    padding: 0.2rem 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--ink-3);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .browser-viewport {
+    aspect-ratio: 16/10;
+    overflow: hidden;
+    background: #fff;
+  }
+  .browser-viewport img {
+    width: 100%; height: 100%; object-fit: cover;
+  }
+
+  .browser-placeholder {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    padding: 1.5rem;
+    gap: 1rem;
+  }
+  .scheme-warm { background: linear-gradient(160deg, #f5e6d0 0%, #efe3d0 100%); }
+  .scheme-cool { background: linear-gradient(160deg, #dbe8f0 0%, #c8dae8 100%); }
+  .scheme-ink  { background: linear-gradient(160deg, #2a2a2a 0%, #1a1a1a 100%); }
+  .bp-hero {
+    height: 40%; border-radius: 0.4rem;
+    background: rgba(0,0,0,0.06);
+  }
+  .scheme-ink .bp-hero { background: rgba(255,255,255,0.06); }
+  .bp-cols { display: flex; gap: 0.75rem; flex: 1; }
+  .bp-col {
+    flex: 1; border-radius: 0.4rem;
+    background: rgba(0,0,0,0.04);
+  }
+  .scheme-ink .bp-col { background: rgba(255,255,255,0.04); }
+</style>

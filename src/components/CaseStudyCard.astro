@@ -1,111 +1,107 @@
 ---
+import PhoneFrame from './PhoneFrame.astro';
+import BrowserFrame from './BrowserFrame.astro';
+
 interface Props {
   title: string;
+  subtitle?: string;
   role: string;
   year: string;
   summary: string;
-  cover?: string;
   href: string;
-  accent?: string;
   index: number;
+  type?: 'web' | 'mobile' | 'both';
+  canvas?: 'light' | 'warm' | 'dark';
+  coverScheme?: 'warm' | 'cool' | 'ink';
+  cover?: string;
 }
-const { title, role, year, summary, cover, href, accent = 'var(--accent)', index } = Astro.props;
+const {
+  title, subtitle, role, year, summary, href, index,
+  type = 'web', canvas = 'light', coverScheme = 'warm', cover,
+} = Astro.props;
 ---
-<a class="cs-card" href={href} style={`--card-accent:${accent}`}>
-  <div class="cs-cover">
-    {cover
-      ? <img src={cover} alt="" loading="lazy" />
-      : (
-        <div class="cs-cover-placeholder" aria-hidden="true">
-          <span class="cs-num">{String(index).padStart(2, '0')}</span>
-        </div>
-      )}
-    <div class="cs-arrow" aria-hidden="true">→</div>
+<a class="tile" href={href}>
+  <div class:list={["tile-canvas", `canvas-${canvas}`]}>
+    {type === 'mobile' && <PhoneFrame scheme={coverScheme} />}
+    {type === 'web' && <BrowserFrame scheme={coverScheme} />}
+    {type === 'both' && (
+      <div class="tile-both">
+        <BrowserFrame scheme={coverScheme} />
+        <PhoneFrame scheme={coverScheme} scale={0.4} />
+      </div>
+    )}
   </div>
-
-  <div class="cs-meta">
-    <div class="cs-line">
-      <span class="cs-index">{String(index).padStart(2, '0')}</span>
-      <span class="cs-role">{role}</span>
-      <span class="cs-year">{year}</span>
+  <div class="tile-info">
+    <div class="tile-meta">
+      <span class="tile-num">{String(index).padStart(2, '0')}</span>
+      <span class="tile-role">{role}</span>
+      <span class="tile-year">{year}</span>
     </div>
-    <h3 class="cs-title">{title}</h3>
-    <p class="cs-summary">{summary}</p>
+    <h3 class="tile-title">{title}</h3>
+    {subtitle && <p class="tile-sub">{subtitle}</p>}
   </div>
 </a>
 
 <style>
-  .cs-card {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
+  .tile {
+    display: flex;
+    flex-direction: column;
     text-decoration: none;
     color: inherit;
-    padding-block: 2rem;
-    border-top: 1px solid var(--rule);
-    transition: background var(--dur-med) var(--ease-out);
-    position: relative;
-    isolation: isolate;
-  }
-  .cs-card:hover { background: var(--paper-2); }
-  .cs-card:hover .cs-title { color: var(--card-accent); }
-  .cs-card:hover .cs-arrow { transform: translate(6px, -6px); opacity: 1; }
-  .cs-card:hover .cs-cover img,
-  .cs-card:hover .cs-cover-placeholder { transform: scale(1.03); }
-
-  .cs-cover {
-    position: relative;
-    aspect-ratio: 16/9;
+    border-radius: 4px;
     overflow: hidden;
-    border-radius: 6px;
-    background: var(--paper-2);
-    border: 1px solid var(--rule);
+    transition: transform var(--dur-med) var(--ease-out);
   }
-  .cs-cover img, .cs-cover-placeholder {
-    width: 100%; height: 100%; object-fit: cover;
-    transition: transform var(--dur-slow) var(--ease-out);
-  }
-  .cs-cover-placeholder {
-    display: grid; place-items: center;
-    background:
-      repeating-linear-gradient(-45deg, transparent 0 12px, var(--rule) 12px 13px),
-      var(--paper-2);
-  }
-  .cs-num {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: clamp(3rem, 8vw, 5rem);
-    color: var(--card-accent);
-    opacity: 0.6;
-  }
-  .cs-arrow {
-    position: absolute; top: 1rem; right: 1rem;
-    width: 44px; height: 44px; border-radius: 50%;
-    background: var(--ink); color: var(--paper);
-    display: grid; place-items: center;
-    font-size: 1.2rem;
-    opacity: 0.85;
-    transition: transform var(--dur-med) var(--ease-out), opacity var(--dur-med) var(--ease-out);
-  }
-  .cs-line {
-    display: flex; gap: 1rem; align-items: center;
-    font-size: var(--step--1); color: var(--ink-3);
-    letter-spacing: 0.02em;
-  }
-  .cs-index { color: var(--card-accent); font-weight: 600; }
-  .cs-title {
-    font-family: var(--font-display);
-    font-size: var(--step-3);
-    margin-top: 0.35rem;
-    transition: color var(--dur-med) var(--ease-out);
-  }
-  .cs-summary { color: var(--ink-2); margin-top: 0.5rem; max-width: 60ch; }
+  .tile:hover { transform: translateY(-4px); }
+  .tile:hover .tile-title { color: var(--accent); }
 
-  @media (min-width: 820px) {
-    .cs-card {
-      grid-template-columns: 1.2fr 1fr;
-      gap: 2.5rem;
-      align-items: center;
-    }
+  .tile-canvas {
+    aspect-ratio: 4/3;
+    display: grid;
+    place-items: center;
+    padding: 2rem;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .canvas-light { background: var(--canvas); border: 1px solid var(--rule); }
+  .canvas-warm  { background: var(--canvas-warm); border: 1px solid #d9c6a8; }
+  .canvas-dark  { background: var(--canvas-dark); border: 1px solid var(--canvas-dark); }
+
+  .tile-both {
+    display: grid;
+    grid-template-columns: 1.4fr 0.6fr;
+    gap: 1rem;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .tile-info { padding: 1rem 0.25rem; }
+  .tile-meta {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    font-size: var(--step--1);
+    color: var(--ink-3);
+  }
+  .tile-num { color: var(--accent); font-weight: 600; }
+  .tile-title {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    font-size: var(--step-2);
+    margin-top: 0.4rem;
+    transition: color var(--dur-fast);
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 2px;
+  }
+  .tile:hover .tile-title {
+    text-decoration-color: var(--accent);
+  }
+  .tile-sub {
+    color: var(--ink-3);
+    font-size: var(--step--1);
+    margin-top: 0.25rem;
   }
 </style>

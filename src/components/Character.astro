@@ -1,99 +1,126 @@
 ---
-// A placeholder illustrated character. Swap the SVG paths later for a version
-// that actually looks like you. The wrapping div carries all the animation
-// so the swap is safe.
+interface PoseSet {
+  front: string;
+  left?: string;
+  right?: string;
+  wave?: string;
+  back?: string;
+}
 interface Props {
   size?: number;
-  mood?: 'wave' | 'idle' | 'point';
-  className?: string;
+  alt?: string;
+  poses?: PoseSet;
+  src?: string;
+  srcHover?: string;
 }
-const { size = 220, mood = 'wave', className = '' } = Astro.props;
+const { size = 220, alt = 'Portrait', poses, src, srcHover } = Astro.props;
+const hasPoses = !!poses;
 ---
-<div class:list={["character", `mood-${mood}`, className]} style={`--char-size:${size}px`}>
-  <svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustrated character">
-    {/* shadow */}
-    <ellipse cx="100" cy="248" rx="46" ry="6" fill="rgba(0,0,0,0.12)" />
-
-    {/* legs */}
-    <g class="legs">
-      <rect x="82" y="180" width="14" height="60" rx="6" fill="var(--ink-2)" />
-      <rect x="104" y="180" width="14" height="60" rx="6" fill="var(--ink-2)" />
-      <rect x="80" y="235" width="18" height="8" rx="3" fill="var(--ink)" />
-      <rect x="102" y="235" width="18" height="8" rx="3" fill="var(--ink)" />
-    </g>
-
-    {/* body */}
-    <g class="body">
-      <path d="M60 120 Q100 100 140 120 L136 195 Q100 208 64 195 Z" fill="var(--accent)" />
-      <path d="M76 130 L76 190" stroke="rgba(0,0,0,0.15)" stroke-width="1"/>
-      <path d="M124 130 L124 190" stroke="rgba(0,0,0,0.15)" stroke-width="1"/>
-    </g>
-
-    {/* left arm (static) */}
-    <g class="arm-left">
-      <path d="M64 128 Q52 160 62 190" stroke="var(--ink-2)" stroke-width="12" stroke-linecap="round" fill="none"/>
-      <circle cx="62" cy="192" r="8" fill="#f2c8a0"/>
-    </g>
-
-    {/* right arm (waves) */}
-    <g class="arm-right">
-      <path d="M136 128 Q158 118 168 90" stroke="var(--ink-2)" stroke-width="12" stroke-linecap="round" fill="none"/>
-      <circle cx="168" cy="88" r="9" fill="#f2c8a0"/>
-    </g>
-
-    {/* head */}
-    <g class="head">
-      <ellipse cx="100" cy="80" rx="34" ry="38" fill="#f2c8a0"/>
-      {/* hair — deliberately generic; swap later */}
-      <path d="M66 70 Q70 40 100 40 Q130 40 134 70 Q128 56 100 56 Q72 56 66 70 Z" fill="var(--ink)"/>
-      {/* eyes */}
-      <circle class="eye" cx="88" cy="82" r="2.5" fill="var(--ink)"/>
-      <circle class="eye" cx="112" cy="82" r="2.5" fill="var(--ink)"/>
-      {/* mouth */}
-      <path d="M92 96 Q100 102 108 96" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" fill="none"/>
-    </g>
-  </svg>
+<div class="character" style={`--char-size:${size}px`}>
+  {hasPoses ? (
+    <div class="char-poses" data-poses={JSON.stringify(poses)}>
+      {Object.entries(poses!).map(([key, url]) => (
+        <img
+          src={url}
+          alt={key === 'front' ? alt : ''}
+          class:list={["pose", `pose-${key}`, { active: key === 'front' }]}
+          loading="lazy"
+          draggable="false"
+        />
+      ))}
+    </div>
+  ) : src ? (
+    <div class="char-single">
+      <img src={src} alt={alt} class="pose active" loading="lazy" draggable="false" />
+      {srcHover && (
+        <img src={srcHover} alt="" class="pose hover-pose" loading="lazy" draggable="false" />
+      )}
+    </div>
+  ) : (
+    <svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label={alt}>
+      <ellipse cx="100" cy="248" rx="46" ry="6" fill="rgba(0,0,0,0.12)" />
+      <g class="body">
+        <path d="M60 120 Q100 100 140 120 L136 195 Q100 208 64 195 Z" fill="var(--accent)" />
+      </g>
+      <g class="head">
+        <ellipse cx="100" cy="80" rx="34" ry="38" fill="#f2c8a0"/>
+        <path d="M66 70 Q70 40 100 40 Q130 40 134 70 Q128 56 100 56 Q72 56 66 70 Z" fill="var(--ink)"/>
+        <circle cx="88" cy="82" r="2.5" fill="var(--ink)"/>
+        <circle cx="112" cy="82" r="2.5" fill="var(--ink)"/>
+        <path d="M92 96 Q100 102 108 96" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" fill="none"/>
+      </g>
+    </svg>
+  )}
 </div>
+
+<script>
+  document.querySelectorAll<HTMLDivElement>('.char-poses').forEach((el) => {
+    const poses = JSON.parse(el.dataset.poses || '{}');
+    const imgs = el.querySelectorAll<HTMLImageElement>('.pose');
+    let current = 'front';
+
+    function show(name: string) {
+      if (name === current) return;
+      imgs.forEach((img) => {
+        const key = img.classList[1]?.replace('pose-', '');
+        if (key === name) {
+          img.classList.add('active');
+        } else {
+          img.classList.remove('active');
+        }
+      });
+      current = name;
+    }
+
+    el.addEventListener('mouseenter', () => {
+      if (poses.wave) show('wave');
+    });
+    el.addEventListener('mouseleave', () => show('front'));
+
+    document.addEventListener('mousemove', (e) => {
+      if (el.matches(':hover')) return;
+      const w = window.innerWidth;
+      const x = e.clientX / w;
+      if (x < 0.33 && poses.left) show('left');
+      else if (x > 0.66 && poses.right) show('right');
+      else show('front');
+    });
+  });
+</script>
 
 <style>
   .character {
     width: var(--char-size);
-    height: auto;
     display: inline-block;
+    position: relative;
   }
-  .character svg { width: 100%; height: auto; overflow: visible; }
+  .character svg { width: 100%; height: auto; }
 
-  /* subtle idle sway */
-  .body, .head { transform-origin: 100px 130px; animation: sway 6s ease-in-out infinite; }
-  .head { animation-duration: 5.4s; }
-
-  /* wave */
-  .mood-wave .arm-right {
-    transform-origin: 136px 128px;
-    animation: wave 2.6s ease-in-out infinite;
+  .char-poses, .char-single {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
   }
-
-  .mood-idle .arm-right {
-    transform-origin: 136px 128px;
-    animation: sway 5s ease-in-out infinite;
+  .pose {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    mix-blend-mode: multiply;
   }
+  .pose.active { opacity: 1; }
 
-  /* blink */
-  .eye { animation: blink 4.3s infinite; transform-origin: center; }
+  .char-single:hover .hover-pose { opacity: 1; }
+  .char-single:hover .active:not(.hover-pose) { opacity: 0; }
 
-  @keyframes sway {
-    0%, 100% { transform: rotate(-1.2deg); }
-    50% { transform: rotate(1.2deg); }
+  .char-poses {
+    animation: breathe 4s ease-in-out infinite;
   }
-  @keyframes wave {
-    0%, 100% { transform: rotate(0deg); }
-    15% { transform: rotate(-18deg); }
-    30% { transform: rotate(12deg); }
-    45% { transform: rotate(-18deg); }
-    60% { transform: rotate(0deg); }
-  }
-  @keyframes blink {
-    0%, 92%, 100% { transform: scaleY(1); }
-    95% { transform: scaleY(0.1); }
+  @keyframes breathe {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
   }
 </style>

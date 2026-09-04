@@ -4,6 +4,7 @@ const caseStudies = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
+    subtitle: z.string().optional(),
     role: z.string(),
     year: z.string(),
     summary: z.string(),
@@ -11,6 +12,9 @@ const caseStudies = defineCollection({
     accent: z.string().optional(),
     order: z.number(),
     draft: z.boolean().default(false),
+    type: z.enum(['web', 'mobile', 'both']).default('web'),
+    canvas: z.enum(['light', 'warm', 'dark']).default('light'),
+    coverScheme: z.enum(['warm', 'cool', 'ink']).default('warm'),
     client: z.string().optional(),
     duration: z.string().optional(),
     tools: z.array(z.string()).default([]),

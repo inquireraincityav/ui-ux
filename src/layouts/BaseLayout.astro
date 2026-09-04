@@ -6,8 +6,9 @@ interface Props {
   description?: string;
 }
 
-const { title, description = "UI/UX portfolio — case studies, breakdowns, and thinking." } = Astro.props;
+const { title, description = "UI/UX portfolio — web and mobile product design." } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site).toString();
+const base = import.meta.env.BASE_URL;
 ---
 <!doctype html>
 <html lang="en">
@@ -15,22 +16,20 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
     <link rel="canonical" href={canonical} />
 
-    {/* Type: warm serif display + clean sans body */}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..700,30..100&family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
     />
 
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
-    <meta name="twitter:card" content="summary_large_image" />
 
     <title>{title}</title>
   </head>
@@ -38,15 +37,14 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
     <a class="sr-only" href="#main">Skip to content</a>
 
     <header class="site-header wrap">
-      <a href={import.meta.env.BASE_URL} class="brand">
-        <span class="brand-mark" aria-hidden="true">◐</span>
-        <span class="brand-name">Your Name</span>
+      <a href={base} class="brand">
+        <span class="brand-mark" aria-hidden="true">·</span>
+        <span class="brand-name">SJAI Studio</span>
       </a>
-      <nav aria-label="Primary">
-        <a href={`${import.meta.env.BASE_URL}#work`}>Work</a>
-        <a href={`${import.meta.env.BASE_URL}#process`}>Process</a>
-        <a href={`${import.meta.env.BASE_URL}about`}>About</a>
-        <a href="mailto:inquire.raincityav@gmail.com" class="pill">Get in touch</a>
+      <nav aria-label="Primary" class="primary-nav">
+        <a href={`${base}#work`}>Work</a>
+        <a href={`${base}about`}>About</a>
+        <a href="mailto:inquire.raincityav@gmail.com">Contact</a>
       </nav>
     </header>
 
@@ -57,29 +55,20 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
     <footer class="site-footer wrap">
       <div class="foot-grid">
         <div>
-          <p class="eyebrow">Elsewhere</p>
+          <p class="eyebrow">Correspondence</p>
           <ul class="links">
-            <li><a href="#">LinkedIn</a></li>
-            <li><a href="#">Read.cv</a></li>
-            <li><a href="#">Dribbble</a></li>
-            <li><a href="mailto:inquire.raincityav@gmail.com">Email</a></li>
+            <li><a href="mailto:inquire.raincityav@gmail.com">inquire.raincityav@gmail.com</a></li>
+            <li><a href="#">LinkedIn ↗</a></li>
+            <li><a href="#">Read.cv ↗</a></li>
           </ul>
         </div>
         <div>
           <p class="eyebrow">Colophon</p>
-          <p class="small">Set in Fraunces &amp; Inter. Built with Astro. Hand-tuned in {new Date().getFullYear()}.</p>
+          <p class="small">Set in Bricolage Grotesque and Inter. Built with Astro. Updated {new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}.</p>
         </div>
       </div>
-      <p class="small copy">© {new Date().getFullYear()} — designed and coded from scratch.</p>
+      <p class="small copy">© {new Date().getFullYear()} · SJAI Studio</p>
     </footer>
-
-    <script>
-      // Respect saved preference; otherwise follow system.
-      const saved = localStorage.getItem('theme');
-      if (saved === 'dark' || saved === 'light') {
-        document.documentElement.setAttribute('data-theme', saved);
-      }
-    </script>
 
     <style>
       .site-header {
@@ -91,50 +80,54 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
       }
       .brand {
         display: inline-flex;
-        align-items: baseline;
-        gap: 0.5rem;
+        align-items: center;
+        gap: 0.6rem;
         text-decoration: none;
+        color: var(--ink);
         font-family: var(--font-display);
-        font-size: var(--step-1);
-        letter-spacing: -0.01em;
+        font-optical-sizing: auto;
+        font-variation-settings: "opsz" 12;
+        font-weight: 700;
+        font-size: 1.15rem;
+        letter-spacing: -0.02em;
       }
       .brand-mark {
-        display: inline-block;
-        color: var(--accent);
-        transform: translateY(2px);
+        display: grid; place-items: center;
+        width: 24px; height: 24px;
+        background: var(--ink);
+        color: var(--paper);
+        border-radius: 50%;
+        font-size: 0.75rem;
+        line-height: 1;
+        transform: translateY(-1px);
       }
-      nav[aria-label="Primary"] {
+      .primary-nav {
         display: flex;
-        align-items: center;
-        gap: 1.5rem;
-        font-size: var(--step--1);
+        gap: 2rem;
+        font-size: 0.9rem;
       }
-      nav a { text-decoration: none; color: var(--ink-2); }
-      nav a:hover { color: var(--ink); }
-      nav a.pill {
-        border: 1px solid var(--ink);
+      .primary-nav a {
+        text-decoration: none;
         color: var(--ink);
-        padding: 0.5rem 0.9rem;
-        border-radius: 999px;
-        transition: background var(--dur-fast), color var(--dur-fast);
+        opacity: 0.55;
+        transition: opacity var(--dur-fast);
       }
-      nav a.pill:hover { background: var(--ink); color: var(--paper); }
+      .primary-nav a:hover { opacity: 1; color: var(--ink); }
 
       @media (max-width: 640px) {
-        nav[aria-label="Primary"] { gap: 1rem; }
-        nav a.pill { padding: 0.4rem 0.7rem; }
+        .primary-nav { gap: 1.25rem; font-size: 0.85rem; }
       }
 
       .site-footer {
-        margin-top: 6rem;
+        margin-top: 8rem;
         padding-block: 3rem 2rem;
         border-top: 1px solid var(--rule);
       }
       .foot-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 2rem;
-        margin-bottom: 2rem;
+        gap: 3rem;
+        margin-bottom: 2.5rem;
       }
       .foot-grid .links {
         list-style: none;
@@ -142,11 +135,17 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
         display: flex;
         flex-direction: column;
         gap: 0.4rem;
+        font-size: 0.9rem;
       }
+      .foot-grid .links a {
+        text-decoration: none;
+        color: var(--ink);
+      }
+      .foot-grid .links a:hover { color: var(--accent); }
       .small { font-size: var(--step--1); color: var(--ink-3); }
-      .copy { text-align: center; padding-top: 1rem; border-top: 1px dashed var(--rule); }
+      .copy { padding-top: 1rem; border-top: 1px solid var(--rule-soft); }
       @media (max-width: 640px) {
-        .foot-grid { grid-template-columns: 1fr; }
+        .foot-grid { grid-template-columns: 1fr; gap: 2rem; }
       }
     </style>
   </body>
