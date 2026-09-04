@@ -2,8 +2,42 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Character from '../components/Character.astro';
 const base = import.meta.env.BASE_URL;
+
+const skills = [
+  'UI/UX Design',
+  'Information Architecture',
+  'Wireframing',
+  'Prototyping',
+  'User Research',
+  'Visual Design',
+  'Web Design',
+  'Mobile Design',
+  'Responsive Design',
+];
+
+const tools = [
+  'Figma',
+  'Photoshop',
+  'ProtoPie',
+  'Wix',
+];
+
+const experience = [
+  {
+    role: 'UI/UX Designer & Project Lead',
+    company: 'Clove By Quantum - Quantum Properties',
+    period: 'Fall 2024',
+    description: 'Led design and development of a premium townhome marketing website from discovery through a live Wix build in 30 days.',
+  },
+  {
+    role: 'Lead UX Designer',
+    company: 'SeniorCircle',
+    period: 'Fall 2024',
+    description: 'Led UX from research through hi-fi for a social discovery app for adults 75+, focusing on accessibility and community.',
+  },
+];
 ---
-<BaseLayout title="About — SJAI Studio" description="A short introduction and how I work.">
+<BaseLayout title="About - SJAI Studio" description="A short introduction and how I work.">
   <section class="about wrap">
     <div class="about-grid">
       <div class="about-copy">
@@ -17,7 +51,7 @@ const base = import.meta.env.BASE_URL;
         <hr class="rule" />
 
         <h3>How I got here</h3>
-        <p>A paragraph on the arc — where you started, what you did between then and
+        <p>A paragraph on the arc - where you started, what you did between then and
         now, and the thing that changed how you think about design.</p>
 
         <h3>What I look for in a project</h3>
@@ -51,10 +85,46 @@ const base = import.meta.env.BASE_URL;
       </aside>
     </div>
   </section>
+
+  <section class="skills-section wrap">
+    <hr class="rule" />
+    <p class="eyebrow">Skills & Tools</p>
+    <div class="skills-grid">
+      <div class="skills-col">
+        <h3>Skill Set</h3>
+        <ul class="skills-list">
+          {skills.map((s) => <li>{s}</li>)}
+        </ul>
+      </div>
+      <div class="skills-col">
+        <h3>Tools</h3>
+        <ul class="skills-list">
+          {tools.map((t) => <li>{t}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="experience-section wrap">
+    <hr class="rule" />
+    <p class="eyebrow">Experience</p>
+    <div class="exp-list">
+      {experience.map((e) => (
+        <div class="exp-item">
+          <div class="exp-header">
+            <h3>{e.role}</h3>
+            <span class="exp-period">{e.period}</span>
+          </div>
+          <p class="exp-company">{e.company}</p>
+          <p class="exp-desc">{e.description}</p>
+        </div>
+      ))}
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
-  .about { padding-block: 4rem 6rem; }
+  .about { padding-block: 4rem 2rem; }
   .about-grid {
     display: grid;
     grid-template-columns: 1.5fr 1fr;
@@ -120,8 +190,79 @@ const base = import.meta.env.BASE_URL;
     font-size: var(--step-0);
   }
 
+  /* Skills & Tools */
+  .skills-section { padding-bottom: 2rem; }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 2rem;
+  }
+  .skills-col h3 {
+    margin-bottom: 1rem;
+    font-size: var(--step-1);
+  }
+  .skills-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .skills-list li {
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--rule-soft);
+    color: var(--ink-2);
+    font-size: var(--step-0);
+  }
+  .skills-list li:first-child {
+    border-top: 1px solid var(--rule-soft);
+  }
+
+  /* Experience */
+  .experience-section { padding-bottom: 6rem; }
+  .exp-list {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .exp-item {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .exp-item:first-child {
+    border-top: 1px solid var(--rule);
+  }
+  .exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+  }
+  .exp-header h3 {
+    font-size: var(--step-1);
+    font-weight: 500;
+    margin: 0;
+  }
+  .exp-period {
+    font-size: var(--step--1);
+    color: var(--ink-3);
+    white-space: nowrap;
+  }
+  .exp-company {
+    color: var(--ink-3);
+    font-size: var(--step--1);
+    margin-top: 0.25rem;
+    text-align: left;
+  }
+  .exp-desc {
+    color: var(--ink-2);
+    margin-top: 0.5rem;
+    line-height: 1.6;
+  }
+
   @media (max-width: 820px) {
     .about-grid { grid-template-columns: 1fr; gap: 3rem; }
     .about-side { position: static; }
+    .skills-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .exp-header { flex-direction: column; gap: 0.25rem; }
   }
 </style>

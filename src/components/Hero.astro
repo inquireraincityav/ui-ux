@@ -1,42 +1,103 @@
 ---
-// Hero: full-width editorial statement.
+// Hero: tall editorial section, text anchored to bottom-left.
 ---
 <section class="hero wrap">
-  <div class="kicker">
-    <span>Selected Work · 2020 → 2025</span>
-    <span class="k-avail">
-      <span class="k-dot" aria-hidden="true"></span>
-      Available Q1 2026
-    </span>
+  <div class="hero-foot">
+    <p class="hero-role">UI/UX Designer - Vancouver, BC</p>
+    <h1 class="statement">
+      Designing interfaces for <em>web</em> and <em>mobile</em> products
+      - built with the person on the other end in mind.
+    </h1>
+    <p class="hero-tags">Web Design · Mobile Apps · Real Estate · Healthcare</p>
+    <div class="hero-actions">
+      <a href="#work" class="hero-cta">Explore My Work</a>
+      <span class="k-avail">
+        <span class="k-dot" aria-hidden="true"></span>
+        Available Q1 2026
+      </span>
+    </div>
   </div>
-
-  <h1 class="statement">
-    SJAI Studio designs interfaces for <em>web</em> and <em>mobile</em> products
-    &mdash; built with the person on the other end in mind.
-  </h1>
-
 </section>
 
 <style>
   .hero {
-    padding-block: 4rem 8rem;
+    min-height: 80vh;
+    display: flex;
+    align-items: flex-end;
+    padding-block: 4rem;
     border-bottom: 1px solid var(--rule);
   }
-  .kicker {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 2rem;
-    font-size: var(--step--2);
-    letter-spacing: 0.18em;
+  .hero-foot {
+    width: 100%;
+    max-width: 48rem;
+  }
+  .hero-role {
+    font-size: var(--step--1);
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--ink-3);
-    padding-bottom: 3rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    text-align: left;
+  }
+  .statement {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    font-variation-settings: "opsz" 96;
+    font-weight: 300;
+    font-size: clamp(2.5rem, 6vw, 5.5rem);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    text-wrap: balance;
+    max-width: 22ch;
+    margin: 0;
+    text-align: left;
+  }
+  .statement em {
+    font-style: italic;
+    font-variation-settings: "opsz" 96, "wght" 400;
+    color: var(--accent);
+  }
+  .hero-tags {
+    font-size: var(--step--1);
+    color: var(--ink-3);
+    margin-top: 2rem;
+    letter-spacing: 0.04em;
+    text-align: left;
+  }
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.75rem;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--font-body);
+    font-size: var(--step--1);
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 4px;
+    letter-spacing: 0.02em;
+    transition: background var(--dur-fast);
+  }
+  .hero-cta:hover {
+    background: var(--accent);
+    color: var(--paper);
   }
   .k-avail {
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
+    font-size: var(--step--2);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
     color: var(--accent);
   }
   .k-dot {
@@ -50,27 +111,15 @@
     50%      { box-shadow: 0 0 0 8px rgba(184, 52, 42, 0.02); }
   }
 
-  .statement {
-    font-family: var(--font-display);
-    font-optical-sizing: auto;
-    font-variation-settings: "opsz" 96;
-    font-weight: 300;
-    font-size: clamp(2.5rem, 6vw, 5.5rem);
-    line-height: 1.02;
-    letter-spacing: -0.03em;
-    color: var(--ink);
-    text-wrap: balance;
-    max-width: 22ch;
-    margin: 0;
-  }
-  .statement em {
-    font-style: italic;
-    font-variation-settings: "opsz" 96, "wght" 400;
-    color: var(--accent);
-  }
-
   @media (max-width: 820px) {
-    .hero { padding-block: 2.5rem 5rem; }
-    .kicker { flex-direction: column; align-items: start; gap: 0.75rem; padding-bottom: 2rem; }
+    .hero {
+      min-height: 60vh;
+      padding-block: 2.5rem;
+    }
+    .hero-actions {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.25rem;
+    }
   }
 </style>

@@ -78,7 +78,7 @@ h1 { font-size: var(--step-6); }
 h2 { font-size: var(--step-5); }
 h3 { font-size: var(--step-3); }
 h4 { font-size: var(--step-2); }
-p { max-width: 68ch; }
+p { max-width: 68ch; text-align: justify; }
 
 .eyebrow {
   font-family: var(--font-body);
