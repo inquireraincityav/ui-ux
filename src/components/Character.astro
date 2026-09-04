@@ -1,242 +1,126 @@
 ---
-// Character component with three modes:
-//
-// 1. `poses` prop → reactive multi-pose character. All poses render as
-//    layered images; the visible one is chosen by cursor position within
-//    the parent .hero-character. Also parallax-tilts toward the cursor.
-//    Pass at least `front`; add `left`, `right`, `wave`, `back` as available.
-//
-// 2. `src` prop → single image, optional `srcHover` swap on hover.
-//
-// 3. No image props → minimal SVG placeholder fallback.
+interface PoseSet {
+  front: string;
+  left?: string;
+  right?: string;
+  wave?: string;
+  back?: string;
+}
 interface Props {
   size?: number;
-  className?: string;
-  poses?: {
-    front: string;
-    left?: string;
-    right?: string;
-    wave?: string;
-    back?: string;
-  };
+  alt?: string;
+  poses?: PoseSet;
   src?: string;
   srcHover?: string;
-  videoSrc?: string;
-  alt?: string;
 }
-const {
-  size = 380,
-  className = '',
-  poses,
-  src,
-  srcHover,
-  videoSrc,
-  alt = 'Illustrated portrait',
-} = Astro.props;
-
-const mode = poses ? 'reactive' : (videoSrc ? 'video' : (src ? 'image' : 'svg'));
+const { size = 220, alt = 'Portrait', poses, src, srcHover } = Astro.props;
+const hasPoses = !!poses;
 ---
-<div
-  class:list={["character", `mode-${mode}`, className]}
-  style={`--char-size:${size}px`}
-  data-reactive={mode === 'reactive' ? 'true' : undefined}
->
-  {mode === 'reactive' && poses && (
-    <div class="char-image-wrap char-stage">
-      <img class="char-img pose is-active" data-pose="front" src={poses.front} alt={alt} />
-      {poses.left  && <img class="char-img pose" data-pose="left"  src={poses.left}  alt="" aria-hidden="true" />}
-      {poses.right && <img class="char-img pose" data-pose="right" src={poses.right} alt="" aria-hidden="true" />}
-      {poses.wave  && <img class="char-img pose" data-pose="wave"  src={poses.wave}  alt="" aria-hidden="true" />}
-      {poses.back  && <img class="char-img pose" data-pose="back"  src={poses.back}  alt="" aria-hidden="true" />}
+<div class="character" style={`--char-size:${size}px`}>
+  {hasPoses ? (
+    <div class="char-poses" data-poses={JSON.stringify(poses)}>
+      {Object.entries(poses!).map(([key, url]) => (
+        <img
+          src={url}
+          alt={key === 'front' ? alt : ''}
+          class:list={["pose", `pose-${key}`, { active: key === 'front' }]}
+          loading="lazy"
+          draggable="false"
+        />
+      ))}
     </div>
-  )}
-
-  {mode === 'video' && (
-    <video class="char-video" src={videoSrc} autoplay loop muted playsinline aria-label={alt}></video>
-  )}
-
-  {mode === 'image' && (
-    <div class="char-image-wrap">
-      <img class="char-img base" src={src} alt={alt} />
-      {srcHover && <img class="char-img hover" src={srcHover} alt="" aria-hidden="true" />}
+  ) : src ? (
+    <div class="char-single">
+      <img src={src} alt={alt} class="pose active" loading="lazy" draggable="false" />
+      {srcHover && (
+        <img src={srcHover} alt="" class="pose hover-pose" loading="lazy" draggable="false" />
+      )}
     </div>
-  )}
-
-  {mode === 'svg' && (
+  ) : (
     <svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label={alt}>
-      <ellipse cx="100" cy="248" rx="46" ry="6" fill="rgba(0,0,0,0.10)" />
-      <g class="body"><path d="M60 120 Q100 100 140 120 L136 195 Q100 208 64 195 Z" fill="var(--ink)" /></g>
-      <g class="head"><ellipse cx="100" cy="80" rx="34" ry="38" fill="#e6c9a8"/></g>
+      <ellipse cx="100" cy="248" rx="46" ry="6" fill="rgba(0,0,0,0.12)" />
+      <g class="body">
+        <path d="M60 120 Q100 100 140 120 L136 195 Q100 208 64 195 Z" fill="var(--accent)" />
+      </g>
+      <g class="head">
+        <ellipse cx="100" cy="80" rx="34" ry="38" fill="#f2c8a0"/>
+        <path d="M66 70 Q70 40 100 40 Q130 40 134 70 Q128 56 100 56 Q72 56 66 70 Z" fill="var(--ink)"/>
+        <circle cx="88" cy="82" r="2.5" fill="var(--ink)"/>
+        <circle cx="112" cy="82" r="2.5" fill="var(--ink)"/>
+        <path d="M92 96 Q100 102 108 96" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" fill="none"/>
+      </g>
     </svg>
   )}
 </div>
 
 <script>
-  // Reactive characters "look at" the cursor and tilt toward it.
-  // Zones: cursor in the left third → show left pose, middle → front, right → right.
-  // Hover the character itself → wave.
-  // All swaps crossfade with CSS transition; parallax uses requestAnimationFrame.
-  const nodes = document.querySelectorAll<HTMLElement>('.character[data-reactive="true"]');
+  document.querySelectorAll<HTMLDivElement>('.char-poses').forEach((el) => {
+    const poses = JSON.parse(el.dataset.poses || '{}');
+    const imgs = el.querySelectorAll<HTMLImageElement>('.pose');
+    let current = 'front';
 
-  nodes.forEach((node) => {
-    const stage = node.querySelector<HTMLElement>('.char-stage');
-    if (!stage) return;
-    const poses = Array.from(stage.querySelectorAll<HTMLImageElement>('.pose'));
-    const byName = Object.fromEntries(poses.map(p => [p.dataset.pose, p]));
-
-    const activate = (name: string) => {
-      const target = byName[name] || byName['front'];
-      if (!target) return;
-      poses.forEach(p => p.classList.toggle('is-active', p === target));
-    };
-
-    let hovering = false;
-    let currentZone: string = 'front';
-    let tx = 0, ty = 0, rx = 0, ry = 0;    // targets
-    let cx = 0, cy = 0, crx = 0, cry = 0;   // current (lerped)
-    let raf = 0;
-
-    const tick = () => {
-      // Lerp toward target for a smooth follow
-      cx += (tx - cx) * 0.08;
-      cy += (ty - cy) * 0.08;
-      crx += (rx - crx) * 0.08;
-      cry += (ry - cry) * 0.08;
-      stage.style.transform =
-        `translate3d(${cx.toFixed(2)}px, ${cy.toFixed(2)}px, 0) ` +
-        `rotateX(${crx.toFixed(2)}deg) rotateY(${cry.toFixed(2)}deg)`;
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-
-    // The character reacts to the cursor within its ancestor hero section
-    // (so cursor position across the whole hero drives the pose, not just
-    //  inside the character's own bounds).
-    const context = node.closest<HTMLElement>('.hero') || node.parentElement || node;
-
-    const onMove = (e: MouseEvent) => {
-      const rect = context.getBoundingClientRect();
-      const relX = (e.clientX - rect.left) / rect.width;   // 0..1
-      const relY = (e.clientY - rect.top) / rect.height;   // 0..1
-      const nx = Math.max(0, Math.min(1, relX));
-      const ny = Math.max(0, Math.min(1, relY));
-
-      // Parallax: character shifts and tilts toward cursor. Range is small
-      // on purpose — this is supposed to feel like awareness, not motion.
-      tx = (nx - 0.5) * 24;    // ±12px
-      ty = (ny - 0.5) * -12;   // ±6px (inverted so up = up)
-      ry = (nx - 0.5) * 12;    // ±6deg rotateY
-      rx = (ny - 0.5) * -6;    // ±3deg rotateX
-
-      // Pose zone — only swap while not hovering (hover forces wave)
-      if (!hovering) {
-        const zone = nx < 0.4 ? 'left' : nx > 0.6 ? 'right' : 'front';
-        if (zone !== currentZone) {
-          currentZone = zone;
-          activate(zone);
+    function show(name: string) {
+      if (name === current) return;
+      imgs.forEach((img) => {
+        const key = img.classList[1]?.replace('pose-', '');
+        if (key === name) {
+          img.classList.add('active');
+        } else {
+          img.classList.remove('active');
         }
-      }
-    };
+      });
+      current = name;
+    }
 
-    const onLeave = () => {
-      tx = 0; ty = 0; rx = 0; ry = 0;
-      if (!hovering) {
-        currentZone = 'front';
-        activate('front');
-      }
-    };
+    el.addEventListener('mouseenter', () => {
+      if (poses.wave) show('wave');
+    });
+    el.addEventListener('mouseleave', () => show('front'));
 
-    context.addEventListener('mousemove', onMove);
-    context.addEventListener('mouseleave', onLeave);
-
-    // Hover the character itself → wave
-    node.addEventListener('mouseenter', () => { hovering = true; activate('wave'); });
-    node.addEventListener('mouseleave', () => { hovering = false; activate(currentZone); });
+    document.addEventListener('mousemove', (e) => {
+      if (el.matches(':hover')) return;
+      const w = window.innerWidth;
+      const x = e.clientX / w;
+      if (x < 0.33 && poses.left) show('left');
+      else if (x > 0.66 && poses.right) show('right');
+      else show('front');
+    });
   });
 </script>
 
 <style>
   .character {
     width: var(--char-size);
-    height: auto;
     display: inline-block;
     position: relative;
-    perspective: 900px;
   }
-  .character svg { width: 100%; height: auto; overflow: visible; }
+  .character svg { width: 100%; height: auto; }
 
-  .char-image-wrap {
+  .char-poses, .char-single {
     position: relative;
     width: 100%;
-    transform-style: preserve-3d;
-    will-change: transform;
-    transition: transform var(--dur-med) var(--ease-out);
-    animation: breathe 5.4s ease-in-out infinite;
+    aspect-ratio: 1;
+  }
+  .pose {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    mix-blend-mode: multiply;
+  }
+  .pose.active { opacity: 1; }
+
+  .char-single:hover .hover-pose { opacity: 1; }
+  .char-single:hover .active:not(.hover-pose) { opacity: 0; }
+
+  .char-poses {
+    animation: breathe 4s ease-in-out infinite;
   }
   @keyframes breathe {
-    0%, 100% { transform: translateY(0) scale(1); }
-    50%      { transform: translateY(-3px) scale(1.007); }
-  }
-
-  .char-img,
-  .char-video {
-    width: 100%;
-    height: auto;
-    display: block;
-    mix-blend-mode: multiply;  /* hides white PNG backgrounds on light paper */
-  }
-
-  /* Reactive layered stage: all poses stacked, crossfade between them */
-  .char-stage {
-    position: relative;
-  }
-  .char-stage .pose {
-    transition: opacity var(--dur-med) var(--ease-out);
-  }
-  .char-stage .pose:not(:first-child) {
-    position: absolute;
-    inset: 0;
-  }
-  .char-stage .pose {
-    opacity: 0;
-  }
-  .char-stage .pose.is-active {
-    opacity: 1;
-  }
-
-  /* Single-image mode with hover swap */
-  .mode-image .char-img.hover {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    transition: opacity var(--dur-med) var(--ease-out);
-  }
-  .mode-image:hover .char-img.hover { opacity: 1; }
-
-  /* Dark mode: multiply against dark = invisible. Fall back to photo card
-     until PNGs are alpha-cut. */
-  :root[data-theme="dark"] .char-img,
-  :root[data-theme="dark"] .char-video {
-    mix-blend-mode: normal;
-  }
-  :root[data-theme="dark"] .char-image-wrap,
-  :root[data-theme="dark"] .char-video {
-    background: #ffffff;
-    border-radius: 8px;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) .char-img,
-    :root:not([data-theme="light"]) .char-video {
-      mix-blend-mode: normal;
-    }
-    :root:not([data-theme="light"]) .char-image-wrap,
-    :root:not([data-theme="light"]) .char-video {
-      background: #ffffff;
-      border-radius: 8px;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .char-image-wrap { animation: none; transition: none; }
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
   }
 </style>

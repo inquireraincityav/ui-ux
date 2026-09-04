@@ -1,145 +1,111 @@
 ---
-// A CSS-drawn iPhone-style frame. Three ways to fill it:
-//   1. `src` prop → renders that image as the screen (drop your real
-//      mobile screenshot in public/screens/ and pass the path).
-//   2. Named slot content → renders inside the screen area, letting you
-//      compose a custom placeholder UI.
-//   3. Neither → shows a generic placeholder UI so cards aren't empty
-//      before real screenshots exist.
 interface Props {
   src?: string;
   alt?: string;
-  scheme?: 'warm' | 'cool' | 'ink';   // color of the placeholder header
-  scale?: number;                     // 0..1 fraction of container width
+  scheme?: 'warm' | 'cool' | 'ink';
+  scale?: number;
 }
-const { src, alt = '', scheme = 'warm', scale = 0.5 } = Astro.props;
+const { src, alt = '', scheme = 'warm', scale = 0.55 } = Astro.props;
 const hasSlot = Astro.slots.has('default');
 ---
-<div class="phone" style={`--phone-scale:${scale};`}>
-  <span class="phone-island" aria-hidden="true"></span>
-  <div class="phone-screen">
-    {src ? (
-      <img src={src} alt={alt} class="phone-image" />
-    ) : hasSlot ? (
-      <slot />
-    ) : (
-      <div class={`ph-ui ph-${scheme}`}>
-        <div class="ph-status"><span>9:41</span><span aria-hidden="true">●●●</span></div>
-        <div class="ph-hero">
-          <div class="ph-title">Screen title</div>
-          <div class="ph-sub">Section subtitle line</div>
-          <span class="ph-cta">Action</span>
+<div class="phone" style={`--phone-scale:${scale}`}>
+  <div class="phone-bezel">
+    <div class="phone-notch" aria-hidden="true"></div>
+    <div class="phone-screen">
+      {src ? (
+        <img src={src} alt={alt} loading="lazy" />
+      ) : hasSlot ? (
+        <slot />
+      ) : (
+        <div class:list={["phone-placeholder", `scheme-${scheme}`]} aria-hidden="true">
+          <div class="ph-header"></div>
+          <div class="ph-card"></div>
+          <div class="ph-card short"></div>
+          <div class="ph-nav">
+            <span /><span /><span /><span />
+          </div>
         </div>
-        <div class="ph-list">
-          <div class="ph-card"><span class="ph-thumb"></span><div class="ph-lines"></div></div>
-          <div class="ph-card"><span class="ph-thumb"></span><div class="ph-lines"></div></div>
-          <div class="ph-card"><span class="ph-thumb"></span><div class="ph-lines"></div></div>
-        </div>
-        <div class="ph-nav">
-          <span></span><span></span><span></span><span></span>
-        </div>
-      </div>
-    )}
+      )}
+    </div>
+    <div class="phone-bar" aria-hidden="true"></div>
   </div>
 </div>
 
 <style>
   .phone {
-    width: calc(var(--phone-scale, 0.5) * 100%);
-    aspect-ratio: 9 / 19.5;
-    background: #0f0f0e;
-    border-radius: clamp(14px, 3.4%, 22px);
-    padding: 5px;
-    position: relative;
-    box-shadow: 0 12px 28px rgba(0,0,0,0.18);
-    max-width: 100%;
+    width: calc(var(--phone-scale, 0.55) * 100%);
+    max-width: 280px;
+    margin-inline: auto;
   }
-  .phone-island {
+  .phone-bezel {
+    position: relative;
+    background: #1a1a1a;
+    border-radius: 2.4rem;
+    padding: 0.75rem;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.18), inset 0 0 0 1px rgba(255,255,255,0.06);
+  }
+  .phone-notch {
     position: absolute;
-    top: 10px; left: 50%;
+    top: 0.75rem;
+    left: 50%;
     transform: translateX(-50%);
-    width: 28%; height: 6%;
-    max-height: 22px;
-    background: #0f0f0e;
-    border-radius: 999px;
+    width: 35%;
+    height: 1.6rem;
+    background: #1a1a1a;
+    border-radius: 0 0 1rem 1rem;
     z-index: 2;
   }
   .phone-screen {
-    width: 100%; height: 100%;
-    border-radius: clamp(10px, 2.5%, 18px);
+    position: relative;
+    border-radius: 1.8rem;
     overflow: hidden;
+    aspect-ratio: 9/19.5;
     background: #fff;
-    display: flex;
-    flex-direction: column;
   }
-  .phone-image {
-    width: 100%; height: 100%;
+  .phone-screen img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    display: block;
+  }
+  .phone-bar {
+    position: absolute;
+    bottom: 0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 36%;
+    height: 4px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 4px;
   }
 
-  /* Placeholder UI inside the screen */
-  .ph-ui {
+  .phone-placeholder {
+    width: 100%; height: 100%;
     display: flex; flex-direction: column;
-    height: 100%;
-    background: #fff;
-    color: #0f0f0e;
+    padding: 3rem 1rem 1rem;
+    gap: 0.6rem;
   }
-  .ph-status {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 3px 10px 2px;
-    font-size: 7px; font-weight: 700;
-    height: 20px;
+  .scheme-warm { background: linear-gradient(160deg, #f5e6d0 0%, #efe3d0 100%); }
+  .scheme-cool { background: linear-gradient(160deg, #dbe8f0 0%, #c8dae8 100%); }
+  .scheme-ink  { background: linear-gradient(160deg, #2a2a2a 0%, #1a1a1a 100%); }
+  .ph-header {
+    height: 14%; border-radius: 0.5rem;
+    background: rgba(0,0,0,0.08);
   }
-  .ph-hero {
-    padding: 10px;
-    color: #fff;
-  }
-  .ph-warm  .ph-hero { background: linear-gradient(135deg, #b8342a, #d4694f); }
-  .ph-cool  .ph-hero { background: linear-gradient(135deg, #1a3050, #4a7cff); }
-  .ph-ink   .ph-hero { background: linear-gradient(135deg, #0f0f0e, #3a3a35); }
-  .ph-title { font-size: 8px; font-weight: 700; margin-bottom: 2px; }
-  .ph-sub   { font-size: 6px; opacity: 0.85; }
-  .ph-cta {
-    display: inline-block;
-    margin-top: 6px;
-    background: #fff;
-    color: inherit;
-    padding: 2px 6px;
-    border-radius: 3px;
-    font-size: 6px; font-weight: 700;
-  }
-  .ph-warm .ph-cta { color: #b8342a; }
-  .ph-cool .ph-cta { color: #1a3050; }
-  .ph-ink  .ph-cta { color: #0f0f0e; }
-  .ph-list {
-    padding: 8px;
-    display: flex; flex-direction: column; gap: 4px;
-    flex: 1;
-  }
+  .scheme-ink .ph-header { background: rgba(255,255,255,0.08); }
   .ph-card {
-    background: #f4f4f4;
-    border-radius: 4px;
-    padding: 5px 6px;
-    display: flex; gap: 5px; align-items: center;
+    height: 22%; border-radius: 0.5rem;
+    background: rgba(0,0,0,0.05);
   }
-  .ph-thumb {
-    width: 12px; height: 12px;
-    background: #dcdcdc; border-radius: 3px;
-  }
-  .ph-lines { flex: 1; display: flex; flex-direction: column; gap: 2px; }
-  .ph-lines::before,
-  .ph-lines::after {
-    content: ""; height: 2px; background: #cfcfcf; border-radius: 2px;
-  }
-  .ph-lines::after { width: 60%; background: #e4e4e4; }
+  .ph-card.short { height: 14%; }
+  .scheme-ink .ph-card { background: rgba(255,255,255,0.05); }
   .ph-nav {
+    margin-top: auto;
     display: flex; justify-content: space-around;
-    padding: 4px 0;
-    background: #fff; border-top: 1px solid #eee;
+    padding: 0.5rem 0;
   }
   .ph-nav span {
-    width: 6px; height: 6px; border-radius: 50%;
-    background: #ddd;
+    width: 20%; height: 4px; border-radius: 2px;
+    background: rgba(0,0,0,0.1);
   }
+  .scheme-ink .ph-nav span { background: rgba(255,255,255,0.1); }
 </style>

@@ -6,142 +6,90 @@ import { getCollection } from 'astro:content';
 
 const studies = (await getCollection('case-studies', ({ data }) => !data.draft))
   .sort((a, b) => a.data.order - b.data.order);
-const base = import.meta.env.BASE_URL;
 ---
-<BaseLayout title="SJAI Studio — Product designer, web + mobile">
+<BaseLayout title="SJAI Studio — UI/UX Portfolio">
   <Hero />
 
   <section id="work" class="work wrap">
-    <header class="work-header">
+    <div class="section-head">
+      <p class="eyebrow">Work</p>
       <h2>Five projects worth reading in full.</h2>
-      <div class="subline">Ordered chronologically ↓</div>
-    </header>
+    </div>
 
-    <div class="cases">
+    <div class="cs-grid">
       {studies.map((s) => (
         <CaseStudyCard
           title={s.data.title}
           subtitle={s.data.subtitle}
-          summary={s.data.summary}
-          href={`${base}work/${s.slug}`}
-          index={s.data.order}
+          role={s.data.role}
           year={s.data.year}
+          summary={s.data.summary}
+          cover={s.data.cover}
+          href={`${import.meta.env.BASE_URL}work/${s.slug}`}
+          index={s.data.order}
           type={s.data.type}
           canvas={s.data.canvas}
-          cover={s.data.cover}
           coverScheme={s.data.coverScheme}
         />
       ))}
     </div>
   </section>
 
-  <section class="close wrap">
-    <div class="close-grid">
-      <div>
-        <p class="eyebrow">Currently</p>
-        <p class="close-line">
-          Available for freelance and contract engagements starting in Q1 2026.
-          Prefer web and mobile product work at the design-and-build stage.
-        </p>
-      </div>
-      <div class="close-cta">
-        <a href="mailto:inquire.raincityav@gmail.com" class="close-link">
-          <span>Say hello</span>
-          <span class="arrow">→</span>
-        </a>
-        <p class="small">inquire.raincityav@gmail.com</p>
-      </div>
-    </div>
+  <section class="currently wrap">
+    <hr class="rule" />
+    <p class="eyebrow">Currently</p>
+    <p class="currently-text">
+      Taking on freelance and contract work for Q1 2026.
+      <a href="mailto:inquire.raincityav@gmail.com">Say hello →</a>
+    </p>
   </section>
 </BaseLayout>
 
 <style>
-  .work {
-    padding-block: 5rem 3rem;
-  }
-  .work-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: end;
-    gap: 2rem;
-    padding-bottom: 3.5rem;
-  }
-  .work-header h2 {
+  .work { padding-block: 5rem 4rem; }
+  .section-head { margin-bottom: 3rem; }
+  .section-head h2 {
+    margin-top: 0.75rem;
     max-width: 20ch;
-    margin: 0;
-  }
-  .work-header .subline {
-    font-size: var(--step--2);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-    white-space: nowrap;
-    padding-bottom: 0.5rem;
-  }
-  .cases {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 3.5rem 2.5rem;
-  }
-  @media (max-width: 1100px) {
-    .cases { grid-template-columns: repeat(2, 1fr); gap: 3rem 2.5rem; }
-  }
-  @media (max-width: 700px) {
-    .work-header { flex-direction: column; align-items: start; gap: 0.5rem; padding-bottom: 2.5rem; }
-    .cases { grid-template-columns: 1fr; gap: 3rem; }
+    font-weight: 400;
   }
 
-  .close {
-    padding-block: 5rem 2rem;
-    border-top: 1px solid var(--rule);
-    margin-top: 4rem;
-  }
-  .close-grid {
+  .cs-grid {
     display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    gap: 3rem;
-    align-items: start;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem 1.5rem;
   }
-  .close-line {
+  @media (max-width: 1024px) {
+    .cs-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .cs-grid { grid-template-columns: 1fr; }
+  }
+
+  .currently {
+    padding-block: 0 6rem;
+  }
+  .currently .rule {
+    border: 0;
+    height: 1px;
+    background: var(--rule);
+    margin-bottom: 3rem;
+  }
+  .currently-text {
     font-family: var(--font-display);
     font-optical-sizing: auto;
-    font-variation-settings: "opsz" 32;
-    font-weight: 400;
-    font-size: clamp(1.4rem, 2.2vw, 1.85rem);
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-    max-width: 32ch;
+    font-size: var(--step-2);
+    color: var(--ink-2);
     margin-top: 1rem;
-    color: var(--ink);
+    max-width: 36ch;
   }
-  .close-cta { align-self: end; text-align: right; }
-  .close-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    font-family: var(--font-display);
-    font-optical-sizing: auto;
-    font-variation-settings: "opsz" 48;
-    font-weight: 400;
-    font-size: clamp(2rem, 3.5vw, 3rem);
-    line-height: 1;
-    letter-spacing: -0.03em;
-    color: var(--ink);
+  .currently-text a {
+    color: var(--accent);
     text-decoration: none;
-    padding-bottom: 0.25rem;
-    border-bottom: 1px solid var(--rule);
-    transition: color var(--dur-fast), border-color var(--dur-fast);
+    font-weight: 500;
   }
-  .close-link:hover { color: var(--accent); border-color: var(--accent); }
-  .close-link .arrow { color: var(--ink-4); transition: transform var(--dur-med) var(--ease-out); }
-  .close-link:hover .arrow { color: var(--accent); transform: translate(6px, -6px); }
-  .close-cta .small {
-    margin-top: 0.75rem;
-    font-size: var(--step--1);
-    color: var(--ink-3);
-  }
-  @media (max-width: 820px) {
-    .close-grid { grid-template-columns: 1fr; gap: 2rem; }
-    .close-cta { text-align: left; }
+  .currently-text a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 </style>

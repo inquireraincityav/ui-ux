@@ -1,46 +1,34 @@
 ---
-// A CSS-drawn browser window. Same three fill modes as PhoneFrame:
-//   1. `src` prop → renders that image as the browser body.
-//   2. Default slot → renders inside the body area.
-//   3. Neither → generic placeholder web UI.
 interface Props {
   src?: string;
   alt?: string;
-  scheme?: 'warm' | 'cool' | 'ink';
   url?: string;
+  scheme?: 'warm' | 'cool' | 'ink';
 }
-const { src, alt = '', scheme = 'warm', url } = Astro.props;
+const { src, alt = '', url, scheme = 'warm' } = Astro.props;
 const hasSlot = Astro.slots.has('default');
 ---
 <div class="browser">
   <div class="browser-chrome">
-    <span class="dot dot-1" aria-hidden="true"></span>
-    <span class="dot dot-2" aria-hidden="true"></span>
-    <span class="dot dot-3" aria-hidden="true"></span>
-    {url && <span class="url">{url}</span>}
+    <div class="traffic" aria-hidden="true">
+      <span class="dot red"></span>
+      <span class="dot yellow"></span>
+      <span class="dot green"></span>
+    </div>
+    {url && <div class="address-bar">{url}</div>}
   </div>
-  <div class="browser-body">
+  <div class="browser-viewport">
     {src ? (
-      <img src={src} alt={alt} class="browser-image" />
+      <img src={src} alt={alt} loading="lazy" />
     ) : hasSlot ? (
       <slot />
     ) : (
-      <div class={`bw-ui bw-${scheme}`}>
-        <div class="bw-nav">
-          <div class="bw-brand"></div>
-          <div class="bw-links">
-            <span></span><span></span><span></span><span></span>
-          </div>
-        </div>
-        <div class="bw-hero">
-          <div class="bw-copy">
-            <div class="bw-h1"></div>
-            <div class="bw-h2"></div>
-            <div class="bw-p"></div>
-            <div class="bw-p bw-p-short"></div>
-            <span class="bw-cta"></span>
-          </div>
-          <div class="bw-media"></div>
+      <div class:list={["browser-placeholder", `scheme-${scheme}`]} aria-hidden="true">
+        <div class="bp-hero"></div>
+        <div class="bp-cols">
+          <div class="bp-col"></div>
+          <div class="bp-col"></div>
+          <div class="bp-col"></div>
         </div>
       </div>
     )}
@@ -49,92 +37,63 @@ const hasSlot = Astro.slots.has('default');
 
 <style>
   .browser {
-    width: 100%;
-    aspect-ratio: 16 / 10;
-    background: #fff;
-    border: 1px solid var(--rule);
-    border-radius: 10px;
+    border-radius: 0.5rem;
     overflow: hidden;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.10);
-    display: flex; flex-direction: column;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    border: 1px solid rgba(0,0,0,0.08);
   }
   .browser-chrome {
-    height: 24px;
-    background: #efeee9;
-    display: flex; align-items: center; gap: 5px;
-    padding: 0 10px;
-    border-bottom: 1px solid var(--rule);
-    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 0.75rem;
+    background: #e8e8e6;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
   }
-  .dot { width: 9px; height: 9px; border-radius: 50%; }
-  .dot-1 { background: #ec5f5b; }
-  .dot-2 { background: #f5b74a; }
-  .dot-3 { background: #62c454; }
-  .url {
-    margin-left: 12px;
-    padding: 2px 8px;
-    background: #fff;
-    border: 1px solid #dedbd2;
+  .traffic { display: flex; gap: 5px; flex-shrink: 0; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot.red    { background: #ff5f57; }
+  .dot.yellow { background: #ffbd2e; }
+  .dot.green  { background: #28c840; }
+  .address-bar {
+    flex: 1;
+    background: rgba(0,0,0,0.06);
     border-radius: 4px;
-    font-family: var(--font-mono, monospace);
-    font-size: 9px;
-    color: #837c68;
-  }
-  .browser-body {
-    flex: 1;
-    background: #fff;
+    padding: 0.2rem 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--ink-3);
+    white-space: nowrap;
     overflow: hidden;
-    position: relative;
+    text-overflow: ellipsis;
   }
-  .browser-image {
+  .browser-viewport {
+    aspect-ratio: 16/10;
+    overflow: hidden;
+    background: #fff;
+  }
+  .browser-viewport img {
+    width: 100%; height: 100%; object-fit: cover;
+  }
+
+  .browser-placeholder {
     width: 100%; height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  /* Placeholder web UI */
-  .bw-ui {
-    padding: 14px 18px;
-    height: 100%;
     display: flex; flex-direction: column;
-    color: #0f0f0e;
-    background: #fafafa;
+    padding: 1.5rem;
+    gap: 1rem;
   }
-  .bw-warm { background: #fbf9f4; }
-  .bw-cool { background: #f4f7fb; }
-  .bw-ink  { background: #16130f; color: #eee8dc; }
-
-  .bw-nav {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 14px;
+  .scheme-warm { background: linear-gradient(160deg, #f5e6d0 0%, #efe3d0 100%); }
+  .scheme-cool { background: linear-gradient(160deg, #dbe8f0 0%, #c8dae8 100%); }
+  .scheme-ink  { background: linear-gradient(160deg, #2a2a2a 0%, #1a1a1a 100%); }
+  .bp-hero {
+    height: 40%; border-radius: 0.4rem;
+    background: rgba(0,0,0,0.06);
   }
-  .bw-brand { width: 28px; height: 6px; background: currentColor; border-radius: 2px; }
-  .bw-links { display: flex; gap: 8px; }
-  .bw-links span {
-    width: 18px; height: 5px;
-    background: currentColor;
-    opacity: 0.35;
-    border-radius: 2px;
+  .scheme-ink .bp-hero { background: rgba(255,255,255,0.06); }
+  .bp-cols { display: flex; gap: 0.75rem; flex: 1; }
+  .bp-col {
+    flex: 1; border-radius: 0.4rem;
+    background: rgba(0,0,0,0.04);
   }
-  .bw-hero {
-    display: flex; gap: 16px; align-items: center;
-    flex: 1;
-  }
-  .bw-copy { flex: 1; display: flex; flex-direction: column; gap: 6px; }
-  .bw-h1 { height: 10px; width: 90%; background: currentColor; border-radius: 3px; }
-  .bw-h2 { height: 10px; width: 65%; background: currentColor; border-radius: 3px; }
-  .bw-p  { height: 4px; width: 80%; background: currentColor; opacity: 0.4; border-radius: 2px; margin-top: 3px; }
-  .bw-p-short { width: 60%; }
-  .bw-cta {
-    margin-top: 8px; height: 14px; width: 70px;
-    background: var(--accent, #b8342a);
-    border-radius: 3px;
-  }
-  .bw-media {
-    width: 38%; aspect-ratio: 1;
-    background: linear-gradient(135deg, #efe3d0, #d4a97f);
-    border-radius: 6px;
-  }
-  .bw-cool .bw-media { background: linear-gradient(135deg, #c8d8f0, #7a9fd4); }
-  .bw-ink  .bw-media { background: linear-gradient(135deg, #3a3a35, #1a1a17); }
+  .scheme-ink .bp-col { background: rgba(255,255,255,0.04); }
 </style>

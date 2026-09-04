@@ -5,140 +5,103 @@ import BrowserFrame from './BrowserFrame.astro';
 interface Props {
   title: string;
   subtitle?: string;
+  role: string;
+  year: string;
   summary: string;
   href: string;
   index: number;
-  year: string;
-  type: 'web' | 'mobile' | 'both';
+  type?: 'web' | 'mobile' | 'both';
   canvas?: 'light' | 'warm' | 'dark';
-  cover?: string;
   coverScheme?: 'warm' | 'cool' | 'ink';
+  cover?: string;
 }
 const {
-  title,
-  subtitle,
-  summary,
-  href,
-  index,
-  year,
-  type,
-  canvas = 'light',
-  cover,
-  coverScheme = 'warm',
+  title, subtitle, role, year, summary, href, index,
+  type = 'web', canvas = 'light', coverScheme = 'warm', cover,
 } = Astro.props;
-
-const num = String(index).padStart(2, '0');
-const typeLabel =
-  type === 'both' ? 'Web + Mobile'
-  : type === 'mobile' ? 'Mobile'
-  : 'Web';
 ---
-<article class="case">
-  <a class="case-canvas-link" href={href} aria-label={`Open case study: ${title}`}>
-    <div class={`case-canvas canvas-${canvas}`}>
-      {type === 'mobile' && <PhoneFrame src={cover} alt={title} scheme={coverScheme} scale={0.44} />}
-      {type === 'web'    && <BrowserFrame src={cover} alt={title} scheme={coverScheme} />}
-      {type === 'both'   && (
-        <div class="dual">
-          <BrowserFrame scheme={coverScheme} />
-          <div class="dual-phone">
-            <PhoneFrame scheme={coverScheme} scale={1} />
-          </div>
-        </div>
-      )}
-    </div>
-  </a>
-
-  <div class="case-meta">
-    <span>№ {num} — {typeLabel}</span>
-    <span>{year}</span>
+<a class="tile" href={href}>
+  <div class:list={["tile-canvas", `canvas-${canvas}`]}>
+    {type === 'mobile' && <PhoneFrame scheme={coverScheme} />}
+    {type === 'web' && <BrowserFrame scheme={coverScheme} />}
+    {type === 'both' && (
+      <div class="tile-both">
+        <BrowserFrame scheme={coverScheme} />
+        <PhoneFrame scheme={coverScheme} scale={0.4} />
+      </div>
+    )}
   </div>
-  <h3 class="case-title">
-    <a href={href}>{title}{subtitle && <span class="subtitle"> — {subtitle}</span>}</a>
-  </h3>
-  <p class="case-desc">{summary}</p>
-</article>
+  <div class="tile-info">
+    <div class="tile-meta">
+      <span class="tile-num">{String(index).padStart(2, '0')}</span>
+      <span class="tile-role">{role}</span>
+      <span class="tile-year">{year}</span>
+    </div>
+    <h3 class="tile-title">{title}</h3>
+    {subtitle && <p class="tile-sub">{subtitle}</p>}
+  </div>
+</a>
 
 <style>
-  .case {
+  .tile {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
-  }
-  .case-canvas-link {
-    display: block;
     text-decoration: none;
     color: inherit;
-  }
-  .case-canvas {
-    aspect-ratio: 4 / 3;
     border-radius: 4px;
-    border: 1px solid var(--rule);
-    padding: clamp(1.5rem, 4%, 3rem);
-    display: grid;
-    place-items: center;
     overflow: hidden;
     transition: transform var(--dur-med) var(--ease-out);
   }
-  .case-canvas-link:hover .case-canvas {
-    transform: translateY(-4px);
-  }
-  .canvas-light { background: var(--canvas); }
-  .canvas-warm  { background: var(--canvas-warm); border-color: #d9c6a8; }
-  .canvas-dark  { background: var(--canvas-dark); border-color: var(--canvas-dark); }
+  .tile:hover { transform: translateY(-4px); }
+  .tile:hover .tile-title { color: var(--accent); }
 
-  .case-meta {
+  .tile-canvas {
+    aspect-ratio: 4/3;
+    display: grid;
+    place-items: center;
+    padding: 2rem;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .canvas-light { background: var(--canvas); border: 1px solid var(--rule); }
+  .canvas-warm  { background: var(--canvas-warm); border: 1px solid #d9c6a8; }
+  .canvas-dark  { background: var(--canvas-dark); border: 1px solid var(--canvas-dark); }
+
+  .tile-both {
+    display: grid;
+    grid-template-columns: 1.4fr 0.6fr;
+    gap: 1rem;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .tile-info { padding: 1rem 0.25rem; }
+  .tile-meta {
     display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    font-size: var(--step--2);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    gap: 0.75rem;
+    align-items: center;
+    font-size: var(--step--1);
     color: var(--ink-3);
   }
-  .case-title {
+  .tile-num { color: var(--accent); font-weight: 600; }
+  .tile-title {
     font-family: var(--font-display);
     font-optical-sizing: auto;
-    font-variation-settings: "opsz" 24;
-    font-weight: 500;
     font-size: var(--step-2);
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-    color: var(--ink);
-    text-wrap: balance;
-    margin: 0;
+    margin-top: 0.4rem;
+    transition: color var(--dur-fast);
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 2px;
   }
-  .case-title a {
-    color: inherit;
-    text-decoration: none;
-    background-image: linear-gradient(var(--accent), var(--accent));
-    background-repeat: no-repeat;
-    background-size: 0% 1px;
-    background-position: 0 100%;
-    transition: background-size var(--dur-med) var(--ease-out), color var(--dur-fast);
+  .tile:hover .tile-title {
+    text-decoration-color: var(--accent);
   }
-  .case-title a:hover {
-    color: var(--accent);
-    background-size: 100% 1px;
-  }
-  .case-title .subtitle { color: var(--ink-3); font-weight: 400; }
-  .case-desc {
-    font-size: var(--step-0);
-    color: var(--ink-2);
-    line-height: 1.55;
-    max-width: 48ch;
-  }
-
-  /* dual-device layout for "both" case studies */
-  .dual {
-    position: relative;
-    width: 100%;
-    display: grid; place-items: center;
-  }
-  .dual-phone {
-    position: absolute;
-    right: -6%; bottom: -12%;
-    width: 32%;
-    z-index: 2;
+  .tile-sub {
+    color: var(--ink-3);
+    font-size: var(--step--1);
+    margin-top: 0.25rem;
   }
 </style>

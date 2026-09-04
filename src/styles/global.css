@@ -1,47 +1,47 @@
-/* ─── Design tokens · Studio (light only) ────────────────────── */
+/* ─── Studio design tokens ──────────────────────────────────────── */
 :root {
   color-scheme: light only;
 
-  /* Warm off-white paper with muted stone neutrals */
+  /* Palette */
   --paper: #f5f4f0;
-  --paper-2: #ecebe5;
+  --paper-2: #eeedea;
   --ink: #0f0f0e;
-  --ink-2: #4a473f;
-  --ink-3: #837c68;
-  --ink-4: #a89f88;
-  --rule: #dedbd2;
-  --rule-soft: #e6e3d9;
+  --ink-2: #3d3d3a;
+  --ink-3: #6e6e68;
+  --ink-4: #a0a09a;
+  --rule: #ddddd8;
+  --rule-soft: #e8e8e4;
   --accent: #b8342a;
-  --accent-soft: rgba(184, 52, 42, 0.08);
+  --accent-soft: rgba(184, 52, 42, 0.12);
 
-  /* Semantic surfaces for device canvases */
+  /* Canvas tokens for device frames */
   --canvas: #ecebe5;
   --canvas-warm: #efe3d0;
   --canvas-dark: #14140f;
 
   /* Type */
-  --font-display: "Bricolage Grotesque", "Inter", system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque", system-ui, sans-serif;
   --font-body: "Inter", system-ui, -apple-system, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
 
-  /* Type scale (tight, editorial rhythm) */
-  --step--2: 0.72rem;
-  --step--1: 0.82rem;
-  --step-0:  0.95rem;
-  --step-1:  clamp(1.05rem, 1rem + 0.25vw, 1.2rem);
-  --step-2:  clamp(1.25rem, 1.15rem + 0.5vw, 1.55rem);
-  --step-3:  clamp(1.6rem, 1.4rem + 0.9vw, 2.1rem);
-  --step-4:  clamp(2rem, 1.7rem + 1.4vw, 2.85rem);
-  --step-5:  clamp(2.75rem, 2.2rem + 2.5vw, 4rem);
-  --step-6:  clamp(3.5rem, 2.6rem + 4vw, 5.5rem);
+  /* Rhythm */
+  --step--2: clamp(0.72rem, 0.68rem + 0.18vw, 0.80rem);
+  --step--1: clamp(0.83rem, 0.78rem + 0.24vw, 0.94rem);
+  --step-0: clamp(1rem, 0.94rem + 0.31vw, 1.13rem);
+  --step-1: clamp(1.2rem, 1.11rem + 0.44vw, 1.4rem);
+  --step-2: clamp(1.44rem, 1.31rem + 0.65vw, 1.75rem);
+  --step-3: clamp(1.73rem, 1.53rem + 0.98vw, 2.19rem);
+  --step-4: clamp(2.07rem, 1.78rem + 1.47vw, 2.73rem);
+  --step-5: clamp(2.49rem, 2.05rem + 2.19vw, 3.42rem);
+  --step-6: clamp(2.99rem, 2.35rem + 3.19vw, 4.27rem);
 
   /* Layout */
   --page-max: 1440px;
-  --gutter: clamp(1.5rem, 4vw, 3.5rem);
+  --gutter: clamp(1rem, 4vw, 3rem);
 
   /* Motion */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --dur-fast: 160ms;
+  --dur-fast: 180ms;
   --dur-med: 380ms;
   --dur-slow: 680ms;
 }
@@ -64,27 +64,26 @@ body {
 img, svg, video, canvas { display: block; max-width: 100%; height: auto; }
 button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
 a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 3px; }
-a:hover { color: var(--accent); }
+a:hover { text-decoration-color: var(--accent); }
 
 /* ─── Type ──────────────────────────────────────────────────────── */
 h1, h2, h3, h4 {
   font-family: var(--font-display);
   font-optical-sizing: auto;
-  font-weight: 400;
-  letter-spacing: -0.02em;
+  font-weight: 500;
   line-height: 1.05;
-  text-wrap: balance;
+  letter-spacing: -0.02em;
 }
-h1 { font-size: var(--step-6); font-variation-settings: "opsz" 96; font-weight: 300; }
-h2 { font-size: var(--step-4); font-variation-settings: "opsz" 48; font-weight: 400; }
-h3 { font-size: var(--step-2); font-variation-settings: "opsz" 24; font-weight: 500; }
-h4 { font-size: var(--step-1); font-variation-settings: "opsz" 18; font-weight: 500; }
-p  { max-width: 68ch; }
+h1 { font-size: var(--step-6); }
+h2 { font-size: var(--step-5); }
+h3 { font-size: var(--step-3); }
+h4 { font-size: var(--step-2); }
+p { max-width: 68ch; }
 
 .eyebrow {
   font-family: var(--font-body);
-  font-size: var(--step--2);
-  letter-spacing: 0.18em;
+  font-size: var(--step--1);
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ink-3);
   font-weight: 500;
@@ -96,7 +95,10 @@ p  { max-width: 68ch; }
   margin-inline: auto;
   padding-inline: var(--gutter);
 }
-.rule {
+.stack > * + * { margin-top: 1.25rem; }
+.stack-lg > * + * { margin-top: 2.5rem; }
+
+hr.rule {
   border: 0;
   height: 1px;
   background: var(--rule);
