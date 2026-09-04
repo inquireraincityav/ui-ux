@@ -111,12 +111,14 @@ const experience = [
     <div class="exp-list">
       {experience.map((e) => (
         <div class="exp-item">
-          <div class="exp-header">
-            <h3>{e.role}</h3>
+          <div class="exp-meta">
             <span class="exp-period">{e.period}</span>
           </div>
-          <p class="exp-company">{e.company}</p>
-          <p class="exp-desc">{e.description}</p>
+          <div class="exp-content">
+            <h3>{e.role}</h3>
+            <p class="exp-company">{e.company}</p>
+            <p class="exp-desc">{e.description}</p>
+          </div>
         </div>
       ))}
     </div>
@@ -217,7 +219,7 @@ const experience = [
     border-top: 1px solid var(--rule-soft);
   }
 
-  /* Experience */
+  /* Experience - timeline style */
   .experience-section { padding-bottom: 6rem; }
   .exp-list {
     margin-top: 2rem;
@@ -225,27 +227,39 @@ const experience = [
     flex-direction: column;
   }
   .exp-item {
-    padding: 1.5rem 0;
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 2rem;
+    padding: 1.75rem 0;
     border-bottom: 1px solid var(--rule);
+    align-items: start;
   }
   .exp-item:first-child {
     border-top: 1px solid var(--rule);
   }
-  .exp-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 1rem;
+  .exp-meta {
+    position: relative;
+    padding-left: 1.25rem;
   }
-  .exp-header h3 {
-    font-size: var(--step-1);
-    font-weight: 500;
-    margin: 0;
+  .exp-meta::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.45rem;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
   }
   .exp-period {
     font-size: var(--step--1);
     color: var(--ink-3);
     white-space: nowrap;
+  }
+  .exp-content h3 {
+    font-size: var(--step-1);
+    font-weight: 500;
+    margin: 0;
   }
   .exp-company {
     color: var(--ink-3);
@@ -263,6 +277,8 @@ const experience = [
     .about-grid { grid-template-columns: 1fr; gap: 3rem; }
     .about-side { position: static; }
     .skills-grid { grid-template-columns: 1fr; gap: 2rem; }
-    .exp-header { flex-direction: column; gap: 0.25rem; }
+    .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    .exp-meta { padding-left: 0; }
+    .exp-meta::before { display: none; }
   }
 </style>

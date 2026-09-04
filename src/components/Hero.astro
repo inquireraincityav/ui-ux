@@ -1,14 +1,20 @@
 ---
-// Hero: tall editorial section, text anchored to bottom-left.
+// Hero: full-viewport section with dramatic whitespace, text anchored bottom-left.
 ---
 <section class="hero wrap">
   <div class="hero-foot">
-    <p class="hero-role">UI/UX Designer - Vancouver, BC</p>
+    <p class="hero-name">SJAI Studio</p>
+    <p class="hero-role">UI/UX Designer · Vancouver, BC</p>
     <h1 class="statement">
       Designing interfaces for <em>web</em> and <em>mobile</em> products
       - built with the person on the other end in mind.
     </h1>
-    <p class="hero-tags">Web Design · Mobile Apps · Real Estate · Healthcare</p>
+    <div class="hero-tags">
+      <span class="tag">Web Design</span>
+      <span class="tag">Mobile Apps</span>
+      <span class="tag">Real Estate</span>
+      <span class="tag">Healthcare</span>
+    </div>
     <div class="hero-actions">
       <a href="#work" class="hero-cta">Explore My Work</a>
       <span class="k-avail">
@@ -21,50 +27,73 @@
 
 <style>
   .hero {
-    min-height: 80vh;
+    height: 100vh;
+    min-height: 600px;
+    max-height: 1200px;
     display: flex;
     align-items: flex-end;
-    padding-block: 4rem;
+    padding-bottom: clamp(3rem, 6vh, 5rem);
     border-bottom: 1px solid var(--rule);
+    position: relative;
   }
   .hero-foot {
-    width: 100%;
-    max-width: 48rem;
+    max-width: 42rem;
+  }
+  .hero-name {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    font-variation-settings: "opsz" 48;
+    font-weight: 500;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin: 0;
+    text-align: left;
   }
   .hero-role {
     font-size: var(--step--1);
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
     color: var(--ink-3);
-    font-weight: 500;
-    margin-bottom: 1.5rem;
+    font-weight: 400;
+    margin-top: 0.35rem;
     text-align: left;
   }
   .statement {
     font-family: var(--font-display);
     font-optical-sizing: auto;
-    font-variation-settings: "opsz" 96;
+    font-variation-settings: "opsz" 48;
     font-weight: 300;
-    font-size: clamp(2.5rem, 6vw, 5.5rem);
-    line-height: 1.02;
-    letter-spacing: -0.03em;
-    color: var(--ink);
-    text-wrap: balance;
-    max-width: 22ch;
-    margin: 0;
+    font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--ink-2);
+    max-width: 38ch;
+    margin-top: 1.25rem;
     text-align: left;
+    text-wrap: balance;
   }
   .statement em {
     font-style: italic;
-    font-variation-settings: "opsz" 96, "wght" 400;
+    font-variation-settings: "opsz" 48, "wght" 400;
     color: var(--accent);
   }
   .hero-tags {
-    font-size: var(--step--1);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.75rem;
+  }
+  .tag {
+    display: inline-block;
+    padding: 0.3rem 0.85rem;
+    border: 1px solid var(--rule);
+    border-radius: 100px;
+    font-size: var(--step--2);
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     color: var(--ink-3);
-    margin-top: 2rem;
-    letter-spacing: 0.04em;
-    text-align: left;
+    background: transparent;
+    white-space: nowrap;
   }
   .hero-actions {
     display: flex;
@@ -76,7 +105,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.75rem 1.75rem;
+    padding: 0.7rem 1.6rem;
     background: var(--ink);
     color: var(--paper);
     font-family: var(--font-body);
@@ -113,8 +142,9 @@
 
   @media (max-width: 820px) {
     .hero {
-      min-height: 60vh;
-      padding-block: 2.5rem;
+      height: auto;
+      min-height: 85vh;
+      padding-bottom: 2.5rem;
     }
     .hero-actions {
       flex-direction: column;

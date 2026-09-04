@@ -17,6 +17,8 @@ const caseStudies = defineCollection({
     coverScheme: z.enum(['warm', 'cool', 'ink']).default('warm'),
     client: z.string().optional(),
     duration: z.string().optional(),
+    impact: z.string().optional(),
+    team: z.string().optional(),
     tools: z.array(z.string()).default([]),
     outcomes: z.array(z.string()).default([]),
   }),

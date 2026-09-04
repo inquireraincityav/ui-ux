@@ -46,24 +46,28 @@ const studies = (await getCollection('case-studies', ({ data }) => !data.draft))
     <p class="eyebrow">Currently</p>
     <p class="currently-text">
       Taking on freelance and contract work for Q1 2026.
-      <a href="mailto:inquire.raincityav@gmail.com">Say hello →</a>
+      <a href="mailto:inquire.raincityav@gmail.com">Say hello &rarr;</a>
     </p>
   </section>
 </BaseLayout>
 
 <style>
-  .work { padding-block: 5rem 4rem; }
+  .work { padding-block: 6rem 4rem; }
   .work-header {
     text-align: center;
     max-width: 640px;
     margin-inline: auto;
-    margin-bottom: 4rem;
+    margin-bottom: 5rem;
   }
   .work-header h2 {
-    font-size: var(--step-6);
-    font-weight: 400;
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    font-variation-settings: "opsz" 96;
+    font-weight: 300;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
     margin-top: 0.5rem;
     letter-spacing: -0.03em;
+    line-height: 1;
   }
   .work-desc {
     margin-top: 1.25rem;
@@ -74,8 +78,8 @@ const studies = (await getCollection('case-studies', ({ data }) => !data.draft))
   }
   .work-cta {
     display: inline-block;
-    margin-top: 1.5rem;
-    padding: 0.65rem 1.5rem;
+    margin-top: 1.75rem;
+    padding: 0.7rem 1.6rem;
     background: var(--ink);
     color: var(--paper);
     font-size: var(--step--1);
@@ -93,7 +97,7 @@ const studies = (await getCollection('case-studies', ({ data }) => !data.draft))
   .cs-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2rem 1.5rem;
+    gap: 2.5rem 1.75rem;
   }
   @media (max-width: 1024px) {
     .cs-grid { grid-template-columns: repeat(2, 1fr); }

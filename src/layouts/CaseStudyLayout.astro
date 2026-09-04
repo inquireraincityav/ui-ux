@@ -10,6 +10,8 @@ interface Props {
     summary: string;
     client?: string;
     duration?: string;
+    impact?: string;
+    team?: string;
     tools?: string[];
     outcomes?: string[];
     order: number;
@@ -26,7 +28,7 @@ const base = import.meta.env.BASE_URL;
 <BaseLayout title={`${frontmatter.title} - Case Study`} description={frontmatter.summary}>
   <article class="cs">
     <header class="cs-hero wrap">
-      <a class="back" href={`${base}#work`}>← Back to index</a>
+      <a class="back" href={`${base}#work`}>&larr; Back to index</a>
 
       <div class="cs-hero-grid">
         <aside class="cs-sidebar">
@@ -40,10 +42,22 @@ const base = import.meta.env.BASE_URL;
             <dt>Role</dt>
             <dd>{frontmatter.role}</dd>
           </div>
+          {frontmatter.impact && (
+            <div class="meta-item">
+              <dt>Impact</dt>
+              <dd>{frontmatter.impact}</dd>
+            </div>
+          )}
           {frontmatter.duration && (
             <div class="meta-item">
               <dt>Duration</dt>
               <dd>{frontmatter.duration}</dd>
+            </div>
+          )}
+          {frontmatter.team && (
+            <div class="meta-item">
+              <dt>Team</dt>
+              <dd>{frontmatter.team}</dd>
             </div>
           )}
           {frontmatter.tools && frontmatter.tools.length > 0 && (
@@ -77,8 +91,8 @@ const base = import.meta.env.BASE_URL;
     )}
 
     <nav class="cs-nav wrap">
-      <a href={`${base}#work`}>← Back to index</a>
-      <a href="mailto:inquire.raincityav@gmail.com">Get in touch →</a>
+      <a href={`${base}#work`}>&larr; Back to index</a>
+      <a href="mailto:inquire.raincityav@gmail.com">Get in touch &rarr;</a>
     </nav>
   </article>
 
@@ -222,7 +236,7 @@ const base = import.meta.env.BASE_URL;
       font-weight: 400;
     }
     .cs-outcomes li::before {
-      content: "→";
+      content: "\2192";
       position: absolute; left: 0; top: 0;
       color: var(--accent);
       font-weight: 700;
