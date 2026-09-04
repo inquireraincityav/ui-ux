@@ -1,76 +1,138 @@
 ---
-title: "Case Study One"
-subtitle: "short project subtitle"
-role: "Lead Product Designer"
-year: "2025"
+title: "SeniorCircle"
+subtitle: "A social discovery app for seniors 75+"
+role: "Lead UX Designer"
+year: "2024"
 order: 1
-type: "web"
+type: "mobile"
 canvas: "warm"
 coverScheme: "warm"
-summary: "One or two sentences describing the project, your role in it, and the outcome. Placeholder — replace with your real writeup."
-client: "Client / Company Name"
-duration: "6 weeks"
+summary: "A social discovery and events app for adults 75 and older — built around accessibility, community, and the loneliness that follows retirement. I led UX from research through hi-fi, with two collaborators on the design side."
+client: "Team project · with Jaival Shah &amp; Harsh Boken"
+duration: "3 weeks · Fall 2024"
 tools:
   - Figma
-  - Maze
-  - FigJam
-accent: "#e05a2b"
+  - Photoshop
+  - ProtoPie
 outcomes:
-  - "Replace this with the real metric — e.g. Task completion time dropped from 3:12 to 1:04."
-  - "Second outcome — support ticket volume on the onboarding step fell 42%."
-  - "Third outcome — the new pattern was adopted across three sibling products."
+  - "A tested design system tuned for aging vision and motor skills — 18pt minimum body type, high-contrast colors, generous tap targets."
+  - "A signup flow that treats onboarding as a first-impression, not a form to survive — three steps, plain-language copy, one interest choice per screen."
+  - "An information architecture that puts community first — events friends are going to, events nearby, and personalized recommendations, in that order."
 ---
 
-import BeforeAfterImage from '../../components/BeforeAfterImage.astro';
-import Marker from '../../components/Marker.astro';
+import Figure from '../../components/Figure.astro';
 
-## The problem
+## What SeniorCircle is
 
-Set the scene in two short paragraphs. What was the product, who was using it, and what specifically was breaking? Name the metric or the moment you noticed — a support ticket, a funnel drop, a session recording. Keep it concrete.
+SeniorCircle is a social-events app built specifically for adults 75 and older
+— a group most consumer apps are designed against, not for. It helps them
+discover local events tailored to their interests, book seats, and see which
+events their friends are already going to.
 
-The reader should finish this section thinking *"okay, I understand what was wrong."*
+The core insight: general-purpose event apps optimize for choice and density,
+which is exactly what someone with aging vision, reduced motor precision, and
+lower digital confidence finds overwhelming. **A senior-first app is not a
+seniors-only app — it's the same job, done at a different tempo.**
 
-## The evidence
+Older users don't need a stripped-down toy. They need larger type, simpler
+navigation, and features that address the real reason they downloaded the
+app in the first place: they're lonely.
 
-Below is the original screen. The pulsing markers call out the specific failure points I identified during research. Click any of them to read the finding.
+## Who it's for
 
-<BeforeAfterImage
-  src="https://placehold.co/1200x720/ece5d6/1a1817?text=Drop+your+before+screenshot+here"
-  alt="Original screen before the redesign"
-  label="Before"
-  caption="Screen: onboarding step 2. Session replays: n=24. Users tested remotely."
->
-  <Marker x="22%" y="30%" title="Ambiguous primary action" severity="high" side="right" n={1}>
-    The CTA read as a label, not a button. 14 of 24 participants tried tapping the illustration
-    above it before finding this link.
-  </Marker>
-  <Marker x="65%" y="55%" title="Two systems, one screen" severity="med" side="left" n={2}>
-    Form fields used one style, the input on the right used another. Users described the page as
-    "two different apps stitched together."
-  </Marker>
-  <Marker x="45%" y="82%" title="Nowhere to go back" severity="low" side="top" n={3}>
-    No visible way to return to the previous step. Six participants closed the tab rather than
-    lose their entered data.
-  </Marker>
-</BeforeAfterImage>
+We built the design around one specific person: **Arsh Singh**, a 70-year-old
+retired schoolteacher who recently moved to Canada to live with his son.
+He spends most of his days alone while his son and daughter-in-law are at
+work. His technology proficiency is intermediate — comfortable with a phone
+but not fluent — and he wears corrective lenses.
 
-## The thinking
+- **Interests:** reading, praying, walking
+- **Goals:** engage in social activities with people who share his interests;
+  meet new people and build a community in a new country
+- **Pain point:** can't find where to look. Community centers exist but
+  aren't discoverable online. Facebook events are dominated by younger crowds.
+  The apps he's tried assume he already knows the local scene.
 
-Talk through the *why* of your redesign, not the *what*. What options did you rule out and why? Which constraint (engineering, business, brand) forced a decision?
+Arsh became our design constant. Every decision — type size, gesture,
+information order — was checked against whether *he* could complete the task
+on the first try.
 
-> Include a quote that captures the tension. A user quote, a stakeholder quote, or a principle you kept coming back to.
+## Design process
 
-## The change
+We started with a full information architecture pass — mapping every screen
+the app would need and how a user would move between them. Working this out
+on paper before opening Figma kept us honest about scope for a three-week
+project.
 
-<BeforeAfterImage
-  src="https://placehold.co/1200x720/f4efe6/e05a2b?text=Drop+your+after+screenshot+here"
-  alt="Redesigned screen"
-  label="After"
-  caption="Same funnel step, 4 weeks after launch."
+<Figure
+  src="/ui-ux/screens/seniorcircle-flow.png"
+  alt="Sitemap of SeniorCircle showing user journey through login, profile setup, main navigation, and event booking flows."
+  caption="Sitemap. Login and profile setup collapse into a five-step signup that ends on the home screen. The four main tabs are Home, Create an Event, Bookings, and Profile."
+  wide
 />
 
-Explain what specifically changed — the pattern, the copy, the hierarchy — and why each change addresses one of the failures above. Reference the markers directly ("Marker 1 → the primary action is now a filled button…").
+From there we sketched interfaces in pencil first — fast, cheap, and honest.
+Working at low fidelity forced us to test layout and hierarchy before getting
+attached to visual polish.
+
+<Figure
+  src="/ui-ux/screens/seniorcircle-sketches.png"
+  alt="Hand-drawn wireframe sketches showing the signup flow, home screen with categories and recommendations, an accessibility tool overlay, and paper wireframes on a spiral notebook."
+  caption="Pencil wireframes for the signup flow, the home browse screen, and the accessibility tool. The paper versions came before every Figma frame — cheaper to throw away."
+  wide
+/>
+
+## Visual language
+
+The style guide is where accessibility became a design constraint, not a
+compliance checklist. We chose **Bodoni 72 Oldstyle** for the app name — a
+familiar warm serif for a demographic that grew up reading in serif — paired
+with **Verdana** as the workhorse body face, chosen for its exceptionally
+wide apertures and unambiguous letterforms at large sizes. A muted red
+functions as the primary action color, cream as the backdrop for reduced
+eye strain, and blue as the secondary for state and confirmation.
+
+<Figure
+  src="/ui-ux/screens/seniorcircle-style-guide.png"
+  alt="Style guide showing the SeniorCircle color palette (red primary, cream backdrop, blue secondary, dark grey contrast, yellow accent) and typography (Bodoni 72 Oldstyle for the app name at 50pt, Verdana for subheadings and body at 16pt)."
+  caption="Style guide. Type at a minimum of 16pt everywhere, colors selected for AAA contrast at that size."
+/>
+
+## Final designs
+
+*Coming soon — Figma exports of the hi-fi screens will land here, annotated
+with the design decisions that address specific pain points from testing.*
+
+## What I'd do next
+
+- **Usability testing with real users** across a range of ages, tech
+  fluency, and visual acuity. The design was built for Arsh, but only real
+  seniors can tell us where it still assumes too much.
+- **Microinteractions** — subtle animation on state changes to make the
+  interface feel responsive without being distracting. Reduced-motion mode
+  as a first-class setting, not an afterthought.
+- **A pass against WCAG 2.2** on the shipped build — contrast, focus states,
+  screen reader labels, motor accommodations.
+- **Performance and offline states** with an engineering partner — many of
+  our target users have inconsistent connectivity and slower devices.
+- **Feature expansion** based on real usage: personalized recommendations,
+  onboarding that adapts to the user's confidence level, richer messaging.
 
 ## What I learned
 
-Two or three honest sentences. What would you do differently? What surprised you? This is the section that separates a portfolio from a case study.
+- **Designing for a demographic you're not part of takes humility.** Every
+  assumption I made early — that seniors want "simple," that they don't want
+  animation, that they need a tutorial — was wrong in some way. Personas
+  and interviews caught the drift before it shipped.
+- **Aesthetics and function aren't in tension when the aesthetics *are* the
+  function.** The warm serif and cream palette look editorial, but their
+  primary job was legibility and warmth. That's not decoration.
+- **Prototyping early saves the expensive revisions.** ProtoPie let us put
+  the signup flow in front of two seniors before we had touched hi-fi.
+  Their confusion at step 3 rewrote the flow before it was drawn.
+- **Collaboration keeps the design honest.** Working with Jaival and Harsh
+  meant every choice had to be defended out loud. Half of my best decisions
+  were their pushback.
+
+This was a formative project — the first time I built for a group I'd never
+been part of. The learnings ripple through everything I've designed since.
