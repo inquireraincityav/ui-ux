@@ -1,60 +1,159 @@
 ---
-title: "Case Study Two"
-subtitle: "short project subtitle"
-role: "Product Designer"
+title: "Clove By Quantum"
+subtitle: "A premium townhome development website"
+role: "UI/UX Designer & Project Lead"
 year: "2024"
 order: 2
-type: "mobile"
-canvas: "light"
-coverScheme: "cool"
-summary: "Description of what changed, why, and for whom. Two sentences. Real content replaces this."
-client: "Client / Company Name"
-duration: "3 months"
+type: "web"
+canvas: "dark"
+coverScheme: "ink"
+summary: "A marketing website for a collection of 11 modern townhomes in Cloverdale, Surrey. I led design and development solo — from discovery through a live Wix build — in 30 days."
+client: "Quantum Properties · via JR Group"
+duration: "30 days · Fall 2024"
 tools:
   - Figma
-  - Lookback
-  - Notion
-accent: "#4a7c59"
+  - Wix
+  - Photoshop
+accent: "#1a1848"
 outcomes:
-  - "Metric one — replace with your real number."
-  - "Metric two."
-  - "Qualitative shift — e.g. 'internal team stopped calling this flow the black hole.'"
+  - "A live production site that moved from zero online presence to a full lead-generation funnel — hero video, floor plans, sales registration, and location discovery."
+  - "An information architecture that reorganized scattered content into dedicated Features, Location, and Gallery tabs — each with a clear purpose and user path."
+  - "A responsive build on Wix that loads the photo gallery without the performance issues the client had flagged on their previous attempts."
 ---
 
-import BeforeAfterImage from '../../components/BeforeAfterImage.astro';
-import Marker from '../../components/Marker.astro';
+import Figure from '../../components/Figure.astro';
 
-## The problem
+## What Clove By Quantum is
 
-Two paragraphs setting the context. Who used this, when did it break, and how did you first notice?
+CLOVE is a collection of 11 premium townhomes in the heart of Cloverdale,
+Surrey, BC — built by Quantum Properties and sold through the JR Group.
+The project needed a website that could do what a sales centre can't:
+reach buyers before they drive across town.
 
-## The evidence
+The site had to serve three jobs at once: **showcase the development**
+with renders and floor plans, **sell the neighbourhood** to people who
+may never have heard of Cloverdale, and **capture leads** for the sales
+team. All of it within 30 days, working solo.
 
-<BeforeAfterImage
-  src="https://placehold.co/1200x720/ece5d6/1a1817?text=Before+screenshot"
-  alt="Screen before the redesign"
-  label="Before"
->
-  <Marker x="30%" y="40%" title="First failure point" severity="high" n={1}>
-    Describe what was happening at this specific spot on the screen. Cite your evidence.
-  </Marker>
-  <Marker x="70%" y="70%" title="Second failure point" severity="med" side="left" n={2}>
-    Same again — one clear observation per marker, one paragraph max.
-  </Marker>
-</BeforeAfterImage>
+## The brief
 
-## The thinking
+Quantum Properties had no online presence for CLOVE. Prospective buyers
+had no way to browse floor plans, understand the neighbourhood, or
+register interest without physically visiting the sales centre. In a
+market where most buyers start their search online, that gap was costing
+them reach.
 
-Walk through your reasoning. What was the constraint that shaped the solution?
+They needed a professional, visually rich website that could stand
+alongside established developers — one that built awareness, generated
+leads, and answered the questions buyers have before they pick up the
+phone.
 
-## The change
+## Discovery and structure
 
-<BeforeAfterImage
-  src="https://placehold.co/1200x720/f4efe6/4a7c59?text=After+screenshot"
-  alt="Screen after the redesign"
-  label="After"
+The process started with the client's goals: who are the buyers, what
+do they need to see, and in what order? Two priorities surfaced quickly.
+First, the hero moment had to feel premium — a video walkthrough, not a
+static image. Second, the site needed to sell *Cloverdale itself*, not
+just the homes. Many buyers in the Lower Mainland don't know the area,
+so a dedicated location section was essential.
+
+I mapped the site into five sections: **Home** (hero video, about
+snippet, location teaser, contact), **Features** (interior details and
+renders), **Location** (neighbourhood amenities and map), **Gallery**
+(photography), and a persistent **registration CTA** across all pages.
+
+<Figure
+  src="/ui-ux/screens/clovebyquantum/about-location.png"
+  alt="About Clove section showing townhome exterior render alongside introductory copy, and a Location section with an embedded map and development description."
+  caption="The About and Location sections on the homepage. The townhome render sits beside a brief intro; the map and description below it tease the dedicated Location page."
+  wide
+  canvas="dark"
+/>
+
+## Iterative design
+
+The build was iterative — prototyping in Figma, building in Wix, and
+incorporating client feedback at every stage. Key revisions shaped the
+final product:
+
+**Homepage.** The entrance video was swapped for a version starting at
+a specific timestamp that better represented the development. The "About
+Clove" heading was enlarged for visual hierarchy. A new Location teaser
+section was added with a "Read More" CTA leading to the dedicated
+Location tab — content that had been buried was now discoverable from
+the front page.
+
+**About page.** The original embedded video was replaced with a
+high-resolution townhome render — a static focal point that loaded
+faster and communicated more. The Quantum Properties logo was added to
+reinforce the developer's reputation. Content was streamlined to focus
+on one thing: who Quantum is and why that matters.
+
+**New tabs.** The Features tab consolidated interior details and renders
+that had been scattered across the About page. The Location tab became
+its own experience — a three-column amenities grid covering recreation,
+education, shopping, and healthcare, backed by a photo gallery of the
+neighbourhood.
+
+<Figure
+  src="/ui-ux/screens/clovebyquantum/amenities.png"
+  alt="Location page showing a three-column layout with amenity categories: Recreation and Entertainment, Education and Connectivity, and Shopping, Dining and Healthcare — each with a photo and description."
+  caption="The Location tab's amenities grid. Each column pairs a full-bleed photo with a short pitch for the neighbourhood — recreation, schools and transit, and retail and healthcare."
+  wide
+  canvas="light"
+/>
+
+## Selling the neighbourhood
+
+One of the more interesting design problems was making Cloverdale itself
+feel like a feature of the product. Many prospective buyers knew Surrey
+but not this specific corner of it. The Location tab needed to answer
+"why here?" before the buyer ever asked.
+
+The solution was a dedicated gallery of neighbourhood landmarks — the
+skate park, local shops, community centres — presented in a carousel
+that felt editorial, not like a stock-photo dump. Combined with the
+amenities grid above it, the page builds a picture of daily life in the
+area, not just proximity data.
+
+<Figure
+  src="/ui-ux/screens/clovebyquantum/gallery.png"
+  alt="Location gallery carousel showing neighbourhood landmarks including a covered skate park and local retail centres, with thumbnail navigation below."
+  caption="The neighbourhood gallery. Real photos of Cloverdale landmarks — not renders — to build familiarity with the area before a buyer visits."
+  wide
+  canvas="dark"
+/>
+
+## Lead capture and contact
+
+The bottom of every page closes with the same structure: the sales
+advisor's contact card, a direct link to the sales centre, and a
+persistent registration CTA. The goal was zero dead ends — no matter
+where a visitor finished reading, the next step was always visible.
+
+<Figure
+  src="/ui-ux/screens/clovebyquantum/footer.png"
+  alt="Footer section showing the real estate advisor's photo and contact details, a Visit Clove's Sales Centre card with address and directions link, and a registration call-to-action."
+  caption="The contact and registration footer. Every page ends with the advisor, the sales centre address, and a registration prompt — no scrolling required to take the next step."
+  wide
+  canvas="dark"
 />
 
 ## What I learned
 
-Honest reflection — two or three sentences.
+- **Selling a neighbourhood is a design problem.** The homes were the
+  product, but the location was the pitch. Structuring the site to sell
+  Cloverdale first and the townhomes second changed the entire
+  information architecture — and it was the right call.
+- **Iterative client feedback saves time, not costs it.** Every round of
+  revisions caught something that would have been harder to fix after
+  launch. The video timestamp change, the About page simplification, the
+  new tab structure — all came from feedback loops, not the first draft.
+- **Performance is part of the design.** The client's earlier gallery
+  attempts had loading issues. Solving that on the Wix build wasn't a
+  dev task bolted on at the end — it was a design constraint from day one
+  that shaped how the gallery was structured.
+- **Solo projects teach you where your defaults are.** Without a team to
+  challenge decisions, I had to be my own critic. The discipline of
+  justifying each choice — even privately — caught assumptions I would
+  have shipped otherwise.
