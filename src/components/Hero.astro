@@ -27,12 +27,12 @@
 
 <style>
   .hero {
-    height: 100svh;
-    min-height: 560px;
-    max-height: 1200px;
+    height: calc(100svh - 4.5rem);
+    min-height: 480px;
+    max-height: 1100px;
     display: flex;
     align-items: flex-end;
-    padding-bottom: clamp(2.5rem, 6vh, 5rem);
+    padding-bottom: clamp(2rem, 5vh, 4rem);
     border-bottom: 1px solid var(--rule);
     position: relative;
   }
@@ -151,8 +151,8 @@
   @media (max-width: 640px) {
     .hero {
       height: auto;
-      min-height: 80svh;
-      padding-bottom: 2rem;
+      min-height: calc(80svh - 4rem);
+      padding-bottom: 1.5rem;
     }
     .hero-foot { max-width: 100%; }
     .hero-tags { gap: 0.4rem; }
