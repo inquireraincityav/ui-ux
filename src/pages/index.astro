@@ -6,8 +6,47 @@ import { getCollection } from 'astro:content';
 
 const studies = (await getCollection('case-studies', ({ data }) => !data.draft))
   .sort((a, b) => a.data.order - b.data.order);
+
+const skills = [
+  'Design Systems Architecture',
+  'Prompt-Driven Design',
+  'Information Architecture',
+  'System Mapping',
+  'Workflow Optimization',
+  'User Research & Interviews',
+  'Data Visualization',
+];
+
+const tools = [
+  'Figma & FigJam (MCP)',
+  'Adobe CC',
+  'Framer',
+  'HTML, CSS & JS',
+  'ProtoPie',
+  'Jira, Confluence, Basecamp',
+  'OnShape',
+  'Miro',
+];
+
+const experience = [
+  {
+    role: 'Product Designer',
+    company: 'ThreadCo & Cowichan',
+    period: '2025 - Present',
+  },
+  {
+    role: 'Product Designer',
+    company: 'Bio Conscious Technologies Inc',
+    period: '2023 - 2025',
+  },
+  {
+    role: 'Graphic Designer (intern)',
+    company: 'Lumen Wire',
+    period: '2020-2021',
+  },
+];
 ---
-<BaseLayout title="SJAI Studio - UI/UX Portfolio">
+<BaseLayout title="Jaival Shah - UI/UX Portfolio">
   <Hero />
 
   <section id="work" class="work wrap">
@@ -38,6 +77,40 @@ const studies = (await getCollection('case-studies', ({ data }) => !data.draft))
           coverScheme={s.data.coverScheme}
         />
       ))}
+    </div>
+  </section>
+
+  <section class="skills-section wrap">
+    <div class="skills-row">
+      <div class="skills-block">
+        <span class="skills-label">Skill Set:</span>
+        <div class="skills-content">
+          {skills.map((s) => <p class="skill-item">{s}</p>)}
+          <p class="skill-note">Currently mastering Tokens and Dev Handoffs</p>
+        </div>
+      </div>
+      <div class="skills-block">
+        <span class="skills-label">Tools:</span>
+        <div class="skills-content">
+          {tools.map((t) => <p class="skill-item">{t}</p>)}
+          <p class="skill-note">Exploring Cursor, Figma MCP, and AI tools for Frontend</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="experience-section wrap">
+    <div class="exp-table">
+      <span class="exp-label">Experience:</span>
+      <div class="exp-rows">
+        {experience.map((e) => (
+          <div class="exp-row">
+            <span class="exp-role">{e.role}</span>
+            <span class="exp-company">{e.company}</span>
+            <span class="exp-period">{e.period}</span>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 
@@ -100,12 +173,109 @@ const studies = (await getCollection('case-studies', ({ data }) => !data.draft))
     grid-template-columns: repeat(3, 1fr);
     gap: clamp(1.5rem, 2.5vw, 2.5rem) clamp(1rem, 1.75vw, 1.75rem);
   }
-
   @media (max-width: 1024px) {
     .cs-grid { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 640px) {
     .cs-grid { grid-template-columns: 1fr; max-width: 480px; margin-inline: auto; }
+  }
+
+  /* ── Skills Section (Bhalinder-style) ── */
+  .skills-section {
+    padding-block: clamp(3rem, 6vw, 6rem);
+    border-top: 1px solid var(--rule);
+  }
+  .skills-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(3rem, 6vw, 8rem);
+  }
+  .skills-block {
+    display: grid;
+    grid-template-columns: clamp(80px, 10vw, 120px) 1fr;
+    gap: clamp(1rem, 2vw, 2rem);
+    align-items: start;
+  }
+  .skills-label {
+    font-size: clamp(0.8rem, 1vw, 0.95rem);
+    color: var(--ink-3);
+    font-weight: 400;
+    padding-top: 0.1rem;
+  }
+  .skills-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .skill-item {
+    font-size: clamp(0.85rem, 1.1vw, 1.05rem);
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.8;
+    margin: 0;
+    text-align: left;
+  }
+  .skill-note {
+    margin-top: 1rem;
+    font-size: clamp(0.75rem, 0.9vw, 0.85rem);
+    color: var(--ink-3);
+    font-weight: 400;
+    text-align: left;
+  }
+
+  /* ── Experience Section (Bhalinder-style) ── */
+  .experience-section {
+    padding-block: clamp(2rem, 4vw, 4rem) clamp(3rem, 6vw, 6rem);
+  }
+  .exp-table {
+    display: grid;
+    grid-template-columns: clamp(80px, 10vw, 120px) 1fr;
+    gap: clamp(1rem, 2vw, 2rem);
+    align-items: start;
+  }
+  .exp-label {
+    font-size: clamp(0.8rem, 1vw, 0.95rem);
+    color: var(--ink-3);
+    font-weight: 400;
+    padding-top: 1.25rem;
+  }
+  .exp-rows {
+    display: flex;
+    flex-direction: column;
+  }
+  .exp-row {
+    display: grid;
+    grid-template-columns: 1.2fr 1.5fr 1fr;
+    gap: 1rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--rule-soft);
+    align-items: baseline;
+  }
+  .exp-role {
+    font-weight: 600;
+    font-size: clamp(0.85rem, 1.1vw, 1.05rem);
+    color: var(--ink);
+  }
+  .exp-company {
+    font-size: clamp(0.8rem, 1vw, 0.95rem);
+    color: var(--ink-3);
+  }
+  .exp-period {
+    font-size: clamp(0.8rem, 1vw, 0.95rem);
+    color: var(--ink-3);
+    text-align: right;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1024px) {
+    .skills-row { gap: 3rem; }
+    .skills-block { grid-template-columns: 1fr; gap: 0.5rem; }
+    .exp-table { grid-template-columns: 1fr; gap: 0.5rem; }
+  }
+  @media (max-width: 640px) {
+    .skills-row { grid-template-columns: 1fr; gap: 2.5rem; }
+    .exp-row { grid-template-columns: 1fr; gap: 0.25rem; }
+    .exp-period { text-align: left; }
   }
 
   .currently {
