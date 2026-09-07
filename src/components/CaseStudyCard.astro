@@ -91,7 +91,7 @@ const typeLabel = type === 'both' ? 'Web + Mobile' : type === 'mobile' ? 'Mobile
     aspect-ratio: 4/3;
     display: grid;
     place-items: center;
-    padding: 2.5rem 2rem 1.5rem;
+    padding: clamp(1rem, 3vw, 2.5rem) clamp(0.75rem, 2.5vw, 2rem) clamp(0.5rem, 2vw, 1.5rem);
     border-radius: 6px;
     overflow: hidden;
   }
@@ -102,7 +102,7 @@ const typeLabel = type === 'both' ? 'Web + Mobile' : type === 'mobile' ? 'Mobile
   /* ── MacBook Frame ── */
   .macbook {
     width: 92%;
-    max-width: 380px;
+    max-width: 420px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -111,8 +111,8 @@ const typeLabel = type === 'both' ? 'Web + Mobile' : type === 'mobile' ? 'Mobile
   .macbook-lid {
     width: 100%;
     background: #1d1d1f;
-    border-radius: 8px 8px 0 0;
-    padding: 8px 8px 4px;
+    border-radius: clamp(4px, 0.6vw, 8px) clamp(4px, 0.6vw, 8px) 0 0;
+    padding: clamp(4px, 0.5vw, 8px) clamp(4px, 0.5vw, 8px) clamp(2px, 0.3vw, 4px);
   }
 
   .macbook-bezel {
@@ -121,11 +121,11 @@ const typeLabel = type === 'both' ? 'Web + Mobile' : type === 'mobile' ? 'Mobile
 
   .macbook-camera {
     display: block;
-    width: 5px;
-    height: 5px;
+    width: clamp(3px, 0.4vw, 5px);
+    height: clamp(3px, 0.4vw, 5px);
     border-radius: 50%;
     background: #2a2a2c;
-    margin: 0 auto 4px;
+    margin: 0 auto clamp(2px, 0.3vw, 4px);
   }
 
   .macbook-screen {
@@ -143,7 +143,7 @@ const typeLabel = type === 'both' ? 'Web + Mobile' : type === 'mobile' ? 'Mobile
 
   .macbook-hinge {
     width: 104%;
-    height: 4px;
+    height: clamp(2px, 0.3vw, 4px);
     background: linear-gradient(to bottom, #b8b8b8, #a0a0a0);
     border-radius: 0 0 1px 1px;
   }
@@ -151,12 +151,12 @@ const typeLabel = type === 'both' ? 'Web + Mobile' : type === 'mobile' ? 'Mobile
   .macbook-base {
     width: 110%;
     background: linear-gradient(180deg, #c8c8c8 0%, #b0b0b0 40%, #a4a4a4 100%);
-    border-radius: 0 0 6px 6px / 0 0 6px 6px;
-    padding: 6px 10% 8px;
+    border-radius: 0 0 clamp(3px, 0.5vw, 6px) clamp(3px, 0.5vw, 6px);
+    padding: clamp(3px, 0.4vw, 6px) 10% clamp(4px, 0.5vw, 8px);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
+    gap: clamp(2px, 0.25vw, 4px);
     position: relative;
   }
   .macbook-base::before {
@@ -175,10 +175,10 @@ const typeLabel = type === 'both' ? 'Web + Mobile' : type === 'mobile' ? 'Mobile
     width: 92%;
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: clamp(1px, 0.15vw, 2px);
   }
   .kb-row {
-    height: 4px;
+    height: clamp(2px, 0.3vw, 4px);
     background: linear-gradient(to right,
       transparent 0%, #8a8a8a 2%, #8a8a8a 98%, transparent 100%
     );
@@ -186,7 +186,7 @@ const typeLabel = type === 'both' ? 'Web + Mobile' : type === 'mobile' ? 'Mobile
     opacity: 0.5;
   }
   .kb-row-fn {
-    height: 3px;
+    height: clamp(1.5px, 0.2vw, 3px);
   }
   .kb-row-space {
     width: 60%;
@@ -195,37 +195,37 @@ const typeLabel = type === 'both' ? 'Web + Mobile' : type === 'mobile' ? 'Mobile
 
   .macbook-trackpad {
     width: 38%;
-    height: 10px;
+    height: clamp(5px, 0.7vw, 10px);
     background: linear-gradient(180deg, #bbb 0%, #aaa 100%);
     border: 1px solid #999;
-    border-radius: 3px;
-    margin-top: 2px;
+    border-radius: clamp(1px, 0.2vw, 3px);
+    margin-top: clamp(1px, 0.15vw, 2px);
   }
 
   /* ── iPhone Frame ── */
-  .iphone { width: 42%; max-width: 170px; }
+  .iphone { width: 42%; max-width: 180px; }
   .iphone-body {
     background: #1d1d1f;
-    border-radius: 22px;
-    padding: 7px;
+    border-radius: clamp(14px, 2vw, 22px);
+    padding: clamp(4px, 0.5vw, 7px);
     position: relative;
     border: 1px solid #333;
   }
   .iphone-notch {
     position: absolute;
-    top: 9px;
+    top: clamp(5px, 0.7vw, 9px);
     left: 50%;
     transform: translateX(-50%);
     width: 30%;
-    height: 14px;
+    height: clamp(8px, 1vw, 14px);
     background: #1d1d1f;
-    border-radius: 0 0 10px 10px;
+    border-radius: 0 0 clamp(5px, 0.7vw, 10px) clamp(5px, 0.7vw, 10px);
     z-index: 2;
   }
   .iphone-screen {
     aspect-ratio: 9/19.5;
     overflow: hidden;
-    border-radius: 16px;
+    border-radius: clamp(10px, 1.3vw, 16px);
     background: var(--canvas);
     position: relative;
   }
@@ -237,10 +237,10 @@ const typeLabel = type === 'both' ? 'Web + Mobile' : type === 'mobile' ? 'Mobile
   }
   .iphone-home {
     width: 32%;
-    height: 3px;
+    height: clamp(2px, 0.25vw, 3px);
     background: #555;
     border-radius: 3px;
-    margin: 5px auto 3px;
+    margin: clamp(3px, 0.4vw, 5px) auto clamp(2px, 0.25vw, 3px);
   }
 
   /* Placeholders */
@@ -249,7 +249,7 @@ const typeLabel = type === 'both' ? 'Web + Mobile' : type === 'mobile' ? 'Mobile
   .scheme-cool { background: linear-gradient(135deg, #dce5ed 0%, #a8bdd5 100%); }
   .scheme-ink  { background: linear-gradient(135deg, #2a2a28 0%, #1a1a18 100%); }
 
-  .tile-info { padding: 1.1rem 0.25rem; }
+  .tile-info { padding: 1rem 0.25rem; }
   .tile-meta {
     display: flex;
     gap: 0.75rem;
@@ -283,5 +283,11 @@ const typeLabel = type === 'both' ? 'Web + Mobile' : type === 'mobile' ? 'Mobile
     font-size: var(--step--1);
     margin-top: 0.25rem;
     text-align: left;
+  }
+
+  @media (max-width: 640px) {
+    .tile-canvas { aspect-ratio: 3/2; }
+    .macbook { width: 88%; }
+    .iphone { width: 35%; }
   }
 </style>

@@ -27,31 +27,32 @@
 
 <style>
   .hero {
-    height: 100vh;
-    min-height: 600px;
+    height: 100svh;
+    min-height: 560px;
     max-height: 1200px;
     display: flex;
     align-items: flex-end;
-    padding-bottom: clamp(3rem, 6vh, 5rem);
+    padding-bottom: clamp(2.5rem, 6vh, 5rem);
     border-bottom: 1px solid var(--rule);
     position: relative;
   }
   .hero-foot {
     max-width: 42rem;
+    width: 100%;
   }
   .hero-name {
     font-family: var(--font-display);
     font-optical-sizing: auto;
     font-variation-settings: "opsz" 48;
     font-weight: 500;
-    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-size: clamp(1.5rem, 2.5vw, 2.4rem);
     letter-spacing: -0.02em;
     color: var(--ink);
     margin: 0;
     text-align: left;
   }
   .hero-role {
-    font-size: var(--step--1);
+    font-size: clamp(0.8rem, 1.1vw, 0.94rem);
     color: var(--ink-3);
     font-weight: 400;
     margin-top: 0.35rem;
@@ -62,7 +63,7 @@
     font-optical-sizing: auto;
     font-variation-settings: "opsz" 48;
     font-weight: 300;
-    font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+    font-size: clamp(1.1rem, 1.8vw, 1.75rem);
     line-height: 1.4;
     letter-spacing: -0.01em;
     color: var(--ink-2);
@@ -87,7 +88,7 @@
     padding: 0.3rem 0.85rem;
     border: 1px solid var(--rule);
     border-radius: 100px;
-    font-size: var(--step--2);
+    font-size: clamp(0.65rem, 0.85vw, 0.8rem);
     font-weight: 500;
     letter-spacing: 0.06em;
     text-transform: uppercase;
@@ -109,7 +110,7 @@
     background: var(--ink);
     color: var(--paper);
     font-family: var(--font-body);
-    font-size: var(--step--1);
+    font-size: clamp(0.8rem, 1vw, 0.94rem);
     font-weight: 500;
     text-decoration: none;
     border-radius: 4px;
@@ -124,7 +125,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
-    font-size: var(--step--2);
+    font-size: clamp(0.6rem, 0.8vw, 0.8rem);
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--accent);
@@ -140,12 +141,22 @@
     50%      { box-shadow: 0 0 0 8px rgba(184, 52, 42, 0.02); }
   }
 
-  @media (max-width: 820px) {
+  /* Tablet */
+  @media (max-width: 1024px) {
+    .hero { min-height: 70vh; }
+    .hero-foot { max-width: 36rem; }
+  }
+
+  /* Mobile */
+  @media (max-width: 640px) {
     .hero {
       height: auto;
-      min-height: 85vh;
-      padding-bottom: 2.5rem;
+      min-height: 80svh;
+      padding-bottom: 2rem;
     }
+    .hero-foot { max-width: 100%; }
+    .hero-tags { gap: 0.4rem; }
+    .tag { padding: 0.25rem 0.7rem; }
     .hero-actions {
       flex-direction: column;
       align-items: flex-start;
