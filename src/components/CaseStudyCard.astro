@@ -48,16 +48,17 @@ const typeLabel = type === 'both' ? 'Web + Mobile' : type === 'mobile' ? 'Mobile
         </div>
       </div>
     )}
-    {type === 'mobile' && (
+    {type === 'mobile' && cover && (
+      <div class="mobile-photo">
+        <img src={cover} alt={`${title} screenshot`} loading="lazy" />
+      </div>
+    )}
+    {type === 'mobile' && !cover && (
       <div class="iphone">
         <div class="iphone-body">
           <div class="iphone-island" />
           <div class="iphone-screen">
-            {cover ? (
-              <img src={cover} alt={`${title} screenshot`} loading="lazy" />
-            ) : (
-              <div class:list={["iphone-placeholder", `scheme-${coverScheme}`]} />
-            )}
+            <div class:list={["iphone-placeholder", `scheme-${coverScheme}`]} />
           </div>
           <div class="iphone-home" />
         </div>
@@ -189,6 +190,22 @@ const typeLabel = type === 'both' ? 'Web + Mobile' : type === 'mobile' ? 'Mobile
     border: 1px solid #999;
     border-radius: clamp(2px, 0.3vw, 4px);
     margin-top: clamp(1px, 0.2vw, 3px);
+  }
+
+  /* ── Mobile Photo (real device photo as cover) ── */
+  .mobile-photo {
+    width: 65%;
+    max-width: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mobile-photo img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 4px;
+    filter: drop-shadow(0 12px 40px rgba(0,0,0,0.15));
   }
 
   /* ── iPhone Frame (Dynamic Island) ── */
