@@ -73,7 +73,6 @@ const typeLabel = type === 'both' ? 'Web + Mobile' : type === 'mobile' ? 'Mobile
     flex-direction: column;
     text-decoration: none;
     color: inherit;
-    border-radius: 8px;
     overflow: hidden;
     transition: transform var(--dur-med) var(--ease-out);
   }
@@ -85,13 +84,12 @@ const typeLabel = type === 'both' ? 'Web + Mobile' : type === 'mobile' ? 'Mobile
     display: grid;
     place-items: center;
     padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 3vw, 3rem);
-    border-radius: 8px;
     overflow: hidden;
     position: relative;
   }
-  .canvas-light { background: var(--canvas); }
-  .canvas-warm  { background: var(--canvas-warm); }
-  .canvas-dark  { background: var(--canvas-dark); }
+  .canvas-light { background: transparent; }
+  .canvas-warm  { background: transparent; }
+  .canvas-dark  { background: transparent; }
 
   /* ── Device Photo (real device mockup as cover) ── */
   .device-photo {
