@@ -28,23 +28,11 @@ const tools = [
   'Miro',
 ];
 
-const experience = [
-  {
-    role: 'Product Designer',
-    company: 'ThreadCo & Cowichan',
-    period: '2025 - Present',
-  },
-  {
-    role: 'Product Designer',
-    company: 'Bio Conscious Technologies Inc',
-    period: '2023 - 2025',
-  },
-  {
-    role: 'Graphic Designer (intern)',
-    company: 'Lumen Wire',
-    period: '2020-2021',
-  },
-];
+const experience = studies.map((s) => ({
+  role: s.data.role,
+  company: s.data.client,
+  period: s.data.duration,
+}));
 ---
 <BaseLayout title="Jaival Shah - UI/UX Portfolio">
   <Hero />
