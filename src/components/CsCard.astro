@@ -1,0 +1,95 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  dots?: number;
+}
+const { title, subtitle, dots = 0 } = Astro.props;
+const filledDots = dots;
+const emptyDots = 3 - dots;
+---
+<div class="cs-card">
+  {dots > 0 && (
+    <div class="cs-card-dots">
+      {Array.from({ length: filledDots }).map(() => <span class="dot filled" />)}
+      {Array.from({ length: emptyDots }).map(() => <span class="dot" />)}
+    </div>
+  )}
+  <div class="cs-card-header">
+    <h4 class="cs-card-title">
+      {title}
+      {subtitle && <span class="cs-card-subtitle"> ({subtitle})</span>}
+    </h4>
+  </div>
+  <div class="cs-card-body">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .cs-card {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: clamp(1.25rem, 2vw, 1.75rem);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .cs-card-dots {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 1rem;
+  }
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--rule);
+  }
+  .dot.filled {
+    background: var(--ink);
+  }
+  .cs-card-title {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    font-variation-settings: "opsz" 24;
+    font-weight: 600;
+    font-size: clamp(1rem, 1.3vw, 1.2rem);
+    color: var(--ink);
+    margin: 0;
+    line-height: 1.3;
+  }
+  .cs-card-subtitle {
+    font-weight: 400;
+    color: var(--ink-3);
+    font-size: 0.85em;
+  }
+  .cs-card-body {
+    margin-top: auto;
+    padding-top: 1.5rem;
+  }
+  .cs-card-body :global(ul) {
+    list-style: disc;
+    padding-left: 1.25rem;
+    margin: 0;
+  }
+  .cs-card-body :global(li) {
+    font-size: clamp(0.8rem, 0.95vw, 0.9rem);
+    color: var(--ink-2);
+    line-height: 1.5;
+    margin-block: 0.4rem;
+    text-align: left;
+  }
+  .cs-card-body :global(li strong) {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .cs-card-body :global(p) {
+    font-size: clamp(0.8rem, 0.95vw, 0.9rem);
+    color: var(--ink-2);
+    line-height: 1.5;
+    margin: 0;
+    text-align: left;
+  }
+</style>

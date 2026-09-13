@@ -1,0 +1,32 @@
+---
+interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+---
+<div class="cs-principle">
+  <h4 class="cs-principle-title">{title}</h4>
+  <div class="cs-principle-desc">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .cs-principle-title {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    font-variation-settings: "opsz" 32;
+    font-weight: 700;
+    font-size: clamp(1.3rem, 2vw, 1.8rem);
+    color: var(--ink);
+    margin: 0 0 0.75rem;
+    letter-spacing: -0.02em;
+  }
+  .cs-principle-desc :global(p) {
+    font-size: clamp(0.85rem, 1vw, 0.95rem);
+    color: var(--ink-3);
+    line-height: 1.6;
+    margin: 0;
+    text-align: left;
+  }
+</style>

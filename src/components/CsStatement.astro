@@ -1,0 +1,36 @@
+---
+interface Props {
+  accent?: string;
+}
+const { accent } = Astro.props;
+---
+<div class="cs-statement">
+  <slot />
+</div>
+
+<style>
+  .cs-statement {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    font-variation-settings: "opsz" 48;
+    font-weight: 700;
+    font-size: clamp(1.4rem, 2.8vw, 2.2rem);
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+    margin-top: 0;
+    text-align: left;
+    max-width: 720px;
+  }
+  .cs-statement :global(.accent) {
+    color: var(--accent);
+  }
+  .cs-statement :global(p) {
+    font: inherit;
+    color: inherit;
+    text-align: inherit;
+    letter-spacing: inherit;
+    margin: 0;
+  }
+</style>
