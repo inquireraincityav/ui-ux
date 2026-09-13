@@ -83,10 +83,12 @@ const base = import.meta.env.BASE_URL;
 
     {frontmatter.outcomes && frontmatter.outcomes.length > 0 && (
       <section class="cs-outcomes wrap">
-        <p class="eyebrow">What changed</p>
-        <ul>
-          {frontmatter.outcomes.map((o) => <li>{o}</li>)}
-        </ul>
+        <div class="cs-outcomes-label">Outcomes</div>
+        <div class="cs-outcomes-content">
+          <ul>
+            {frontmatter.outcomes.map((o) => <li>{o}</li>)}
+          </ul>
+        </div>
       </section>
     )}
 
@@ -173,27 +175,37 @@ const base = import.meta.env.BASE_URL;
     .cs-body :global(hr) { border: 0; height: 1px; background: var(--rule); margin-block: 3rem; }
 
     .cs-outcomes {
-      padding: clamp(1.5rem, 3vw, 3rem);
-      margin-top: 2rem;
-      background: var(--paper-2);
-      border-radius: 4px;
-      border-left: 2px solid var(--accent);
+      display: grid;
+      grid-template-columns: clamp(120px, 15vw, 200px) 1fr;
+      gap: clamp(2rem, 4vw, 5rem);
+      padding-block: clamp(3rem, 6vw, 5rem);
+      border-top: 1px solid var(--rule);
+      align-items: start;
+    }
+    .cs-outcomes-label {
+      font-size: clamp(0.8rem, 1vw, 0.95rem);
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+      padding-top: 0.35rem;
+    }
+    .cs-outcomes-content {
+      max-width: 820px;
     }
     .cs-outcomes ul {
       list-style: none;
       padding: 0;
-      margin-top: 1rem;
+      margin: 0;
       display: grid;
       gap: 0.75rem;
     }
     .cs-outcomes li {
       padding-left: 1.75rem;
       position: relative;
-      font-size: clamp(0.9rem, 1.3vw, var(--step-1));
-      font-family: var(--font-display);
-      font-optical-sizing: auto;
-      font-variation-settings: "opsz" 18;
-      font-weight: 400;
+      font-size: clamp(0.9rem, 1.1vw, 1rem);
+      color: var(--ink-2);
+      line-height: 1.7;
+      text-align: justify;
     }
     .cs-outcomes li::before {
       content: "\2192";
@@ -222,6 +234,7 @@ const base = import.meta.env.BASE_URL;
         border-top: none;
       }
       .meta-item:first-child { border-top: 1px solid var(--rule); }
+      .cs-outcomes { grid-template-columns: 1fr; gap: 1rem; }
     }
     @media (max-width: 480px) {
       .cs-sidebar { grid-template-columns: 1fr; }
