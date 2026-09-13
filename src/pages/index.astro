@@ -224,7 +224,7 @@ const experience = studies.map((s) => ({
   .bento-block.partial.odd > :global(:nth-child(2)) { grid-row: 1; grid-column: 2; }
   .bento-block.partial.odd > :global(:only-child) { grid-column: 1 / -1; }
 
-  /* Mobile: collapse to single column */
+  /* Mobile: collapse to single column, compact cards */
   @media (max-width: 768px) {
     .bento-block {
       grid-template-columns: 1fr !important;
@@ -234,7 +234,7 @@ const experience = studies.map((s) => ({
     .bento-block > :global(*) {
       grid-column: 1 !important;
       grid-row: auto !important;
-      min-height: 300px;
+      min-height: auto;
     }
   }
 

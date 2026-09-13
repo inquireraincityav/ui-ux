@@ -138,4 +138,53 @@ const typeLabel = type === 'both' ? 'Web + Mobile' : type === 'mobile' ? 'Mobile
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+
+  /* ── Mobile: compact, light, always-visible titles ── */
+  @media (max-width: 768px) {
+    .tile {
+      background: transparent;
+      display: flex;
+      flex-direction: column;
+      height: auto;
+      border-radius: 0;
+    }
+
+    .tile-media {
+      height: auto;
+      padding: 0;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .tile-media img {
+      width: 100%;
+      max-height: 180px;
+      object-fit: contain;
+    }
+
+    .tile:hover .tile-media img {
+      transform: none;
+    }
+
+    .tile-overlay {
+      position: static;
+      opacity: 1;
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+      background: transparent;
+      padding: 0.6rem 0 0;
+      border-radius: 0;
+    }
+
+    .tile-overlay-inner {
+      transform: none;
+      opacity: 1;
+      transition: none;
+    }
+
+    .tile-tag { color: var(--ink-3); }
+    .tile-title { color: var(--ink); font-size: 1.1rem; }
+    .tile-role { color: var(--ink-2); }
+    .tile-desc { display: none; }
+  }
 </style>
