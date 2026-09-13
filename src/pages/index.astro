@@ -86,14 +86,12 @@ const experience = [
         <span class="skills-label">Skill Set:</span>
         <div class="skills-content">
           {skills.map((s) => <p class="skill-item">{s}</p>)}
-          <p class="skill-note">Currently mastering Tokens and Dev Handoffs</p>
         </div>
       </div>
       <div class="skills-block">
         <span class="skills-label">Tools:</span>
         <div class="skills-content">
           {tools.map((t) => <p class="skill-item">{t}</p>)}
-          <p class="skill-note">Exploring Cursor, Figma MCP, and AI tools for Frontend</p>
         </div>
       </div>
     </div>
@@ -114,14 +112,6 @@ const experience = [
     </div>
   </section>
 
-  <section class="currently wrap">
-    <hr class="rule" />
-    <p class="eyebrow">Currently</p>
-    <p class="currently-text">
-      Taking on freelance and contract work for Q1 2026.
-      <a href="mailto:inquire.raincityav@gmail.com">Say hello &rarr;</a>
-    </p>
-  </section>
 </BaseLayout>
 
 <style>
@@ -210,13 +200,6 @@ const experience = [
     margin: 0;
     text-align: left;
   }
-  .skill-note {
-    margin-top: 1rem;
-    font-size: clamp(0.75rem, 0.9vw, 0.85rem);
-    color: var(--ink-3);
-    font-weight: 400;
-    text-align: left;
-  }
 
   /* ── Experience Section (Bhalinder-style) ── */
   .experience-section {
@@ -273,30 +256,4 @@ const experience = [
     .exp-period { text-align: left; }
   }
 
-  .currently {
-    padding-block: 0 clamp(3rem, 6vw, 6rem);
-  }
-  .currently .rule {
-    border: 0;
-    height: 1px;
-    background: var(--rule);
-    margin-bottom: clamp(1.5rem, 3vw, 3rem);
-  }
-  .currently-text {
-    font-family: var(--font-display);
-    font-optical-sizing: auto;
-    font-size: clamp(1rem, 2vw, var(--step-2));
-    color: var(--ink-2);
-    margin-top: 1rem;
-    max-width: 36ch;
-  }
-  .currently-text a {
-    color: var(--accent);
-    text-decoration: none;
-    font-weight: 500;
-  }
-  .currently-text a:hover {
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
 </style>

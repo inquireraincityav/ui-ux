@@ -18,22 +18,8 @@ const base = import.meta.env.BASE_URL;
   <div class="hero-foot">
     <p class="hero-name">Jaival Shah</p>
     <p class="hero-role">UI/UX Designer · Vancouver, BC</p>
-    <h1 class="statement">
-      Designing interfaces for <em>web</em> and <em>mobile</em> products
-      - built with the person on the other end in mind.
-    </h1>
-    <div class="hero-tags">
-      <span class="tag">Web Design</span>
-      <span class="tag">Mobile Apps</span>
-      <span class="tag">Real Estate</span>
-      <span class="tag">Healthcare</span>
-    </div>
     <div class="hero-actions">
       <a href="#work" class="hero-cta">Explore My Work</a>
-      <span class="k-avail">
-        <span class="k-dot" aria-hidden="true"></span>
-        Available Q1 2026
-      </span>
     </div>
   </div>
 </section>
@@ -90,45 +76,6 @@ const base = import.meta.env.BASE_URL;
     margin-top: 0.35rem;
     text-align: left;
   }
-  .statement {
-    font-family: var(--font-display);
-    font-optical-sizing: auto;
-    font-variation-settings: "opsz" 48;
-    font-weight: 300;
-    font-size: clamp(1.1rem, 1.8vw, 1.75rem);
-    line-height: 1.4;
-    letter-spacing: -0.01em;
-    color: var(--ink-2);
-    max-width: 38ch;
-    margin-top: 1.25rem;
-    text-align: left;
-    text-wrap: balance;
-  }
-  .statement em {
-    font-style: italic;
-    font-variation-settings: "opsz" 48, "wght" 400;
-    color: var(--accent);
-  }
-  .hero-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 1.75rem;
-  }
-  .tag {
-    display: inline-block;
-    padding: 0.3rem 0.85rem;
-    border: 1px solid var(--rule);
-    border-radius: 100px;
-    font-size: clamp(0.65rem, 0.85vw, 0.8rem);
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-    background: rgba(245, 244, 240, 0.6);
-    white-space: nowrap;
-    backdrop-filter: blur(4px);
-  }
   .hero-actions {
     display: flex;
     align-items: center;
@@ -154,26 +101,6 @@ const base = import.meta.env.BASE_URL;
     background: var(--accent);
     color: var(--paper);
   }
-  .k-avail {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    font-size: clamp(0.6rem, 0.8vw, 0.8rem);
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--accent);
-  }
-  .k-dot {
-    width: 7px; height: 7px; border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 0 4px var(--accent-soft);
-    animation: pulse 2s ease-in-out infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { box-shadow: 0 0 0 4px var(--accent-soft); }
-    50%      { box-shadow: 0 0 0 8px rgba(184, 52, 42, 0.02); }
-  }
-
   /* Tablet */
   @media (max-width: 1024px) {
     .hero { min-height: 70vh; }
@@ -188,8 +115,6 @@ const base = import.meta.env.BASE_URL;
       padding-bottom: 1.5rem;
     }
     .hero-foot { max-width: 100%; }
-    .hero-tags { gap: 0.4rem; }
-    .tag { padding: 0.25rem 0.7rem; }
     .hero-actions {
       flex-direction: column;
       align-items: flex-start;
