@@ -1,52 +1,69 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Character from '../components/Character.astro';
-const base = import.meta.env.BASE_URL;
 ---
 <BaseLayout title="About - Jaival Shah" description="A short introduction and how I work.">
   <section class="about wrap">
     <div class="about-grid">
       <div class="about-copy">
         <p class="eyebrow">About</p>
-        <h1>A short bio in your voice, one paragraph.</h1>
+        <h1>design things that make sense and look good doing it.</h1>
         <p class="lede">
-          Two or three sentences on what you do, who you do it for, and what makes
-          your approach different. Replace with your own words.
+          I'm Jaival, a Vancouver-based UI/UX designer with a background that sits
+          somewhere between design, technology, and real-world problem solving. I create
+          digital experiences that feel intuitive, considered, and visually sharp,
+          combining user thinking with the technical curiosity to understand how things
+          actually work.
         </p>
 
         <hr class="rule" />
 
         <h3>How I got here</h3>
-        <p>A paragraph on the arc - where you started, what you did between then and
-        now, and the thing that changed how you think about design.</p>
+        <p>
+          I studied Interactive Arts & Technology and Publishing at SFU, where I started
+          working across UI/UX, web design, visual design, and digital media. Projects
+          like Senior Circle and CloveByQuantum pushed me deeper into research, user
+          flows, prototyping, usability testing, and turning designs into real responsive
+          websites.
+        </p>
+        <p>
+          At the same time, working in AV and IT at SFU gave me a different perspective
+          on design. I spend a lot of time watching people interact with technology in
+          the real world - sometimes when everything works perfectly, and sometimes when
+          one confusing button is enough to derail the whole experience. That made me
+          care less about designing something that simply looks good and more about
+          making things that feel obvious to use.
+        </p>
 
         <h3>What I look for in a project</h3>
-        <p>Be specific. What kinds of problems, at what stage of company, in what
-        industries? Portfolios that hedge get contacted by nobody.</p>
+        <p>
+          I like projects where there's something to untangle: a confusing flow, an
+          outdated interface, too much information, or a good idea that hasn't quite
+          found the right experience yet.
+        </p>
+        <p>
+          I'm especially drawn to digital products, websites, platforms, and interfaces
+          where interaction and visual design matter equally. Give me something clunky
+          and I'll probably start thinking about how I'd redesign it.
+        </p>
 
         <h3>Outside work</h3>
-        <p>One or two sentences of personality. What you read, make, or care about.
-        Skip if it feels forced.</p>
+        <p>
+          When I'm not moving pixels around, I'm usually DJing, playing football,
+          working around live events, shooting or editing something, or messing around
+          with some piece of technology I probably didn't need to touch.
+        </p>
+        <p>
+          Music and live events are a big part of my life, and I think that carries into
+          my design work too - timing, energy, attention, and knowing when something
+          needs more and when it needs less.
+        </p>
       </div>
 
       <aside class="about-side">
-        <div class="side-portrait">
-          <Character
-            size={280}
-            poses={{
-              front: `${base}character/idle-front.png`,
-              left: `${base}character/three-quarter-left.png`,
-              right: `${base}character/three-quarter-right.png`,
-              wave: `${base}character/waving.png`,
-            }}
-            alt="Portrait"
-          />
-        </div>
         <dl class="fact-list">
-          <div><dt>Based in</dt><dd>[City, Country]</dd></div>
-          <div><dt>Available</dt><dd>Freelance / Contract</dd></div>
-          <div><dt>Speaks</dt><dd>English, [...]</dd></div>
-          <div><dt>Reading now</dt><dd>[book title]</dd></div>
+          <div><dt>Based in</dt><dd>Vancouver, Canada</dd></div>
+          <div><dt>Available</dt><dd>Freelance / Contract / Collaborations</dd></div>
+          <div><dt>Speaks</dt><dd>English + fluent in tech jargon</dd></div>
         </dl>
       </aside>
     </div>
@@ -58,13 +75,19 @@ const base = import.meta.env.BASE_URL;
   .about-grid {
     display: grid;
     grid-template-columns: 1.5fr 1fr;
-    gap: clamp(2rem, 5vw, 5rem);
+    gap: clamp(3rem, 6vw, 6rem);
     align-items: start;
   }
   .about-copy h1 {
     margin-top: 1rem;
     max-width: 22ch;
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    font-variation-settings: "opsz" 96;
+    font-weight: 300;
     font-size: clamp(1.5rem, 3vw, 2.5rem);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
   }
   .about-copy .lede {
     margin-top: 1.5rem;
@@ -72,57 +95,71 @@ const base = import.meta.env.BASE_URL;
     font-optical-sizing: auto;
     font-variation-settings: "opsz" 24;
     font-weight: 400;
-    font-size: clamp(1rem, 1.8vw, var(--step-2));
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
     color: var(--ink-2);
-    line-height: 1.3;
-    max-width: 34ch;
+    line-height: 1.7;
+    text-align: justify;
+  }
+  .about-copy .rule {
+    border: 0;
+    height: 1px;
+    background: var(--rule);
+    margin-block: clamp(2rem, 4vw, 3rem);
   }
   .about-copy h3 {
-    margin-top: clamp(1.5rem, 3vw, 3rem);
+    margin-top: clamp(1.5rem, 3vw, 2.5rem);
     margin-bottom: 0.75rem;
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    font-variation-settings: "opsz" 48;
+    font-weight: 600;
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    letter-spacing: -0.01em;
   }
-  .about-copy p { color: var(--ink-2); margin-block: 0.75rem; line-height: 1.65; }
+  .about-copy p {
+    color: var(--ink-2);
+    margin-block: 0.75rem;
+    line-height: 1.7;
+    text-align: justify;
+    font-size: clamp(0.9rem, 1.1vw, 1rem);
+  }
 
   .about-side {
     position: sticky;
-    top: 2rem;
+    top: 6rem;
     display: flex;
     flex-direction: column;
     gap: 2rem;
   }
-  .side-portrait {
-    background: var(--paper-2);
-    border: 1px solid var(--rule);
-    border-radius: 4px;
-    padding: clamp(1rem, 2vw, 2rem);
-    display: flex; justify-content: center;
-  }
   .fact-list {
     margin: 0;
-    display: flex; flex-direction: column;
+    display: flex;
+    flex-direction: column;
     border-top: 1px solid var(--rule);
   }
   .fact-list > div {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    padding: 0.9rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 1.25rem 0;
     border-bottom: 1px solid var(--rule);
   }
   .fact-list dt {
-    font-size: var(--step--2);
+    font-size: clamp(0.65rem, 0.8vw, 0.75rem);
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--ink-3);
+    font-weight: 500;
   }
   .fact-list dd {
     margin: 0;
-    text-align: right;
     color: var(--ink);
-    font-size: var(--step-0);
+    font-size: clamp(0.9rem, 1.1vw, 1.05rem);
+    font-weight: 600;
   }
 
   @media (max-width: 820px) {
-    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
     .about-side { position: static; }
   }
 </style>
