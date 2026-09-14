@@ -8,8 +8,8 @@ const studies = (await getCollection('case-studies', ({ data }) => !data.draft))
   .sort((a, b) => a.data.order - b.data.order);
 
 const blocks: (typeof studies)[] = [];
-for (let i = 0; i < studies.length; i += 3) {
-  blocks.push(studies.slice(i, i + 3));
+for (let i = 0; i < studies.length; i += 2) {
+  blocks.push(studies.slice(i, i + 2));
 }
 
 const skills = [
@@ -58,7 +58,7 @@ const experience = studies.map((s) => ({
         <div class:list={[
           "bento-block",
           blockIdx % 2 === 0 ? "even" : "odd",
-          block.length < 3 && "partial",
+          block.length < 2 && "partial",
         ]}>
           {block.map((s) => (
             <CaseStudyCard
@@ -166,73 +166,32 @@ const experience = studies.map((s) => ({
   .bento-block {
     display: grid;
     gap: clamp(0.6rem, 1vw, 0.9rem);
-    height: clamp(480px, 62vh, 700px);
+    height: clamp(420px, 55vh, 600px);
   }
 
-  /* Block type 1 (even): tall left, 2 wide right */
+  /* Even blocks: narrow left, wide right */
   .bento-block.even {
     grid-template-columns: 2fr 3fr;
-    grid-template-rows: 1fr 1fr;
-  }
-  .bento-block.even > :global(:nth-child(1)) {
-    grid-column: 1;
-    grid-row: 1 / 3;
-  }
-  .bento-block.even > :global(:nth-child(2)) {
-    grid-column: 2;
-    grid-row: 1;
-  }
-  .bento-block.even > :global(:nth-child(3)) {
-    grid-column: 2;
-    grid-row: 2;
   }
 
-  /* Block type 2 (odd): 2 wide left, tall right */
+  /* Odd blocks: wide left, narrow right */
   .bento-block.odd {
     grid-template-columns: 3fr 2fr;
-    grid-template-rows: 1fr 1fr;
-  }
-  .bento-block.odd > :global(:nth-child(1)) {
-    grid-column: 1;
-    grid-row: 1;
-  }
-  .bento-block.odd > :global(:nth-child(2)) {
-    grid-column: 1;
-    grid-row: 2;
-  }
-  .bento-block.odd > :global(:nth-child(3)) {
-    grid-column: 2;
-    grid-row: 1 / 3;
   }
 
-  /* Partial blocks (fewer than 3 cards) */
+  /* Partial blocks (1 card) */
   .bento-block.partial {
     height: clamp(300px, 40vh, 440px);
   }
-  .bento-block.partial.even {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr;
-  }
-  .bento-block.partial.even > :global(:nth-child(1)) { grid-row: 1; }
-  .bento-block.partial.even > :global(:only-child) { grid-column: 1 / -1; }
-  .bento-block.partial.odd {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr;
-  }
-  .bento-block.partial.odd > :global(:nth-child(1)) { grid-row: 1; grid-column: 1; }
-  .bento-block.partial.odd > :global(:nth-child(2)) { grid-row: 1; grid-column: 2; }
-  .bento-block.partial.odd > :global(:only-child) { grid-column: 1 / -1; }
+  .bento-block.partial > :global(:only-child) { grid-column: 1 / -1; }
 
-  /* Mobile: collapse to single column, compact cards */
+  /* Mobile: collapse to single column */
   @media (max-width: 768px) {
     .bento-block {
       grid-template-columns: 1fr !important;
-      grid-template-rows: auto !important;
       height: auto !important;
     }
     .bento-block > :global(*) {
-      grid-column: 1 !important;
-      grid-row: auto !important;
       min-height: auto;
     }
   }
