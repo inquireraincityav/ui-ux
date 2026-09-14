@@ -37,7 +37,12 @@ const {
   .cs-fig-frame {
     overflow: hidden;
   }
-  .cs-fig-frame img { width: 100%; height: auto; display: block; }
+  .cs-fig-frame img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-inline: auto;
+  }
 
   figcaption {
     margin-top: 0.75rem;
