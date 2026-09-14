@@ -16,8 +16,8 @@
     min-height: 480px;
     max-height: 1100px;
     display: flex;
-    align-items: flex-end;
-    padding-bottom: clamp(2rem, 5vh, 4rem);
+    align-items: center;
+    justify-content: center;
     border-bottom: 1px solid var(--rule);
     position: relative;
     overflow: hidden;
@@ -27,6 +27,7 @@
     max-width: 42rem;
     width: 100%;
     position: relative;
+    text-align: center;
   }
   .hero-name {
     font-family: var(--font-display);
@@ -37,18 +38,17 @@
     letter-spacing: -0.02em;
     color: var(--ink);
     margin: 0;
-    text-align: left;
   }
   .hero-role {
     font-size: clamp(0.8rem, 1.1vw, 0.94rem);
     color: var(--ink-3);
     font-weight: 400;
     margin-top: 0.35rem;
-    text-align: left;
   }
   .hero-actions {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 2rem;
     margin-top: 2rem;
   }
@@ -87,7 +87,7 @@
     .hero-foot { max-width: 100%; }
     .hero-actions {
       flex-direction: column;
-      align-items: flex-start;
+      align-items: center;
       gap: 1.25rem;
     }
   }
