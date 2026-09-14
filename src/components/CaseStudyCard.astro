@@ -23,6 +23,10 @@ const typeLabel = type === 'both' ? 'Web + Mobile' : type === 'mobile' ? 'Mobile
   <div class="tile-media">
     {cover && <img src={cover} alt={`${title} screenshot`} loading="lazy" />}
   </div>
+  <div class="tile-label">
+    <h3 class="tile-label-title">{title}</h3>
+    {subtitle && <p class="tile-label-sub">{subtitle}</p>}
+  </div>
   <div class="tile-overlay">
     <div class="tile-overlay-inner">
       <span class="tile-tag">{typeLabel} · {year}</span>
@@ -64,6 +68,40 @@ const typeLabel = type === 'both' ? 'Web + Mobile' : type === 'mobile' ? 'Mobile
 
   .tile:hover .tile-media img {
     transform: scale(0.93);
+  }
+
+  /* ── Always-visible label ── */
+  .tile-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: clamp(1rem, 2vw, 1.5rem) clamp(1.25rem, 2.5vw, 2rem);
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.65) 60%, transparent);
+    z-index: 1;
+    transition: opacity 0.35s ease;
+  }
+
+  .tile:hover .tile-label {
+    opacity: 0;
+  }
+
+  .tile-label-title {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    font-variation-settings: "opsz" 48;
+    font-weight: 600;
+    font-size: clamp(1rem, 1.5vw, 1.35rem);
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  .tile-label-sub {
+    font-size: clamp(0.75rem, 0.9vw, 0.88rem);
+    color: var(--ink-2);
+    margin-top: 0.2rem;
+    font-weight: 400;
   }
 
   /* ── Frosted glass overlay ── */
@@ -164,6 +202,10 @@ const typeLabel = type === 'both' ? 'Web + Mobile' : type === 'mobile' ? 'Mobile
 
     .tile:hover .tile-media img {
       transform: none;
+    }
+
+    .tile-label {
+      display: none;
     }
 
     .tile-overlay {
