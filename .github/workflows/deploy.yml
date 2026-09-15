@@ -32,10 +32,6 @@ jobs:
 
       - name: Build with Astro
         run: npm run build
-        env:
-          # When you buy a domain, uncomment SITE and remove BASE below.
-          # SITE: https://your-domain.com
-          BASE: /${{ github.event.repository.name }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
