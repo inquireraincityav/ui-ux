@@ -143,6 +143,8 @@ const base = import.meta.env.BASE_URL;
     .cs-main h1 {
       margin: 0.75rem 0 0.75rem;
       font-family: var(--font-display);
+      font-optical-sizing: auto;
+      font-variation-settings: "opsz" 96;
       font-weight: 300;
       font-size: clamp(2rem, 5.5vw, 4.5rem);
       line-height: 1;
@@ -152,6 +154,8 @@ const base = import.meta.env.BASE_URL;
     }
     .cs-subtitle {
       font-family: var(--font-display);
+      font-optical-sizing: auto;
+      font-variation-settings: "opsz" 24;
       font-weight: 400;
       font-size: clamp(1rem, 1.8vw, var(--step-2));
       color: var(--ink-3);
