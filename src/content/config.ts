@@ -21,6 +21,7 @@ const caseStudies = defineCollection({
     team: z.string().optional(),
     tools: z.array(z.string()).default([]),
     outcomes: z.array(z.string()).default([]),
+    prototype: z.string().url().optional(),
   }),
 });
 
