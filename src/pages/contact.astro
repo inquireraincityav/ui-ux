@@ -6,17 +6,16 @@ const base = import.meta.env.BASE_URL;
   <section class="contact-page">
     <div class="contact-grid wrap">
       <div class="contact-label">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M22 2L11 13" /><path d="M22 2L15 22L11 13L2 9L22 2Z" />
-        </svg>
-        <span>Say Hello</span>
+        <span class="label-dot" aria-hidden="true"></span>
+        <span>Get in Touch</span>
       </div>
 
       <div class="contact-main">
-        <h1>Let's Connect</h1>
+        <h1>Let's Work Together</h1>
         <p class="contact-intro">
-          Whether it's about a design project, a collaboration,
-          or just a good conversation about UX, sports or vacation spots, I'd love to hear from you.
+          Got a project in mind, a role you think I'd be a good fit for,
+          or just want to chat about design, sports or vacation spots?
+          Drop me a line.
         </p>
 
         <form
@@ -52,12 +51,13 @@ const base = import.meta.env.BASE_URL;
           </div>
 
           <div class="form-group">
-            <label for="message">Message</label>
+            <label for="message">Message <span class="required">*</span></label>
             <textarea
               id="message"
               name="message"
               rows="6"
               placeholder="Tell me a bit about what you're looking for"
+              required
             ></textarea>
           </div>
 
@@ -83,11 +83,20 @@ const base = import.meta.env.BASE_URL;
   .contact-label {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    color: var(--accent);
-    font-size: clamp(0.85rem, 1vw, 0.95rem);
-    font-weight: 600;
+    gap: 0.6rem;
+    color: var(--ink);
+    font-size: clamp(0.8rem, 1vw, 0.95rem);
+    font-weight: 500;
     padding-top: 0.5rem;
+    letter-spacing: 0.02em;
+  }
+
+  .label-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
   }
 
   .contact-main {
