@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Character from '../components/Character.astro';
 ---
 <BaseLayout title="About - Jaival Shah" description="A short introduction and how I work.">
   <section class="about wrap">
@@ -60,6 +61,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </div>
 
       <aside class="about-side">
+        <Character
+          size={300}
+          poses={{
+            front: '/character/idle-front.png',
+            left: '/character/three-quarter-left.png',
+            right: '/character/three-quarter-right.png',
+            wave: '/character/waving.png',
+          }}
+        />
         <dl class="fact-list">
           <div><dt>Based in</dt><dd>Vancouver, Canada</dd></div>
           <div><dt>Available</dt><dd>Freelance / Contract / Collaborations</dd></div>
@@ -129,7 +139,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     top: 6rem;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    align-items: center;
+    gap: 2.5rem;
   }
   .fact-list {
     margin: 0;
