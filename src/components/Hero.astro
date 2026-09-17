@@ -106,7 +106,8 @@
   @media (max-width: 640px) {
     .hero {
       height: auto;
-      min-height: calc(80svh - 4rem);
+      min-height: 0;
+      padding-block: clamp(4rem, 12vw, 6rem);
     }
     .hero-tags {
       flex-wrap: wrap;
