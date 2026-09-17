@@ -93,7 +93,7 @@ p { max-width: 68ch; text-align: justify; }
 .wrap {
   max-width: var(--page-max);
   margin-inline: auto;
-  padding-inline: var(--gutter);
+  padding-inline: max(var(--gutter), env(safe-area-inset-left)) max(var(--gutter), env(safe-area-inset-right));
 }
 .stack > * + * { margin-top: 1.25rem; }
 .stack-lg > * + * { margin-top: 2.5rem; }
