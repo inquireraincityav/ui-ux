@@ -7,7 +7,7 @@ order: 5
 type: "web"
 canvas: "light"
 coverScheme: "warm"
-cover: "/screens/longmcquade/01_browse_search.png"
+cover: "/screens/longmcquade/app_browse.png"
 summary: "A redesign of Long & McQuade's gear rental flow - built around multi-item, multi-day rental logistics for event professionals. The core innovations are an AI kit recommendation engine and cross-location fulfillment resolution."
 client: "Long & McQuade - Personal Project"
 duration: "Ongoing - 2026"
@@ -15,8 +15,8 @@ impact: "Novel cross-location fulfillment and AI kit recommendation"
 team: "Solo designer + developer"
 tools:
   - Figma
-  - Next.js
-  - TypeScript
+  - React
+  - Vite
   - Vercel
 outcomes:
   - "A GearGenie kit recommendation engine that matches event type, guest count, and venue to real L&M inventory - using deterministic rule matching against actual catalog data, not hallucinated suggestions."
@@ -45,9 +45,17 @@ import Figure from '../../components/Figure.astro';
 </CsSection>
 
 <Figure
-  src="/screens/longmcquade/01_browse_search.png"
-  alt="Browse and search wireframe showing a category filter bar, date range picker, location selector, and an eight-item product grid with per-day pricing and stock badges."
-  caption="Browse and Search - the first-time renter's entry point. Category, date range, and location filters narrow the grid before the user picks a single item."
+  src="/screens/longmcquade/app_browse.png"
+  alt="Browse screen on iPhone showing the L&M Pro Rentals header, search bar, category and date filters, and a two-column product grid with real product photos - Yorkville Tripod Stand, Radial ProDI, Keyboard X-Stand, and Apex Boundary Mic - each with per-day pricing in orange."
+  caption="Browse and Search - the first-time renter's entry point. Category and date filters narrow a product grid pulled from real L&M inventory with per-day pricing."
+  wide
+  canvas="none"
+/>
+
+<Figure
+  src="/screens/longmcquade/app_gear_detail.png"
+  alt="Gear detail drawer on iPhone showing the Yorkville Tripod Stand - SKU, 4.9-star rating, daily ($2), weekly ($8), and monthly ($7) pricing tiers, five pickup locations with real-time stock status (In Stock, Out), and tabbed Specifications and Rental Terms sections."
+  caption="The Gear Detail drawer. Pricing tiers, per-location stock status, specifications, and rental terms - all surfaced inline instead of behind a separate FAQ page."
   wide
   canvas="none"
 />
@@ -119,9 +127,9 @@ import Figure from '../../components/Figure.astro';
   When a request matches a named template closely, GearGenie returns it directly - fast and predictable. When it does not, the engine looks up target wattage, speaker counts, mic counts, and mixer channel minimums from the heuristic rules, then matches those specs against real in-stock items from L&M's inventory to assemble a live gear list. Every recommendation links back to actual catalog data. Nothing is invented.
 
   <Figure
-    src="/screens/longmcquade/03_geargenie.png"
-    alt="GearGenie wireframe showing four input fields - event type, guests, venue, and dates - a Generate Kit button, and a five-item recommended kit grid with per-day pricing and quantity steppers."
-    caption="GearGenie - the event-pro entry point. Four inputs produce a priced, editable kit list built from real L&M inventory and heuristic rules."
+    src="/screens/longmcquade/app_kitbuilder.png"
+    alt="GearGenie screen on iPhone showing Wedding Ceremony selected, 150 guests, Indoor venue, dates October 10-12 2026, with a generated Standard PA Package result - Yorkville speakers, mixer, Shure SM58 microphones - totaling $90 for 2 days with an Add Full Kit to Cart button."
+    caption="GearGenie - the event-pro entry point. Four inputs produce a priced, editable kit list matched against real L&M inventory. Here a wedding for 150 guests returns the Standard PA Package - 7 items, $90 for two days."
     wide
     canvas="none"
   />
@@ -137,9 +145,9 @@ import Figure from '../../components/Figure.astro';
   This is not an edge case. For an event pro renting a full PA setup, cross-branch fulfillment is the norm. The competitive teardown found that neither ShareGrid nor KitSplit has solved this because they are peer-to-peer - items come from different owners, not different branches of the same retailer. L&M's multi-branch inventory is the asset; the cart is the feature that makes it usable.
 
   <Figure
-    src="/screens/longmcquade/04_cart.png"
-    alt="Cart wireframe showing a split-location notice banner in orange, a Consolidate button, four cart items with per-day pricing, and an order summary sidebar showing day and week cost estimates."
-    caption="The cart's split-location detection. The orange banner surfaces the fulfillment split immediately, with a consolidation option before checkout."
+    src="/screens/longmcquade/app_cart.png"
+    alt="Cart screen on iPhone showing 5 items for October 10-12 - Pioneer DDJ-FLX6 ($56), QSC K12.2 Speaker x2 ($88), JBL PRX418S Subwoofer ($40), Chauvet GigBAR Move ($50), Chauvet Hurricane Haze 2D ($20) - with quantity steppers, product thumbnails, and a Proceed to Checkout button for $254."
+    caption="The cart with a DJ kit - 5 items across a 2-day rental window. Each line shows real product photos, per-item totals, and quantity controls."
     wide
     canvas="none"
   />
@@ -155,9 +163,9 @@ import Figure from '../../components/Figure.astro';
   Pricing is shown as day, week, and month tiers by default. When the user has already set a date range upstream in Browse or GearGenie, the detail drawer resolves to an actual total for that exact rental window instead of showing only generic rates.
 
   <Figure
-    src="/screens/longmcquade/05_checkout.png"
-    alt="Checkout wireframe showing an order summary, per-location delivery and pickup toggles, deposit terms callout, mocked payment fields, and an itemized total with equipment subtotal, refundable deposit, and delivery fee."
-    caption="Checkout - deposit terms and delivery options surfaced inline. The user sees exactly what they owe and why before placing the order."
+    src="/screens/longmcquade/app_checkout.png"
+    alt="Checkout screen on iPhone showing an order summary for 4 items, fulfillment options (Store Pickup free or Delivery $45), Deposit and Terms section with a $100 refundable deposit callout and three bullet-point rental terms, a Payment section with demo form fields, and a Place Order button for $190."
+    caption="Checkout - deposit terms and delivery options surfaced inline. The $100 refundable deposit, ID requirements, and damage review terms are visible at the point of commitment - not buried in a FAQ."
     wide
     canvas="none"
   />
@@ -189,7 +197,7 @@ import Figure from '../../components/Figure.astro';
     This project is actively in development - the working prototype is live and the case study will be updated as the build progresses
   </CsStatement>
 
-  The current build is a Next.js app deployed on Vercel, using real L&M catalog data for inventory, pricing, and kit templates. The core screens - Browse and Search, GearGenie, Cart, and Checkout - are functional. Pickup and Return and Order History are in progress.
+  The current build is a React app (Vite) deployed on Vercel, using real L&M catalog data for inventory, pricing, and kit templates. The core screens - Browse and Search, GearGenie, Cart, and Checkout - are functional. Pickup and Return and Order History are in progress.
 
   **What is built:** the browse flow with category and date filters, the GearGenie recommendation engine with heuristic rule matching, the cart with cross-location split detection, and the checkout flow with mocked payment and inline deposit terms.
 
