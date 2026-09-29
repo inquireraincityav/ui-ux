@@ -12,6 +12,7 @@ const caseStudies = defineCollection({
     accent: z.string().optional(),
     order: z.number(),
     draft: z.boolean().default(false),
+    wip: z.boolean().default(false),
     type: z.enum(['web', 'mobile', 'both']).default('web'),
     canvas: z.enum(['light', 'warm', 'dark']).default('light'),
     coverScheme: z.enum(['warm', 'cool', 'ink']).default('warm'),

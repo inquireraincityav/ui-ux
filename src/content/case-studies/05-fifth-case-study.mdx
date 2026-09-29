@@ -1,0 +1,197 @@
+---
+title: "Long & McQuade Gear Rental"
+subtitle: "Redesigning equipment rental for event professionals"
+role: "UX Designer & Developer"
+year: "2026"
+order: 5
+type: "web"
+canvas: "light"
+coverScheme: "warm"
+cover: "/screens/longmcquade/01_browse_search.png"
+summary: "A redesign of Long & McQuade's gear rental flow - built around multi-item, multi-day rental logistics for event professionals. The core innovations are an AI kit recommendation engine and cross-location fulfillment resolution."
+client: "Long & McQuade - Personal Project"
+duration: "Ongoing - 2026"
+impact: "Novel cross-location fulfillment and AI kit recommendation"
+team: "Solo designer + developer"
+tools:
+  - Figma
+  - Next.js
+  - TypeScript
+  - Vercel
+outcomes:
+  - "A GearGenie kit recommendation engine that matches event type, guest count, and venue to real L&M inventory - using deterministic rule matching against actual catalog data, not hallucinated suggestions."
+  - "A cross-location fulfillment resolver in the cart that detects when items span multiple branches and offers consolidation - a problem no competitor in the rental space has solved."
+  - "Rental terms and deposit requirements surfaced inline at the point of decision - not buried in a separate FAQ page where they currently live on L&M's real site."
+wip: true
+prototype: "https://longandmcquade.vercel.app/sign-in"
+---
+
+import CsSection from '../../components/CsSection.astro';
+import CsStatement from '../../components/CsStatement.astro';
+import CsCardGrid from '../../components/CsCardGrid.astro';
+import CsCard from '../../components/CsCard.astro';
+import CsPrincipleGrid from '../../components/CsPrincipleGrid.astro';
+import CsPrinciple from '../../components/CsPrinciple.astro';
+import Figure from '../../components/Figure.astro';
+
+<CsSection label="Context & Problem">
+  <CsStatement>
+    <span class="accent">Long & McQuade</span> is Canada's largest music and pro-audio retailer - but their gear rental flow still runs on manual quote requests resolved over phone and email.
+  </CsStatement>
+
+  Today, renting from L&M means browsing a category page, finding items one at a time, and submitting a quote request that staff resolve manually. There is no real-time availability, no way to build a multi-item kit in one session, and no visibility into which branch actually has stock. For a first-time renter picking up a single mic, that friction is tolerable. For an event professional assembling a full PA rig across multiple days and potentially multiple branches, it is a dealbreaker.
+
+  Peer-to-peer platforms like ShareGrid and KitSplit have solved per-item availability calendars and multi-item insurance stacking - but they are peer-to-peer marketplaces, not a single retailer's own inventory. **The gap nobody has closed is real-time availability, multi-item kit curation, and cross-branch fulfillment from one company's own stores, combined into a single self-serve flow.**
+</CsSection>
+
+<Figure
+  src="/screens/longmcquade/01_browse_search.png"
+  alt="Browse and search wireframe showing a category filter bar, date range picker, location selector, and an eight-item product grid with per-day pricing and stock badges."
+  caption="Browse and Search - the first-time renter's entry point. Category, date range, and location filters narrow the grid before the user picks a single item."
+  wide
+  canvas="none"
+/>
+
+<CsSection label="Two Personas, Two Paths">
+  <CsStatement>
+    The redesign serves two distinct users who enter the same flow from different directions and converge at the cart
+  </CsStatement>
+
+  <CsCardGrid columns={2}>
+    <CsCard title="Event Professional" dots={1}>
+      <ul>
+        <li><strong>Who:</strong> Someone like an AV production studio renting a full PA kit for a wedding or corporate event</li>
+        <li><strong>Entry point:</strong> GearGenie - describe the event, get a recommended kit</li>
+        <li><strong>Core need:</strong> Assemble a complete gear list fast, across multiple days, with pricing locked in before the gig</li>
+        <li><strong>Pain today:</strong> Manually requesting quotes for 8-12 items, waiting for staff callbacks, no cross-branch visibility</li>
+      </ul>
+    </CsCard>
+    <CsCard title="First-Time Renter" dots={2}>
+      <ul>
+        <li><strong>Who:</strong> Someone renting one or two items for a personal project or small event</li>
+        <li><strong>Entry point:</strong> Browse and Search - filter by category, find an item, add to cart</li>
+        <li><strong>Core need:</strong> Understand what is available, what it costs, and what the rental terms are</li>
+        <li><strong>Pain today:</strong> Rental terms buried in a FAQ page, no clear pricing until staff responds</li>
+      </ul>
+    </CsCard>
+  </CsCardGrid>
+</CsSection>
+
+<CsSection label="Information Architecture">
+  <CsStatement>
+    The IA splits into two entry paths that converge at a shared cart - then fans out again for post-rental logistics
+  </CsStatement>
+
+  The first-time renter enters through **Browse and Search** - a guided category filter with date-range availability, pulling real L&M product data into a card grid. The event professional enters through **GearGenie** - an AI-driven kit builder that takes event type, guest count, venue type, and dates, then returns a recommended gear list.
+
+  Both paths converge at the **Cart**, where the cross-location fulfillment resolver does the work nobody else has built - detecting when items in a single order span multiple branches and offering consolidation. From there, **Checkout** surfaces deposit terms and delivery options inline, and the flow fans out to **Pickup and Return** (mobile-first condition check-in) and **Order History** (repeat-kit reordering for pros).
+
+  <CsCardGrid columns={3}>
+    <CsCard title="Entry Paths" dots={1}>
+      <ul>
+        <li><strong>Browse and Search:</strong> Category, date, and location filters for guided discovery</li>
+        <li><strong>GearGenie:</strong> AI kit recommendation from event parameters</li>
+        <li><strong>Gear Detail:</strong> Drawer from either path - specs, pricing tiers, inline rental terms</li>
+      </ul>
+    </CsCard>
+    <CsCard title="Convergence" dots={2}>
+      <ul>
+        <li><strong>Cart:</strong> Cross-location fulfillment detection and consolidation</li>
+        <li><strong>Checkout:</strong> Deposit terms, delivery vs. pickup per location, mocked payment</li>
+      </ul>
+    </CsCard>
+    <CsCard title="Post-Rental" dots={3}>
+      <ul>
+        <li><strong>Pickup and Return:</strong> Mobile-first condition check-in with photo capture</li>
+        <li><strong>Order History:</strong> Past orders with one-tap kit reordering for repeat renters</li>
+      </ul>
+    </CsCard>
+  </CsCardGrid>
+</CsSection>
+
+<CsSection label="GearGenie - The Core Differentiator">
+  <CsStatement>
+    GearGenie turns "I have a wedding for 150 guests next Saturday" into a priced, in-stock gear list - without a single phone call
+  </CsStatement>
+
+  The recommendation engine takes four inputs: event type, guest count, venue (indoor, outdoor, or mixed), and rental dates. It runs deterministic rule matching - not a black-box LLM - against two data layers: four named kit templates that L&M staff already quote manually (Standard PA, Panel/Conference, Recording/Hybrid Meeting, Presentation + Projector), and a heuristic rules table covering scenarios those templates do not (weddings, DJ sets, outdoor festivals).
+
+  When a request matches a named template closely, GearGenie returns it directly - fast and predictable. When it does not, the engine looks up target wattage, speaker counts, mic counts, and mixer channel minimums from the heuristic rules, then matches those specs against real in-stock items from L&M's inventory to assemble a live gear list. Every recommendation links back to actual catalog data. Nothing is invented.
+
+  <Figure
+    src="/screens/longmcquade/03_geargenie.png"
+    alt="GearGenie wireframe showing four input fields - event type, guests, venue, and dates - a Generate Kit button, and a five-item recommended kit grid with per-day pricing and quantity steppers."
+    caption="GearGenie - the event-pro entry point. Four inputs produce a priced, editable kit list built from real L&M inventory and heuristic rules."
+    wide
+    canvas="none"
+  />
+</CsSection>
+
+<CsSection label="Cross-Location Fulfillment">
+  <CsStatement>
+    The cart solves the problem nobody else in the competitive landscape has touched - what happens when your kit spans two branches
+  </CsStatement>
+
+  When a user adds items that are stocked at different L&M locations, the cart detects the split and surfaces it immediately: "Your kit will be split across 2 locations - Toronto (Bloor St.) and Toronto (Yorkdale) - you will need two pickups." A Consolidate button lets the user attempt to source everything from one branch, subject to availability.
+
+  This is not an edge case. For an event pro renting a full PA setup, cross-branch fulfillment is the norm. The competitive teardown found that neither ShareGrid nor KitSplit has solved this because they are peer-to-peer - items come from different owners, not different branches of the same retailer. L&M's multi-branch inventory is the asset; the cart is the feature that makes it usable.
+
+  <Figure
+    src="/screens/longmcquade/04_cart.png"
+    alt="Cart wireframe showing a split-location notice banner in orange, a Consolidate button, four cart items with per-day pricing, and an order summary sidebar showing day and week cost estimates."
+    caption="The cart's split-location detection. The orange banner surfaces the fulfillment split immediately, with a consolidation option before checkout."
+    wide
+    canvas="none"
+  />
+</CsSection>
+
+<CsSection label="Surfacing Hidden Information">
+  <CsStatement>
+    Rental terms, deposit requirements, and pricing tiers are surfaced inline - not buried in a FAQ page disconnected from the product
+  </CsStatement>
+
+  On L&M's current site, critical rental information - ID requirements, deposit amounts for cash payments, hold fees for advance reservations - lives on a separate FAQ page. A renter discovers these terms after they have already committed to the rental, not before. The redesign moves this information to two places where it belongs: the Gear Detail drawer (inline with the item the user is considering) and the Checkout screen (inline with the payment form).
+
+  Pricing is shown as day, week, and month tiers by default. When the user has already set a date range upstream in Browse or GearGenie, the detail drawer resolves to an actual total for that exact rental window instead of showing only generic rates.
+
+  <Figure
+    src="/screens/longmcquade/05_checkout.png"
+    alt="Checkout wireframe showing an order summary, per-location delivery and pickup toggles, deposit terms callout, mocked payment fields, and an itemized total with equipment subtotal, refundable deposit, and delivery fee."
+    caption="Checkout - deposit terms and delivery options surfaced inline. The user sees exactly what they owe and why before placing the order."
+    wide
+    canvas="none"
+  />
+</CsSection>
+
+<CsSection label="Design Principles">
+  <CsStatement>
+    Four principles shaped every screen in the flow - from browse through post-rental
+  </CsStatement>
+
+  <CsPrincipleGrid>
+    <CsPrinciple title="Pro-First, Newcomer-Safe">
+      The event professional's multi-item, multi-day workflow drives the architecture. The first-time renter gets a simpler path into the same system - not a dumbed-down version.
+    </CsPrinciple>
+    <CsPrinciple title="Real Data, No Fiction">
+      Every price, every item, and every kit recommendation traces back to L&M's actual catalog. GearGenie's heuristic rules produce deterministic results - nothing is hallucinated.
+    </CsPrinciple>
+    <CsPrinciple title="Surface the Hidden">
+      Rental terms, deposit rules, and cross-branch splits are shown at the point of decision, not after commitment. If the information affects the user's choice, it belongs on the screen where they are choosing.
+    </CsPrinciple>
+    <CsPrinciple title="Solve the Unsexy Problem">
+      Cross-location fulfillment is not glamorous, but it is the real pain point for anyone renting more than two items. The cart's split-detection and consolidation logic is the feature the competitive landscape is missing.
+    </CsPrinciple>
+  </CsPrincipleGrid>
+</CsSection>
+
+<CsSection label="Current Status">
+  <CsStatement>
+    This project is actively in development - the working prototype is live and the case study will be updated as the build progresses
+  </CsStatement>
+
+  The current build is a Next.js app deployed on Vercel, using real L&M catalog data for inventory, pricing, and kit templates. The core screens - Browse and Search, GearGenie, Cart, and Checkout - are functional. Pickup and Return and Order History are in progress.
+
+  **What is built:** the browse flow with category and date filters, the GearGenie recommendation engine with heuristic rule matching, the cart with cross-location split detection, and the checkout flow with mocked payment and inline deposit terms.
+
+  **What is next:** the mobile-first Pickup and Return condition check-in flow, the Order History screen with repeat-kit reordering, and visual polish applying the Liquid Glass design system (translucent glass surfaces with L&M's brand orange).
+</CsSection>
