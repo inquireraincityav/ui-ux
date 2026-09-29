@@ -17,6 +17,7 @@ interface Props {
     order: number;
     type?: 'web' | 'mobile' | 'both';
     prototype?: string;
+    wip?: boolean;
   };
 }
 const { frontmatter } = Astro.props;
@@ -78,7 +79,7 @@ const base = import.meta.env.BASE_URL;
         </aside>
 
         <div class="cs-main">
-          <p class="eyebrow">Case study · {typeLabel} · {frontmatter.year}</p>
+          <p class="eyebrow">Case study · {typeLabel} · {frontmatter.year}{frontmatter.wip && ' · Work in Progress'}</p>
           <h1>{frontmatter.title}</h1>
           {frontmatter.subtitle && <p class="cs-subtitle">{frontmatter.subtitle}</p>}
           <p class="cs-summary">{frontmatter.summary}</p>
