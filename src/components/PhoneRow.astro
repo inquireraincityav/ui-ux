@@ -1,0 +1,40 @@
+---
+interface Props {
+  caption?: string;
+}
+const { caption } = Astro.props;
+---
+<figure class="phone-row-figure">
+  <div class="phone-row">
+    <slot />
+  </div>
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>
+
+<style>
+  .phone-row-figure {
+    margin-block: 2.5rem;
+  }
+  .phone-row {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .phone-row :global(.phone-figure) {
+    margin-block: 0;
+    flex: 0 1 auto;
+    max-width: 220px;
+  }
+  figcaption {
+    margin-top: 1.25rem;
+    font-size: var(--step--1);
+    color: var(--ink-3);
+    line-height: 1.5;
+    font-style: italic;
+    text-align: center;
+    max-width: 72ch;
+    margin-inline: auto;
+  }
+</style>

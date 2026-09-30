@@ -1,0 +1,260 @@
+---
+title: "Fatafat - Mumbai Transit Companion"
+subtitle: "A transit app that treats rider confidence as a first-class design input"
+role: "UX Designer & Developer"
+year: "2026"
+order: 6
+type: "mobile"
+canvas: "warm"
+coverScheme: "warm"
+cover: "/screens/fatafat/app_home.png"
+summary: "A companion app for Mumbai's suburban rail network - the busiest commuter system on Earth - designed around progressive disclosure. The same screens flex information density up or down based on how well a rider knows the system, answering the question every commuter actually has: should I wait, or should I board right now?"
+client: "Personal Project"
+duration: "Ongoing - 2026"
+impact: "Confidence-mode system flexing UI for two distinct personas from one structure"
+team: "Solo designer + developer"
+tools:
+  - Figma
+  - Next.js
+  - React
+  - Tailwind CSS
+  - Leaflet
+  - Vercel
+outcomes:
+  - "A confidence-mode system (Home, Live Status, Journey Detail, On Board) that flexes for two concretely different personas from one underlying structure - reversible with a single toggle rather than requiring separate apps or onboarding paths."
+  - "A complete information architecture (4 tabs, 1 persistent settings icon, 3 shared components, full edge-state coverage) that stayed disciplined in scope even after ticketing was added mid-process."
+  - "A named, realistic data strategy (RailRadar API + historical modeling + opt-in self-reports) in place of hand-waving - the kind of grounding that holds up under a reviewer's 'how would this actually work?'"
+  - "Four design principles that emerged from the work rather than being decided upfront, each traceable to a specific screen or decision in the process."
+wip: true
+prototype: "https://fatafat-nu.vercel.app/splash"
+---
+
+import CsSection from '../../components/CsSection.astro';
+import CsStatement from '../../components/CsStatement.astro';
+import CsCardGrid from '../../components/CsCardGrid.astro';
+import CsCard from '../../components/CsCard.astro';
+import CsPrincipleGrid from '../../components/CsPrincipleGrid.astro';
+import CsPrinciple from '../../components/CsPrinciple.astro';
+import Figure from '../../components/Figure.astro';
+import PhoneFrame from '../../components/PhoneFrame.astro';
+import PhoneRow from '../../components/PhoneRow.astro';
+
+<CsSection label="Context & Problem">
+  <CsStatement>
+    Mumbai's suburban rail network moves roughly <span class="accent">7 million people a day</span> - and the digital tools meant to help haven't kept pace with the system's complexity.
+  </CsStatement>
+
+  The "Locals" - Central, Western, and Harbour lines - are the busiest commuter rail system on Earth. Fast and slow trains share platforms with no clear signage logic, crowd levels shift by the minute, and a single signal fault can cascade into an hour of chaos.
+
+  m-Indicator, the dominant app with roughly 10 million installs, is trusted for its core data but has sprawled into job listings, property classifieds, and entertainment schedules. Mumbai One, the government's newer ticketing app, treats journey planning as a means to a transaction, not a source of real-time confidence. Both apps share the same failure pattern: they work well when the system is running on schedule and degrade exactly when riders need them most.
+
+  Neither app addresses a more fundamental gap: **every rider sees the same screen, regardless of how well they know the system.** A commuter who has ridden the same route for ten years and someone who arrived in Mumbai last week are shown identical density of information. For an experienced rider this is merely inefficient. For a new rider, standing on a platform with 30 seconds to decide whether to board, it is the difference between a manageable commute and a genuinely anxious one.
+
+  This project asks: what would a transit companion look like if it treated rider confidence as a first-class design input - flexing information density based on how well someone knows the system - while adding the one feature no existing app offers: a plain-language answer to the question every rider actually has, which is not "what's the schedule" but **"should I wait, or should I board right now?"**
+</CsSection>
+
+<PhoneRow caption="First launch - the splash animation plays once, then hands off to onboarding where a single question sets the app's initial confidence mode. 'I'm new here' is the primary action, meeting the person most likely landing on this screen for the first time.">
+  <PhoneFrame src="/screens/fatafat/app_splash.png" alt="Fatafat splash screen showing the app logo against a navy background with a Mumbai skyline silhouette and an arriving train animation" />
+  <PhoneFrame src="/screens/fatafat/app_onboarding.png" alt="Onboarding screen asking 'How well do you know Mumbai's trains?' with two large tap targets - 'I'm new here' in marigold and 'I ride daily' in navy" />
+</PhoneRow>
+
+<CsSection label="Two Personas, One System">
+  <CsStatement>
+    Priya and Arjun ride the same trains, at the same stations - but they need almost opposite things from an interface
+  </CsStatement>
+
+  <CsCardGrid columns={2}>
+    <CsCard title="Priya - The Confident Commuter" dots={1}>
+      <ul>
+        <li><strong>Who:</strong> Rides the same Western Line route to work five days a week, has done so for years</li>
+        <li><strong>Entry point:</strong> Home widget - one-tap access to her daily commute</li>
+        <li><strong>Core need:</strong> Speed and certainty. Next train, crowd level, fastest bus connection - nothing else in the way</li>
+        <li><strong>Pain today:</strong> Existing apps make her dig past irrelevant content to get one piece of live information</li>
+      </ul>
+    </CsCard>
+    <CsCard title="Arjun - The Anxious Newcomer" dots={2}>
+      <ul>
+        <li><strong>Who:</strong> Recently moved to Mumbai for work. Has ridden the Locals a handful of times, always with some anxiety</li>
+        <li><strong>Entry point:</strong> Home card - "New to Mumbai trains?" with compartment guide, fast vs. slow explainer, fare basics</li>
+        <li><strong>Core need:</strong> Not get it wrong. Doesn't yet know the difference between fast and slow trains or which compartment to stand near</li>
+        <li><strong>Pain today:</strong> Every existing app assumes baseline knowledge he doesn't have</li>
+      </ul>
+    </CsCard>
+  </CsCardGrid>
+
+  Progressive disclosure is the mechanism that lets one app genuinely serve both: the same screens, but flexed in density and language depending on where the rider sits on the confidence spectrum. This is the throughline the rest of the case study builds around.
+</CsSection>
+
+<PhoneFrame
+  src="/screens/fatafat/app_home.png"
+  alt="Home dashboard showing a 'Your Daily Commute' widget with the next train departure, crowd level badge, and platform number, plus quick-access route chips below"
+  caption="The Home dashboard - Priya's entry point. Her daily commute shows live departure, crowd level, and platform number. One tap opens Journey Detail directly, bypassing the full route search."
+/>
+
+<CsSection label="Information Architecture">
+  <CsStatement>
+    Four tabs, one settings icon, three shared components - deliberately tight scope as a direct counterpoint to the sprawl documented in the competitive teardown
+  </CsStatement>
+
+  A 4-tab bottom navigation: Home (dashboard), Live Status, Routes (search), and Tickets. Settings is a persistent icon, not a fifth tab - bottom-nav space is the app's scarcest real estate, reserved for daily-use destinations rather than a setup-once screen.
+
+  <CsCardGrid columns={2}>
+    <CsCard title="Entry Points" dots={1}>
+      <ul>
+        <li><strong>Home:</strong> Glanceable dashboard - commuter widget or new-rider card depending on mode</li>
+        <li><strong>Live Status:</strong> Next departures from a chosen station, crowd density, "wait or board now" recommendation</li>
+        <li><strong>Routes:</strong> Full origin/destination search with depart-at and reach-by toggle</li>
+        <li><strong>Tickets:</strong> Buy single, return, or pass tickets; view active and expired tickets with QR codes</li>
+      </ul>
+    </CsCard>
+    <CsCard title="Drill-Ins" dots={2}>
+      <ul>
+        <li><strong>Journey Detail:</strong> Full train + bus leg, reached from Home, Live Status, or Routes - two states depending on destination context</li>
+        <li><strong>On Board:</strong> Active-journey tracking, reached only after tapping "I'm on this train" - boarding confirmation and live-data contribution are the same interaction</li>
+        <li><strong>New Rider Screens:</strong> Compartment guide, fast vs. slow explainer, fares - swipeable between each other</li>
+      </ul>
+    </CsCard>
+  </CsCardGrid>
+
+  <CsCardGrid columns={3}>
+    <CsCard title="Station Picker" dots={1}>
+      A shared component (search, recent, starred, current location) used by every "From/To" field across Home, Live Status, Routes, and Journey Detail. Each result carries line badges so interchange stations show which lines they serve.
+    </CsCard>
+    <CsCard title="Network Map" dots={2}>
+      Color-coded by line with a legend, reachable from Live Status, Routes, and Journey Detail. The current route highlights against the full network - useful for Arjun especially, who won't have the layout memorized.
+    </CsCard>
+    <CsCard title="Fare Details" dots={3}>
+      Single, return, monthly, and quarterly pricing by class. Feeds directly into the Tickets tab's purchase flow, since ticket buying is in scope.
+    </CsCard>
+  </CsCardGrid>
+</CsSection>
+
+<PhoneRow caption="Shared components - the station picker reuses one design across every 'From/To' field in the app, and the network map highlights the current route against the full rail network.">
+  <PhoneFrame src="/screens/fatafat/app_station_picker.png" alt="Station picker showing a search field, recent stations, and starred stations with line badges (W, C, H) indicating which lines each station serves" />
+  <PhoneFrame src="/screens/fatafat/app_network_map.png" alt="Full network map showing Central, Western, and Harbour lines color-coded with station dots and a line legend" />
+</PhoneRow>
+
+<CsSection label="The Journey - From Search to Arrival">
+  <CsStatement>
+    The core loop: find a route, see the live picture, board, and track your ride - with the interface flexing at every step based on rider confidence
+  </CsStatement>
+
+  Journey Detail is the convergence point for every entry path in the app. Whether Priya taps her Home widget, Arjun searches from Routes, or either of them selects a departure from Live Status - they land on the same screen, with density adjusted to match their mode.
+
+  The "I'm on this train" tap transitions to On Board - a screen that did not exist in the original IA but was added after tracing the end-to-end flow revealed a real gap. Journey Detail tells you about the trip before it starts; nothing previously covered the trip while it is happening. For Arjun, On Board shows a large stop-progress tracker with a countdown to his destination and an explicit alert promise. For Priya, a compact next-stop line and an exit-side tip.
+</CsSection>
+
+<PhoneRow caption="The Explore tab shows live departures from a station, and Journey Detail stitches the full train + last-mile bus picture together.">
+  <PhoneFrame src="/screens/fatafat/app_explore.png" alt="Live Status tab showing next departures from a station with crowd density indicators, platform numbers, and a 'wait or board now' recommendation at the bottom" />
+  <PhoneFrame src="/screens/fatafat/app_journey.png" alt="Journey Detail screen showing a Western Line train leg with departure time, crowd level, and platform, followed by a BEST bus connection with walk time and bus route number" />
+</PhoneRow>
+
+<PhoneRow caption="On Board tracking - the stop-progress timeline shows each station along the route, a progress bar tracks distance covered, and the bus connection ETA stays visible at the bottom.">
+  <PhoneFrame src="/screens/fatafat/app_onboard.png" alt="On Board screen with a dark navy background showing a stop-by-stop timeline with the current position highlighted, a progress bar, and estimated arrival time at the destination" />
+  <PhoneFrame src="/screens/fatafat/app_onboard_progress.png" alt="On Board screen showing journey progress partway through the route with stops passed marked in green and upcoming stops shown ahead" />
+</PhoneRow>
+
+<CsSection label="Tickets - A Deliberate Trade-Off">
+  <CsStatement>
+    Ticket purchase directly overlaps with Mumbai One - a scope decision stated plainly rather than smoothed over
+  </CsStatement>
+
+  Adding ticket purchase was the one place scope crept in after the IA felt settled. The difference from Mumbai One is architectural: ticketing here is one tab among four, not the organizing purpose. The goal is not to out-build Mumbai One's payment infrastructure - it is to remove one real point of friction: leaving the app mid-journey to buy a ticket elsewhere.
+
+  This is a genuine trade-off. Tickets took the nav slot that Saved Routes originally held. Saved routes stepped down to a low-emphasis Home widget rather than keeping a promoted destination of their own. The case study names this directly because a portfolio piece that only shows the decisions that worked out cleanly is less credible than one that shows the actual trade-off being weighed.
+</CsSection>
+
+<PhoneRow caption="The ticket flow - browse available ticket types, complete payment, and receive a QR code for boarding. Previously purchased tickets live under My Tickets with active/expired status.">
+  <PhoneFrame src="/screens/fatafat/app_tickets_buy.png" alt="Buy Ticket screen showing ticket type selection (single, return, pass), class options (first, second), and route fields with a fare summary at the bottom" />
+  <PhoneFrame src="/screens/fatafat/app_ticket_payment.png" alt="Payment screen showing order summary with ticket details, payment method selection, and a Pay Now button" />
+  <PhoneFrame src="/screens/fatafat/app_tickets_qr.png" alt="Ticket confirmation screen showing a QR code for boarding, ticket details including route, class, and validity period" />
+</PhoneRow>
+
+<CsSection label="Visual Language">
+  <CsStatement>
+    Warm and vibrant, pulled from Mumbai itself - heritage and calm over loud and current, because the app's job is to reduce anxiety in a stressful moment
+  </CsStatement>
+
+  The palette draws from the city's own visual vocabulary: the Western Line's indigo rakes, auto-rickshaw yellow-and-black, the rust-red of BEST buses, and the warm cream of old railway signage.
+
+  <CsCardGrid columns={2}>
+    <CsCard title="Palette" dots={1}>
+      <ul>
+        <li><strong>Marigold #E8A63C:</strong> Primary brand accent - deliberately not red, since red is already taken by BEST buses, the Central Line, and m-Indicator's own brand</li>
+        <li><strong>Indigo #1F3A5F:</strong> Headers and primary text - grounds the marigold against something calmer</li>
+        <li><strong>Rust Red #C1502E:</strong> Secondary accent, used sparingly</li>
+        <li><strong>Warm Cream #F4EDE0:</strong> Background - not white (too clinical) or dark (already used by existing redesign concepts)</li>
+        <li><strong>Warm Charcoal #3D3A34:</strong> Body text</li>
+      </ul>
+    </CsCard>
+    <CsCard title="Typography & Reserved Colors" dots={2}>
+      <ul>
+        <li><strong>Headers:</strong> Fraunces - a warm serif evoking hand-painted railway and shopfront signage</li>
+        <li><strong>Body:</strong> Inter - clean humanist sans for data-dense screens where legibility at speed matters</li>
+        <li><strong>Reserved:</strong> Crowd-status badges (teal/amber/coral ramp) and line-legend colors (navy Western, red Central, green Harbour, purple Metro) stay outside the brand palette - a functional badge is never visually confusable with a decorative accent</li>
+      </ul>
+    </CsCard>
+  </CsCardGrid>
+</CsSection>
+
+<PhoneRow caption="The walkthrough and intro screens carry the warm visual identity - Fraunces serif headings, the marigold accent, and Mumbai's skyline silhouette threading through the first-launch sequence.">
+  <PhoneFrame src="/screens/fatafat/app_walkthrough.png" alt="Walkthrough screen with Fraunces serif heading, a feature description, and the warm cream background with marigold accent elements" />
+  <PhoneFrame src="/screens/fatafat/app_intro.png" alt="Intro screen showing the Fatafat brand identity with the train icon mark, feature highlights, and a Get Started button in marigold" />
+</PhoneRow>
+
+<CsSection label="Design Principles">
+  <CsStatement>
+    Four principles that emerged from the work rather than being decided upfront - each traceable to a specific screen or decision
+  </CsStatement>
+
+  <CsPrincipleGrid>
+    <CsPrinciple title="Progressive Disclosure by Rider Confidence">
+      Home changes shape entirely depending on mode - a dense next-train widget for Priya vs. an expandable "New to Mumbai trains?" card for Arjun. On Board is the clearest proof point: Arjun gets a large stop-countdown with an alert promise, Priya gets a compact next-stop line and an exit-side tip. Same screen, same trigger, genuinely different tools for genuinely different anxieties.
+    </CsPrinciple>
+    <CsPrinciple title="Answer the Question, Don't Just Show the Data">
+      Every existing app shows schedules and lets the rider interpret them. This app's headline feature is a recommendation, not a readout: "wait or board now," with the reasoning stated in one line. The bar for adding this feature anywhere was that it had to change what the rider does, not just what they see.
+    </CsPrinciple>
+    <CsPrinciple title="Converge, Don't Proliferate">
+      Every new capability discovered during the wireframe pass - station selection, the network map, fare depth, error states - was built as a shared component reused across screens, not a new destination added to the sitemap. A direct reaction to the competitive teardown: this app grows by making its existing screens do more.
+    </CsPrinciple>
+    <CsPrinciple title="Name the Trade-Offs Instead of Hiding Them">
+      Adding ticket purchase directly overlaps with Mumbai One and demoted Saved routes from a tab to a widget. Both are stated plainly rather than smoothed over. A portfolio piece that only shows the decisions that worked out cleanly is less credible than one that shows the actual trade-off being weighed.
+    </CsPrinciple>
+  </CsPrincipleGrid>
+</CsSection>
+
+<PhoneFrame
+  src="/screens/fatafat/app_settings.png"
+  alt="Settings screen showing the confidence-mode toggle (New Rider / Commuter), notification preferences, and a Contact Us option for support"
+  caption="Settings houses the confidence-mode toggle - so dismissing the New Rider card on Home is always reversible. The toggle re-flexes every screen in the app, not just Home."
+/>
+
+<CsSection label="Reflections">
+  <CsStatement>
+    What held up, what didn't, and what only surfaced once the screens were traced end-to-end as a flow rather than reviewed one at a time
+  </CsStatement>
+
+  **What held up.** Progressive disclosure survived contact with every screen it touched without needing a special case. That is the strongest signal the principle was real rather than a nice sentence: it kept generating consistent answers all the way through, instead of running out partway.
+
+  **What I'd revisit.** Adding ticket purchase mid-process was the right call for a fuller product, but it is the one place scope crept in after the IA felt settled. Doing it again, I would pressure-test the full feature list - including ticketing - before locking Home's nav, rather than discovering the need for a fourth tab after three were already drawn.
+
+  **Where the flowchart pass earned its keep.** Two real gaps only surfaced once the screens were traced end-to-end: Live Status had no path to a destination, and the trigger for On Board was undefined. Both are the kind of gap that is invisible screen-by-screen and obvious the moment you ask "and then what happens?"
+
+  **What building caught that wireframing didn't.** Reviewing the app as an actual clickable prototype surfaced that primary inputs were sitting near the top of the screen - fine in a flat mockup, a real one-handed reach problem on an actual phone. Repositioning thumb-used elements toward the bottom half is a small change with an outsized effect on daily usability, and it is the kind of issue that specifically needs a real prototype in hand to notice.
+
+  **The honest limitation.** This stays a conceptual case study. Crowd density and live GPS positioning are designed against a realistic data strategy (RailRadar's API, a historical model, opt-in self-reporting), but none of it is wired up to real data. The design decisions are defensible on their own terms; whether the "wait or board now" recommendation is actually trustworthy in practice is a question only real usage could answer.
+</CsSection>
+
+<CsSection label="Current Status">
+  <CsStatement>
+    The core experience is designed and built - a handful of refinements are actively underway
+  </CsStatement>
+
+  The current build is a Next.js app deployed on Vercel, using Tailwind CSS, Leaflet for maps, and React 19. The core screens - Home, Live Status, Routes, Journey Detail, On Board, and Tickets - are functional as a clickable prototype.
+
+  **What is built:** the full 4-tab navigation with confidence-mode toggle, the onboarding flow, station picker, network map, journey tracking with stop-by-stop progress, and the ticket purchase flow with QR codes.
+
+  **What is next:** restructuring the Explore tab to remove a redundant "Plan" section, having completed trips populate Home's Daily Commute list with real data instead of placeholders, and extending ticket purchase to capture payment method and quantity reflected back under My Tickets.
+
+  **Natural next step:** usability testing the confidence-mode toggle itself - specifically, whether real newcomers to Mumbai's trains would self-identify accurately at onboarding, or whether the mode needs to earn trust more gradually than a single first-launch question allows.
+</CsSection>
