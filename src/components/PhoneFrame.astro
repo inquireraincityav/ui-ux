@@ -5,17 +5,14 @@ interface Props {
   scheme?: 'warm' | 'cool' | 'ink';
   scale?: number;
   caption?: string;
-  screenBg?: string;
 }
-const { src, alt = '', scheme = 'warm', scale = 0.55, caption, screenBg } = Astro.props;
+const { src, alt = '', scheme = 'warm', scale = 0.55, caption } = Astro.props;
 const hasSlot = Astro.slots.has('default');
-const screenStyle = screenBg ? `background:${screenBg}` : '';
 ---
 <figure class="phone-figure">
   <div class="phone" style={`--phone-scale:${scale}`}>
-    <div class="phone-bezel">
-      <div class="phone-notch" aria-hidden="true"></div>
-      <div class="phone-screen" style={screenStyle}>
+    <div class="phone-body">
+      <div class="phone-screen">
         {src ? (
           <img src={src} alt={alt} loading="lazy" />
         ) : hasSlot ? (
@@ -31,7 +28,7 @@ const screenStyle = screenBg ? `background:${screenBg}` : '';
           </div>
         )}
       </div>
-      <div class="phone-bar" aria-hidden="true"></div>
+      <img class="phone-frame-img" src="/iphone-frame.png" alt="" aria-hidden="true" loading="lazy" />
     </div>
   </div>
   {caption && <figcaption>{caption}</figcaption>}
@@ -45,49 +42,38 @@ const screenStyle = screenBg ? `background:${screenBg}` : '';
     margin-block: 2rem;
   }
   .phone {
-    width: calc(var(--phone-scale, 0.55) * 100%);
-    max-width: 280px;
+    width: 240px;
     margin-inline: auto;
   }
-  .phone-bezel {
+  .phone-body {
     position: relative;
-    background: #1a1a1a;
-    border-radius: 2.4rem;
-    padding: 0.75rem;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.18), inset 0 0 0 1px rgba(255,255,255,0.06);
-  }
-  .phone-notch {
-    position: absolute;
-    top: 0.75rem;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 35%;
-    height: 1.6rem;
-    background: #1a1a1a;
-    border-radius: 0 0 1rem 1rem;
-    z-index: 2;
+    aspect-ratio: 501 / 1030;
+    width: 100%;
   }
   .phone-screen {
-    position: relative;
-    border-radius: 1.8rem;
+    position: absolute;
+    top: 1.6%;
+    left: 1.6%;
+    width: 96.8%;
+    height: 96.6%;
+    border-radius: 9.2%;
     overflow: hidden;
-    aspect-ratio: 9/19.5;
     background: #fff;
   }
   .phone-screen img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
   }
-  .phone-bar {
+  .phone-frame-img {
     position: absolute;
-    bottom: 0.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 36%;
-    height: 4px;
-    background: rgba(255,255,255,0.3);
-    border-radius: 4px;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    pointer-events: none;
+    z-index: 1;
   }
 
   figcaption {
