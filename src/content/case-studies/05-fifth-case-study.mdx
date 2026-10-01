@@ -4,7 +4,7 @@ subtitle: "Redesigning equipment rental for event professionals"
 role: "UX Designer & Developer"
 year: "2026"
 order: 5
-type: "web"
+type: "mobile"
 canvas: "light"
 coverScheme: "warm"
 cover: "/screens/longmcquade/app_browse.png"
@@ -33,6 +33,8 @@ import CsCard from '../../components/CsCard.astro';
 import CsPrincipleGrid from '../../components/CsPrincipleGrid.astro';
 import CsPrinciple from '../../components/CsPrinciple.astro';
 import Figure from '../../components/Figure.astro';
+import PhoneFrame from '../../components/PhoneFrame.astro';
+import PhoneRow from '../../components/PhoneRow.astro';
 
 <CsSection label="Context & Problem">
   <CsStatement>
@@ -44,21 +46,16 @@ import Figure from '../../components/Figure.astro';
   Peer-to-peer platforms like ShareGrid and KitSplit have solved per-item availability calendars and multi-item insurance stacking - but they are peer-to-peer marketplaces, not a single retailer's own inventory. **The gap nobody has closed is real-time availability, multi-item kit curation, and cross-branch fulfillment from one company's own stores, combined into a single self-serve flow.**
 </CsSection>
 
-<Figure
-  src="/screens/longmcquade/app_browse.png"
-  alt="Browse screen on iPhone showing the L&M Pro Rentals header, search bar, category and date filters, and a two-column product grid with real product photos - Yorkville Tripod Stand, Radial ProDI, Keyboard X-Stand, and Apex Boundary Mic - each with per-day pricing in orange."
-  caption="Browse and Search - the first-time renter's entry point. Category and date filters narrow a product grid pulled from real L&M inventory with per-day pricing."
-  wide
-  canvas="none"
-/>
-
-<Figure
-  src="/screens/longmcquade/app_gear_detail.png"
-  alt="Gear detail drawer on iPhone showing the Yorkville Tripod Stand - SKU, 4.9-star rating, daily ($2), weekly ($8), and monthly ($7) pricing tiers, five pickup locations with real-time stock status (In Stock, Out), and tabbed Specifications and Rental Terms sections."
-  caption="The Gear Detail drawer. Pricing tiers, per-location stock status, specifications, and rental terms - all surfaced inline instead of behind a separate FAQ page."
-  wide
-  canvas="none"
-/>
+<PhoneRow caption="Browse and Search (left) shows category and date filters with a product grid pulled from real L&M inventory. The Gear Detail drawer (right) surfaces pricing tiers, per-location stock status, and rental terms inline.">
+  <PhoneFrame
+    src="/screens/longmcquade/app_browse.png"
+    alt="Browse screen showing the L&M Pro Rentals header, search bar, category and date filters, and a two-column product grid with per-day pricing in orange."
+  />
+  <PhoneFrame
+    src="/screens/longmcquade/app_gear_detail.png"
+    alt="Gear detail drawer showing the Yorkville Tripod Stand - pricing tiers, five pickup locations with real-time stock status, and tabbed Specifications and Rental Terms sections."
+  />
+</PhoneRow>
 
 <CsSection label="Two Personas, Two Paths">
   <CsStatement>
@@ -126,12 +123,10 @@ import Figure from '../../components/Figure.astro';
 
   When a request matches a named template closely, GearGenie returns it directly - fast and predictable. When it does not, the engine looks up target wattage, speaker counts, mic counts, and mixer channel minimums from the heuristic rules, then matches those specs against real in-stock items from L&M's inventory to assemble a live gear list. Every recommendation links back to actual catalog data. Nothing is invented.
 
-  <Figure
+  <PhoneFrame
     src="/screens/longmcquade/app_kitbuilder.png"
-    alt="GearGenie screen on iPhone showing Wedding Ceremony selected, 150 guests, Indoor venue, dates October 10-12 2026, with a generated Standard PA Package result - Yorkville speakers, mixer, Shure SM58 microphones - totaling $90 for 2 days with an Add Full Kit to Cart button."
+    alt="GearGenie screen showing Wedding Ceremony selected, 150 guests, Indoor venue, dates October 10-12 2026, with a generated Standard PA Package result - Yorkville speakers, mixer, Shure SM58 microphones - totaling $90 for 2 days."
     caption="GearGenie - the event-pro entry point. Four inputs produce a priced, editable kit list matched against real L&M inventory. Here a wedding for 150 guests returns the Standard PA Package - 7 items, $90 for two days."
-    wide
-    canvas="none"
   />
 </CsSection>
 
@@ -144,12 +139,10 @@ import Figure from '../../components/Figure.astro';
 
   This is not an edge case. For an event pro renting a full PA setup, cross-branch fulfillment is the norm. The competitive teardown found that neither ShareGrid nor KitSplit has solved this because they are peer-to-peer - items come from different owners, not different branches of the same retailer. L&M's multi-branch inventory is the asset; the cart is the feature that makes it usable.
 
-  <Figure
+  <PhoneFrame
     src="/screens/longmcquade/app_cart.png"
-    alt="Cart screen on iPhone showing 5 items for October 10-12 - Pioneer DDJ-FLX6 ($56), QSC K12.2 Speaker x2 ($88), JBL PRX418S Subwoofer ($40), Chauvet GigBAR Move ($50), Chauvet Hurricane Haze 2D ($20) - with quantity steppers, product thumbnails, and a Proceed to Checkout button for $254."
+    alt="Cart screen showing 5 items for October 10-12 - Pioneer DDJ-FLX6, QSC K12.2 Speaker x2, JBL PRX418S Subwoofer, Chauvet GigBAR Move, Chauvet Hurricane Haze 2D - with quantity steppers, product thumbnails, and a Proceed to Checkout button for $254."
     caption="The cart with a DJ kit - 5 items across a 2-day rental window. Each line shows real product photos, per-item totals, and quantity controls."
-    wide
-    canvas="none"
   />
 </CsSection>
 
@@ -162,12 +155,10 @@ import Figure from '../../components/Figure.astro';
 
   Pricing is shown as day, week, and month tiers by default. When the user has already set a date range upstream in Browse or GearGenie, the detail drawer resolves to an actual total for that exact rental window instead of showing only generic rates.
 
-  <Figure
+  <PhoneFrame
     src="/screens/longmcquade/app_checkout.png"
-    alt="Checkout screen on iPhone showing an order summary for 4 items, fulfillment options (Store Pickup free or Delivery $45), Deposit and Terms section with a $100 refundable deposit callout and three bullet-point rental terms, a Payment section with demo form fields, and a Place Order button for $190."
+    alt="Checkout screen showing an order summary for 4 items, fulfillment options (Store Pickup free or Delivery $45), Deposit and Terms section with a $100 refundable deposit callout, and three bullet-point rental terms."
     caption="Checkout - deposit terms and delivery options surfaced inline. The $100 refundable deposit, ID requirements, and damage review terms are visible at the point of commitment - not buried in a FAQ."
-    wide
-    canvas="none"
   />
 </CsSection>
 
