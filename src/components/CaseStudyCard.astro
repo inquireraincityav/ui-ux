@@ -22,8 +22,19 @@ const typeLabel = type === 'both' ? 'Web + Mobile' : type === 'mobile' ? 'Mobile
 ---
 <a class="tile" href={href}>
   {wip && <span class="wip-badge">Work in Progress</span>}
-  <div class="tile-media">
-    {cover && <img src={cover} alt={`${title} screenshot`} loading="lazy" />}
+  <div class:list={["tile-media", type === 'mobile' && "tile-media--phone"]}>
+    {cover && type === 'mobile' ? (
+      <div class="card-phone">
+        <div class="card-phone-body">
+          <div class="card-phone-screen">
+            <img src={cover} alt={`${title} screenshot`} loading="lazy" />
+          </div>
+          <img class="card-phone-frame" src="/iphone-frame.png" alt="" aria-hidden="true" loading="lazy" />
+        </div>
+      </div>
+    ) : cover ? (
+      <img src={cover} alt={`${title} screenshot`} loading="lazy" />
+    ) : null}
   </div>
   <div class="tile-overlay">
     <div class="tile-overlay-inner">
@@ -66,6 +77,53 @@ const typeLabel = type === 'both' ? 'Web + Mobile' : type === 'mobile' ? 'Mobile
 
   .tile:hover .tile-media img {
     transform: scale(0.93);
+  }
+
+  .card-phone {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .tile:hover .card-phone {
+    transform: scale(0.93);
+  }
+  .card-phone-body {
+    position: relative;
+    aspect-ratio: 501 / 1030;
+    height: 100%;
+    max-height: calc(100% - 1rem);
+  }
+  .card-phone-screen {
+    position: absolute;
+    top: 1.6%;
+    left: 1.6%;
+    width: 96.8%;
+    height: 96.6%;
+    border-radius: 9.2%;
+    overflow: hidden;
+    background: #fff;
+  }
+  .card-phone-screen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+    max-width: none;
+    max-height: none;
+  }
+  .card-phone-frame {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    pointer-events: none;
+    z-index: 1;
+    max-width: none;
+    max-height: none;
   }
 
   /* ── Frosted glass overlay ── */
@@ -182,7 +240,18 @@ const typeLabel = type === 'both' ? 'Web + Mobile' : type === 'mobile' ? 'Mobile
       object-fit: contain;
     }
 
-    .tile:hover .tile-media img {
+    .tile-media--phone {
+      padding: 1rem;
+      background: var(--canvas);
+      border-radius: 8px;
+    }
+
+    .card-phone-body {
+      height: 220px;
+    }
+
+    .tile:hover .tile-media img,
+    .tile:hover .card-phone {
       transform: none;
     }
 
