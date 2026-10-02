@@ -23,6 +23,7 @@ const caseStudies = defineCollection({
     tools: z.array(z.string()).default([]),
     outcomes: z.array(z.string()).default([]),
     prototype: z.string().url().optional(),
+    phoneFrame: z.boolean().default(false),
   }),
 });
 
