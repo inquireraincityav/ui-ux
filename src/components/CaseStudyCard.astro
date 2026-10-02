@@ -12,18 +12,20 @@ interface Props {
   coverScheme?: 'warm' | 'cool' | 'ink';
   cover?: string;
   wip?: boolean;
+  phoneFrame?: boolean;
 }
 const {
   title, subtitle, role, year, summary, href, index,
   type = 'web', canvas = 'light', coverScheme = 'warm', cover, wip = false,
+  phoneFrame = false,
 } = Astro.props;
 
 const typeLabel = type === 'both' ? 'Web + Mobile' : type === 'mobile' ? 'Mobile' : 'Web';
 ---
 <a class="tile" href={href}>
   {wip && <span class="wip-badge">Work in Progress</span>}
-  <div class:list={["tile-media", type === 'mobile' && "tile-media--phone"]}>
-    {cover && type === 'mobile' ? (
+  <div class:list={["tile-media", phoneFrame && "tile-media--phone"]}>
+    {cover && phoneFrame ? (
       <div class="card-phone">
         <div class="card-phone-body">
           <div class="card-phone-screen">
@@ -78,6 +80,10 @@ const typeLabel = type === 'both' ? 'Web + Mobile' : type === 'mobile' ? 'Mobile
   .tile:hover .tile-media img {
     transform: scale(0.93);
   }
+  .tile:hover .card-phone-screen img,
+  .tile:hover .card-phone-frame {
+    transform: none;
+  }
 
   .card-phone {
     height: 100%;
@@ -103,16 +109,19 @@ const typeLabel = type === 'both' ? 'Web + Mobile' : type === 'mobile' ? 'Mobile
     height: 96.6%;
     border-radius: 9.2%;
     overflow: hidden;
-    background: #fff;
+    background: #000;
   }
   .card-phone-screen img {
-    width: 100%;
-    height: 100%;
+    width: 92%;
+    height: 90%;
+    margin: 5% 4% 5% 4%;
     object-fit: cover;
     object-position: top;
     display: block;
     max-width: none;
     max-height: none;
+    border-radius: 4%;
+    image-rendering: auto;
   }
   .card-phone-frame {
     position: absolute;
