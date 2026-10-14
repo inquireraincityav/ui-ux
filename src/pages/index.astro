@@ -36,7 +36,7 @@ const experience = studies.map((s) => ({
   role: s.data.role,
   company: s.data.client,
   period: s.data.duration,
-}));
+})).reverse();
 ---
 <BaseLayout title="Jaival Shah - UI/UX Portfolio">
   <Hero />
