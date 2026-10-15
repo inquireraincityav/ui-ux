@@ -10,7 +10,7 @@ coverScheme: "warm"
 cover: "/screens/fatafat/app_home.png"
 summary: "A companion app for Mumbai's suburban rail network - the busiest commuter system on Earth - designed around progressive disclosure. The same screens flex information density up or down based on how well a rider knows the system, answering the question every commuter actually has: should I wait, or should I board right now?"
 client: "Fatafat - Mumbai transit app - Personal Project"
-duration: "Ongoing - 2026"
+duration: "4 months · 2026"
 impact: "Confidence-mode system flexing UI for two distinct personas from one structure"
 team: "Solo designer + developer"
 tools:
@@ -24,8 +24,7 @@ outcomes:
   - "A confidence-mode system (Home, Live Status, Journey Detail, On Board) that flexes for two concretely different personas from one underlying structure - reversible with a single toggle rather than requiring separate apps or onboarding paths."
   - "A complete information architecture (4 tabs, 1 persistent settings icon, 3 shared components, full edge-state coverage) that stayed disciplined in scope even after ticketing was added mid-process."
   - "A named, realistic data strategy (RailRadar API + historical modeling + opt-in self-reports) in place of hand-waving - the kind of grounding that holds up under a reviewer's 'how would this actually work?'"
-  - "Four design principles that emerged from the work rather than being decided upfront, each traceable to a specific screen or decision in the process."
-wip: true
+  - "Traced the full end-to-end flow through a flowchart pass that surfaced two real gaps invisible in screen-by-screen review - Live Status had no path to a destination, and On Board's trigger was undefined."
 phoneFrame: true
 prototype: "https://fatafat-nu.vercel.app/splash"
 ---
@@ -116,6 +115,8 @@ import PhoneRow from '../../components/PhoneRow.astro';
       </ul>
     </CsCard>
   </CsCardGrid>
+
+  Three shared components tie these destinations together - reused across screens rather than duplicated, keeping the app's surface area tight:
 
   <CsCardGrid columns={3}>
     <CsCard title="Station Picker" dots={1}>
@@ -232,9 +233,9 @@ import PhoneRow from '../../components/PhoneRow.astro';
   caption="Settings houses the confidence-mode toggle - so dismissing the New Rider card on Home is always reversible. The toggle re-flexes every screen in the app, not just Home."
 />
 
-<CsSection label="Reflections">
+<CsSection label="Reflection & Future Work">
   <CsStatement>
-    What held up, what didn't, and what only surfaced once the screens were traced end-to-end as a flow rather than reviewed one at a time
+    What held up, what didn't, and where this project goes from here
   </CsStatement>
 
   **What held up.** Progressive disclosure survived contact with every screen it touched without needing a special case. That is the strongest signal the principle was real rather than a nice sentence: it kept generating consistent answers all the way through, instead of running out partway.
@@ -243,21 +244,9 @@ import PhoneRow from '../../components/PhoneRow.astro';
 
   **Where the flowchart pass earned its keep.** Two real gaps only surfaced once the screens were traced end-to-end: Live Status had no path to a destination, and the trigger for On Board was undefined. Both are the kind of gap that is invisible screen-by-screen and obvious the moment you ask "and then what happens?"
 
-  **What building caught that wireframing didn't.** Reviewing the app as an actual clickable prototype surfaced that primary inputs were sitting near the top of the screen - fine in a flat mockup, a real one-handed reach problem on an actual phone. Repositioning thumb-used elements toward the bottom half is a small change with an outsized effect on daily usability, and it is the kind of issue that specifically needs a real prototype in hand to notice.
+  **What building caught that wireframing didn't.** Reviewing the app as an actual clickable prototype surfaced that primary inputs were sitting near the top of the screen - fine in a flat mockup, a real one-handed reach problem on an actual phone. Repositioning thumb-used elements toward the bottom half is a small change with an outsized effect on daily usability.
 
-  **The honest limitation.** This stays a conceptual case study. Crowd density and live GPS positioning are designed against a realistic data strategy (RailRadar's API, a historical model, opt-in self-reporting), but none of it is wired up to real data. The design decisions are defensible on their own terms; whether the "wait or board now" recommendation is actually trustworthy in practice is a question only real usage could answer.
-</CsSection>
+  **The honest limitation.** This stays a conceptual case study. Crowd density and live GPS positioning are designed against a realistic data strategy (RailRadar's API, a historical model, opt-in self-reporting), but none of it is wired up to real data. Whether the "wait or board now" recommendation is actually trustworthy in practice is a question only real usage could answer.
 
-<CsSection label="Current Status">
-  <CsStatement>
-    The core experience is designed and built - a handful of refinements are actively underway
-  </CsStatement>
-
-  The current build is a Next.js app deployed on Vercel, using Tailwind CSS, Leaflet for maps, and React 19. The core screens - Home, Live Status, Routes, Journey Detail, On Board, and Tickets - are functional as a clickable prototype.
-
-  **What is built:** the full 4-tab navigation with confidence-mode toggle, the onboarding flow, station picker, network map, journey tracking with stop-by-stop progress, and the ticket purchase flow with QR codes.
-
-  **What is next:** restructuring the Explore tab to remove a redundant "Plan" section, having completed trips populate Home's Daily Commute list with real data instead of placeholders, and extending ticket purchase to capture payment method and quantity reflected back under My Tickets.
-
-  **Natural next step:** usability testing the confidence-mode toggle itself - specifically, whether real newcomers to Mumbai's trains would self-identify accurately at onboarding, or whether the mode needs to earn trust more gradually than a single first-launch question allows.
+  **Future work.** Usability testing the confidence-mode toggle - specifically, whether real newcomers to Mumbai's trains would self-identify accurately at onboarding, or whether the mode needs to earn trust more gradually than a single first-launch question allows. Additionally, restructuring the Explore tab to remove a redundant "Plan" section and having completed trips populate Home's Daily Commute list with real data instead of placeholders.
 </CsSection>
