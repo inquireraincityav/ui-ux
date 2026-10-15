@@ -29,7 +29,7 @@ const typeLabel = type === 'both' ? 'Web + Mobile' : type === 'mobile' ? 'Mobile
     {cover && phoneFrame ? (
       <div class="card-phone">
         <div class="card-phone-body">
-          <div class="card-phone-screen" style={`--img-fit:${coverFit};--img-h:${coverFit === 'contain' ? '98%' : '100%'}`}>
+          <div class="card-phone-screen" style={`--img-fit:${coverFit};--img-sy:${coverFit === 'contain' ? '0.98' : '1'}`}>
             <img src={cover} alt={`${title} screenshot`} loading="lazy" />
           </div>
           <img class="card-phone-frame" src="/iphone-frame.png" alt="" aria-hidden="true" loading="lazy" />
@@ -114,9 +114,11 @@ const typeLabel = type === 'both' ? 'Web + Mobile' : type === 'mobile' ? 'Mobile
   }
   .card-phone-screen img {
     width: 100%;
-    height: var(--img-h, 100%);
+    height: 100%;
     object-fit: var(--img-fit, cover);
     object-position: top;
+    transform: scaleY(var(--img-sy, 1));
+    transform-origin: top;
     display: block;
     max-width: none;
     max-height: none;
