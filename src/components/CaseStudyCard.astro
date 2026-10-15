@@ -21,7 +21,7 @@ const {
   phoneFrame = false, coverFit = 'cover',
 } = Astro.props;
 
-const typeLabel = type === 'both' ? 'Web + Mobile' : type === 'mobile' ? 'Mobile' : 'Web';
+const typeLabel = type === 'both' ? 'Web + Mobile' : type === 'mobile' ? 'Mobile App' : 'Web';
 ---
 <a class="tile" href={href}>
   {wip && <span class="wip-badge">Work in Progress</span>}

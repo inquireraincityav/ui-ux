@@ -23,7 +23,7 @@ interface Props {
 const { frontmatter } = Astro.props;
 const typeLabel =
   frontmatter.type === 'both' ? 'Web + Mobile'
-  : frontmatter.type === 'mobile' ? 'Mobile'
+  : frontmatter.type === 'mobile' ? 'Mobile App'
   : 'Web';
 const base = import.meta.env.BASE_URL;
 ---
