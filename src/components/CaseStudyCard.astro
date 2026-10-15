@@ -13,11 +13,12 @@ interface Props {
   cover?: string;
   wip?: boolean;
   phoneFrame?: boolean;
+  coverFit?: 'cover' | 'contain';
 }
 const {
   title, subtitle, role, year, summary, href, index,
   type = 'web', canvas = 'light', coverScheme = 'warm', cover, wip = false,
-  phoneFrame = false,
+  phoneFrame = false, coverFit = 'cover',
 } = Astro.props;
 
 const typeLabel = type === 'both' ? 'Web + Mobile' : type === 'mobile' ? 'Mobile' : 'Web';
@@ -28,7 +29,7 @@ const typeLabel = type === 'both' ? 'Web + Mobile' : type === 'mobile' ? 'Mobile
     {cover && phoneFrame ? (
       <div class="card-phone">
         <div class="card-phone-body">
-          <div class="card-phone-screen">
+          <div class="card-phone-screen" style={`--img-fit:${coverFit}`}>
             <img src={cover} alt={`${title} screenshot`} loading="lazy" />
           </div>
           <img class="card-phone-frame" src="/iphone-frame.png" alt="" aria-hidden="true" loading="lazy" />
@@ -114,8 +115,8 @@ const typeLabel = type === 'both' ? 'Web + Mobile' : type === 'mobile' ? 'Mobile
   .card-phone-screen img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    object-position: center;
+    object-fit: var(--img-fit, cover);
+    object-position: top;
     display: block;
     max-width: none;
     max-height: none;

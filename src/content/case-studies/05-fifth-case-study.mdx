@@ -26,6 +26,7 @@ outcomes:
   - "Rental terms and deposit requirements surfaced inline at the point of decision - not buried in a separate FAQ page where they currently live on L&M's real site."
 wip: true
 phoneFrame: true
+coverFit: "contain"
 prototype: "https://longandmcquade.vercel.app/sign-in"
 ---
 
@@ -53,10 +54,12 @@ import PhoneRow from '../../components/PhoneRow.astro';
   <PhoneFrame
     src="/screens/longmcquade/app_browse.png"
     alt="Browse screen showing All Gear heading, search bar, category dropdown and date filters, and a two-column product grid - Yorkville Tripod Stand, Radial ProDI, Keyboard X-Stand, Apex Boundary Mic - with per-day pricing in orange."
+    fit="contain"
   />
   <PhoneFrame
     src="/screens/longmcquade/app_gear_detail.png"
     alt="Gear detail sheet for Yorkville Tripod Stand - 4.9 stars, daily $2, weekly $8, monthly $7 pricing tiers, five pickup locations with real-time In Stock and Out status, and tabbed Specifications and Rental Terms."
+    fit="contain"
   />
 </PhoneRow>
 
@@ -130,6 +133,7 @@ import PhoneRow from '../../components/PhoneRow.astro';
     src="/screens/longmcquade/app_kitbuilder.png"
     alt="GearGenie screen showing Corporate Conference selected, 250 guests, Indoor venue, dates October 21-23 2026, with a generated Panel/Conference Package result - Yorkville YXL12P Speakers x2, Yorkville 14-Ch Mixer, Sennheiser wireless mic - matched against real inventory."
     caption="GearGenie - the event-pro entry point. Four inputs produce a priced, editable kit list matched against real L&M inventory. Here a corporate conference for 250 guests returns the Panel/Conference Package with matched gear and a 'Why this list' explainer."
+    fit="contain"
   />
 </CsSection>
 
@@ -146,6 +150,7 @@ import PhoneRow from '../../components/PhoneRow.astro';
     src="/screens/longmcquade/app_cart.png"
     alt="Cart screen showing 4 items for October 21-23 - Yorkville YXL12P Speaker x2 at $44, Yorkville 14-Ch Mixer at $18, Sennheiser EW 112-P G4 at $36, Yorkville Tripod Stand x3 at $12 - with quantity steppers, product thumbnails, and a Proceed to Checkout button for $110."
     caption="The cart with a conference kit - 4 items across a 2-day rental window. Each line shows product photos, per-item totals, and quantity controls. Estimated total: $110."
+    fit="contain"
   />
 </CsSection>
 
@@ -162,10 +167,12 @@ import PhoneRow from '../../components/PhoneRow.astro';
     <PhoneFrame
       src="/screens/longmcquade/app_checkout.png"
       alt="Checkout screen showing order summary for 4 items Oct 21-23, fulfillment options (Store Pickup free at Vancouver Main St or Delivery $45), Deposit and Terms with $100 refundable deposit, ID requirement, and damage review policy."
+      fit="contain"
     />
     <PhoneFrame
       src="/screens/longmcquade/app_confirmed.png"
       alt="Order Confirmed screen showing a green checkmark, Reservation confirmed message, barcode Q-2026-8927, line items summary - 4 items, deposit $100, total charged $210 - with View My Orders and Continue Browsing buttons."
+      fit="contain"
     />
   </PhoneRow>
 </CsSection>
@@ -206,10 +213,12 @@ import PhoneRow from '../../components/PhoneRow.astro';
     <PhoneFrame
       src="/screens/longmcquade/app_signin.png"
       alt="Sign In screen showing L&M Pro Rentals logo, Welcome back heading, phone number and password fields, Sign In button, and links for Sign Up and Continue as Guest."
+      fit="contain"
     />
     <PhoneFrame
       src="/screens/longmcquade/app_orders.png"
       alt="Orders screen with All, Active, and Completed tabs. One upcoming order Q-2026-8927 for Oct 21-23 showing 2x Yorkville YXL12P Speaker, Yorkville 14-Ch Mixer, Sennheiser EW 112-P G4, +1 more at Vancouver Main St, with View details, Pickup, and Reorder buttons."
+      fit="contain"
     />
   </PhoneRow>
 </CsSection>

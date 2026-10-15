@@ -24,6 +24,7 @@ const caseStudies = defineCollection({
     outcomes: z.array(z.string()).default([]),
     prototype: z.string().url().optional(),
     phoneFrame: z.boolean().default(false),
+    coverFit: z.enum(['cover', 'contain']).default('cover'),
   }),
 });
 
