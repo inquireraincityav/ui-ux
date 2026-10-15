@@ -49,14 +49,14 @@ import PhoneRow from '../../components/PhoneRow.astro';
   Peer-to-peer platforms like ShareGrid and KitSplit have solved per-item availability calendars and multi-item insurance stacking - but they are peer-to-peer marketplaces, not a single retailer's own inventory. **The gap nobody has closed is real-time availability, multi-item kit curation, and cross-branch fulfillment from one company's own stores, combined into a single self-serve flow.**
 </CsSection>
 
-<PhoneRow caption="Browse and Search (left) shows category and date filters with a product grid pulled from real L&M inventory. The Gear Detail drawer (right) surfaces pricing tiers, per-location stock status, and rental terms inline.">
+<PhoneRow caption="Browse (left) shows a searchable product grid with category and date filters, pulling from real L&M inventory. The Gear Detail sheet (right) surfaces daily/weekly/monthly pricing, per-location stock status, and tabbed specs and rental terms.">
   <PhoneFrame
     src="/screens/longmcquade/app_browse.png"
-    alt="Browse screen showing the L&M Pro Rentals header, search bar, category and date filters, and a two-column product grid with per-day pricing in orange."
+    alt="Browse screen showing All Gear heading, search bar, category dropdown and date filters, and a two-column product grid - Yorkville Tripod Stand, Radial ProDI, Keyboard X-Stand, Apex Boundary Mic - with per-day pricing in orange."
   />
   <PhoneFrame
     src="/screens/longmcquade/app_gear_detail.png"
-    alt="Gear detail drawer showing the Yorkville Tripod Stand - pricing tiers, five pickup locations with real-time stock status, and tabbed Specifications and Rental Terms sections."
+    alt="Gear detail sheet for Yorkville Tripod Stand - 4.9 stars, daily $2, weekly $8, monthly $7 pricing tiers, five pickup locations with real-time In Stock and Out status, and tabbed Specifications and Rental Terms."
   />
 </PhoneRow>
 
@@ -128,8 +128,8 @@ import PhoneRow from '../../components/PhoneRow.astro';
 
   <PhoneFrame
     src="/screens/longmcquade/app_kitbuilder.png"
-    alt="GearGenie screen showing Wedding Ceremony selected, 150 guests, Indoor venue, dates October 10-12 2026, with a generated Standard PA Package result - Yorkville speakers, mixer, Shure SM58 microphones - totaling $90 for 2 days."
-    caption="GearGenie - the event-pro entry point. Four inputs produce a priced, editable kit list matched against real L&M inventory. Here a wedding for 150 guests returns the Standard PA Package - 7 items, $90 for two days."
+    alt="GearGenie screen showing Corporate Conference selected, 250 guests, Indoor venue, dates October 21-23 2026, with a generated Panel/Conference Package result - Yorkville YXL12P Speakers x2, Yorkville 14-Ch Mixer, Sennheiser wireless mic - matched against real inventory."
+    caption="GearGenie - the event-pro entry point. Four inputs produce a priced, editable kit list matched against real L&M inventory. Here a corporate conference for 250 guests returns the Panel/Conference Package with matched gear and a 'Why this list' explainer."
   />
 </CsSection>
 
@@ -144,8 +144,8 @@ import PhoneRow from '../../components/PhoneRow.astro';
 
   <PhoneFrame
     src="/screens/longmcquade/app_cart.png"
-    alt="Cart screen showing 5 items for October 10-12 - Pioneer DDJ-FLX6, QSC K12.2 Speaker x2, JBL PRX418S Subwoofer, Chauvet GigBAR Move, Chauvet Hurricane Haze 2D - with quantity steppers, product thumbnails, and a Proceed to Checkout button for $254."
-    caption="The cart with a DJ kit - 5 items across a 2-day rental window. Each line shows real product photos, per-item totals, and quantity controls."
+    alt="Cart screen showing 4 items for October 21-23 - Yorkville YXL12P Speaker x2 at $44, Yorkville 14-Ch Mixer at $18, Sennheiser EW 112-P G4 at $36, Yorkville Tripod Stand x3 at $12 - with quantity steppers, product thumbnails, and a Proceed to Checkout button for $110."
+    caption="The cart with a conference kit - 4 items across a 2-day rental window. Each line shows product photos, per-item totals, and quantity controls. Estimated total: $110."
   />
 </CsSection>
 
@@ -158,11 +158,16 @@ import PhoneRow from '../../components/PhoneRow.astro';
 
   Pricing is shown as day, week, and month tiers by default. When the user has already set a date range upstream in Browse or GearGenie, the detail drawer resolves to an actual total for that exact rental window instead of showing only generic rates.
 
-  <PhoneFrame
-    src="/screens/longmcquade/app_checkout.png"
-    alt="Checkout screen showing an order summary for 4 items, fulfillment options (Store Pickup free or Delivery $45), Deposit and Terms section with a $100 refundable deposit callout, and three bullet-point rental terms."
-    caption="Checkout - deposit terms and delivery options surfaced inline. The $100 refundable deposit, ID requirements, and damage review terms are visible at the point of commitment - not buried in a FAQ."
-  />
+  <PhoneRow caption="Checkout (left) surfaces fulfillment options, deposit terms, and payment inline - nothing hidden behind a separate FAQ. Order Confirmed (right) shows the reservation barcode and summary immediately after booking.">
+    <PhoneFrame
+      src="/screens/longmcquade/app_checkout.png"
+      alt="Checkout screen showing order summary for 4 items Oct 21-23, fulfillment options (Store Pickup free at Vancouver Main St or Delivery $45), Deposit and Terms with $100 refundable deposit, ID requirement, and damage review policy."
+    />
+    <PhoneFrame
+      src="/screens/longmcquade/app_confirmed.png"
+      alt="Order Confirmed screen showing a green checkmark, Reservation confirmed message, barcode Q-2026-8927, line items summary - 4 items, deposit $100, total charged $210 - with View My Orders and Continue Browsing buttons."
+    />
+  </PhoneRow>
 </CsSection>
 
 <CsSection label="Design Principles">
@@ -191,9 +196,20 @@ import PhoneRow from '../../components/PhoneRow.astro';
     This project is actively in development - the working prototype is live and the case study will be updated as the build progresses
   </CsStatement>
 
-  The current build is a React app (Vite) deployed on Vercel, using real L&M catalog data for inventory, pricing, and kit templates. The core screens - Browse and Search, GearGenie, Cart, and Checkout - are functional. Pickup and Return and Order History are in progress.
+  The current build is a React app (Vite) deployed on Vercel, using real L&M catalog data for inventory, pricing, and kit templates. The full rental flow - from sign-in through browse, GearGenie, cart, checkout, order confirmation, and order history - is functional.
 
-  **What is built:** the browse flow with category and date filters, the GearGenie recommendation engine with heuristic rule matching, the cart with cross-location split detection, and the checkout flow with mocked payment and inline deposit terms.
+  **What is built:** sign-in and authentication, the browse flow with category and date filters, the GearGenie recommendation engine with heuristic rule matching, the cart with cross-location split detection, the checkout flow with mocked payment and inline deposit terms, order confirmation with reservation barcodes, and order history with reordering.
 
-  **What is next:** the mobile-first Pickup and Return condition check-in flow, the Order History screen with repeat-kit reordering, and visual polish applying the Liquid Glass design system (translucent glass surfaces with L&M's brand orange).
+  **What is next:** the mobile-first Pickup and Return condition check-in flow, and visual polish applying the Liquid Glass design system (translucent glass surfaces with L&M's brand orange).
+
+  <PhoneRow caption="Sign In (left) keeps auth minimal - phone number and password with guest access. Orders (right) shows upcoming and completed rentals with quick actions for pickup and reordering.">
+    <PhoneFrame
+      src="/screens/longmcquade/app_signin.png"
+      alt="Sign In screen showing L&M Pro Rentals logo, Welcome back heading, phone number and password fields, Sign In button, and links for Sign Up and Continue as Guest."
+    />
+    <PhoneFrame
+      src="/screens/longmcquade/app_orders.png"
+      alt="Orders screen with All, Active, and Completed tabs. One upcoming order Q-2026-8927 for Oct 21-23 showing 2x Yorkville YXL12P Speaker, Yorkville 14-Ch Mixer, Sennheiser EW 112-P G4, +1 more at Vancouver Main St, with View details, Pickup, and Reorder buttons."
+    />
+  </PhoneRow>
 </CsSection>
