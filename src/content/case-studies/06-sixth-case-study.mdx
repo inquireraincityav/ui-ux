@@ -55,8 +55,8 @@ import PhoneRow from '../../components/PhoneRow.astro';
 </CsSection>
 
 <PhoneRow caption="First launch - the splash animation plays once, then hands off to onboarding where a single question sets the app's initial confidence mode. 'I'm new here' is the primary action, meeting the person most likely landing on this screen for the first time.">
-  <PhoneFrame src="/screens/fatafat/app_splash.png" alt="Fatafat splash screen showing the app logo against a navy background with a Mumbai skyline silhouette and an arriving train animation" />
-  <PhoneFrame src="/screens/fatafat/app_onboarding.png" alt="Onboarding screen asking 'How well do you know Mumbai's trains?' with two large tap targets - 'I'm new here' in marigold and 'I ride daily' in navy" />
+  <PhoneFrame src="/screens/fatafat/app_splash.png" alt="Fatafat splash screen showing a Mumbai Local train illustration with '5229C' and 'WR' badges against a navy background with a Mumbai skyline silhouette and 'tap anywhere to skip' prompt" />
+  <PhoneFrame src="/screens/fatafat/app_onboarding.png" alt="Onboarding screen showing the Fatafat logo with train icon, 'Western · Central · Harbour · BEST' subtitle, and the question 'How well do you know Mumbai's trains?' with 'I'm new here' in marigold and 'I ride daily' option" />
 </PhoneRow>
 
 <CsSection label="Two Personas, One System">
@@ -88,8 +88,8 @@ import PhoneRow from '../../components/PhoneRow.astro';
 
 <PhoneFrame
   src="/screens/fatafat/app_home.png"
-  alt="Home dashboard showing a 'Your Daily Commute' widget with the next train departure, crowd level badge, and platform number, plus quick-access route chips below"
-  caption="The Home dashboard - Priya's entry point. Her daily commute shows live departure, crowd level, and platform number. One tap opens Journey Detail directly, bypassing the full route search."
+  alt="Home screen showing the greeting 'Good morning', a full-width map with Western, Central, Harbour, and Metro rail lines overlaid on Mumbai, a 'Where to?' search bar with Live indicator, and a Daily Commute section showing the Churchgate - Mumbai Central route"
+  caption="The Home dashboard - the map gives spatial context at a glance, the search bar is the primary action, and the Daily Commute section surfaces Priya's saved route with one-tap access."
 />
 
 <CsSection label="Information Architecture">
@@ -131,8 +131,8 @@ import PhoneRow from '../../components/PhoneRow.astro';
 </CsSection>
 
 <PhoneRow caption="Shared components - the station picker reuses one design across every 'From/To' field in the app, and the network map highlights the current route against the full rail network.">
-  <PhoneFrame src="/screens/fatafat/app_station_picker.png" alt="Station picker showing a search field, recent stations, and starred stations with line badges (W, C, H) indicating which lines each station serves" />
-  <PhoneFrame src="/screens/fatafat/app_network_map.png" alt="Full network map showing Central, Western, and Harbour lines color-coded with station dots and a line legend" />
+  <PhoneFrame src="/screens/fatafat/app_station_picker.png" alt="Select stations screen showing From/To fields, a search bar, Recent stations (Churchgate, Dadar, Bandra, Andheri) with colored line dots, and All Stations list starting from Churchgate through the Western Line" />
+  <PhoneFrame src="/screens/fatafat/app_network_map.png" alt="Full network map showing Western (blue), Central (red), Harbour (green), and Metro (purple) lines with station dots, line filter chips at top, and a legend at bottom" />
 </PhoneRow>
 
 <CsSection label="The Journey - From Search to Arrival">
@@ -145,15 +145,16 @@ import PhoneRow from '../../components/PhoneRow.astro';
   The "I'm on this train" tap transitions to On Board - a screen that did not exist in the original IA but was added after tracing the end-to-end flow revealed a real gap. Journey Detail tells you about the trip before it starts; nothing previously covered the trip while it is happening. For Arjun, On Board shows a large stop-progress tracker with a countdown to his destination and an explicit alert promise. For Priya, a compact next-stop line and an exit-side tip.
 </CsSection>
 
-<PhoneRow caption="The Explore tab shows live departures from a station, and Journey Detail stitches the full train + last-mile bus picture together.">
-  <PhoneFrame src="/screens/fatafat/app_explore.png" alt="Live Status tab showing next departures from a station with crowd density indicators, platform numbers, and a 'wait or board now' recommendation at the bottom" />
-  <PhoneFrame src="/screens/fatafat/app_journey.png" alt="Journey Detail screen showing a Western Line train leg with departure time, crowd level, and platform, followed by a BEST bus connection with walk time and bus route number" />
+<PhoneRow caption="The Explore tab surfaces the network map alongside Mumbai Rail Basics guides, and Journey Detail shows the full route with next-train timing and crowd level.">
+  <PhoneFrame src="/screens/fatafat/app_explore.png" alt="Explore tab showing the network map with Western, Central, Harbour, and Metro line filters, an Open full interactive map button, and Mumbai Rail Basics cards for fast vs. slow trains and compartments" />
+  <PhoneFrame src="/screens/fatafat/app_journey.png" alt="Churchgate to Mumbai Central journey detail showing Fast and Slow toggle, next train in 3 minutes on Platform 2 with Moderate crowd level, and a 3-stop timeline with arrival times" />
 </PhoneRow>
 
-<PhoneRow caption="On Board tracking - the stop-progress timeline shows each station along the route, a progress bar tracks distance covered, and the bus connection ETA stays visible at the bottom.">
-  <PhoneFrame src="/screens/fatafat/app_onboard.png" alt="On Board screen with a dark navy background showing a stop-by-stop timeline with the current position highlighted, a progress bar, and estimated arrival time at the destination" />
-  <PhoneFrame src="/screens/fatafat/app_onboard_progress.png" alt="On Board screen showing journey progress partway through the route with stops passed marked in green and upcoming stops shown ahead" />
-</PhoneRow>
+<PhoneFrame
+  src="/screens/fatafat/app_arrived.png"
+  alt="Arrived screen with a dark navy background showing the destination Mumbai Central, a progress bar at 100%, and a stop-by-stop timeline with all stations passed marked in orange"
+  caption="The Arrived screen - journey tracking resolves into a completion state with every stop accounted for. The 'Done - back to home' action closes the loop cleanly."
+/>
 
 <CsSection label="Tickets - A Deliberate Trade-Off">
   <CsStatement>
@@ -165,10 +166,10 @@ import PhoneRow from '../../components/PhoneRow.astro';
   This is a genuine trade-off. Tickets took the nav slot that Saved Routes originally held. Saved routes stepped down to a low-emphasis Home widget rather than keeping a promoted destination of their own. The case study names this directly because a portfolio piece that only shows the decisions that worked out cleanly is less credible than one that shows the actual trade-off being weighed.
 </CsSection>
 
-<PhoneRow caption="The ticket flow - browse available ticket types, complete payment, and receive a QR code for boarding. Previously purchased tickets live under My Tickets with active/expired status.">
-  <PhoneFrame src="/screens/fatafat/app_tickets_buy.png" alt="Buy Ticket screen showing ticket type selection (single, return, pass), class options (first, second), and route fields with a fare summary at the bottom" />
-  <PhoneFrame src="/screens/fatafat/app_ticket_payment.png" alt="Payment screen showing order summary with ticket details, payment method selection, and a Pay Now button" />
-  <PhoneFrame src="/screens/fatafat/app_tickets_qr.png" alt="Ticket confirmation screen showing a QR code for boarding, ticket details including route, class, and validity period" />
+<PhoneRow caption="The ticket flow - My Tickets shows history and active passes, Buy lets you choose ticket type and class with live pricing, and a purchased ticket surfaces a QR code for the ticket checker.">
+  <PhoneFrame src="/screens/fatafat/app_tickets.png" alt="My Tickets screen showing a Buy a new ticket button and trip history with route, status, and fare" />
+  <PhoneFrame src="/screens/fatafat/app_tickets_buy.png" alt="Buy Ticket screen showing route selection, class toggle, ticket types with pricing (single, return, monthly pass, quarterly pass), and quantity selector" />
+  <PhoneFrame src="/screens/fatafat/app_tickets_qr.png" alt="Active ticket screen showing an Andheri to Churchgate quarterly pass with a QR code, validity period, and Mark as scanned button" />
 </PhoneRow>
 
 <CsSection label="Visual Language">
@@ -198,10 +199,11 @@ import PhoneRow from '../../components/PhoneRow.astro';
   </CsCardGrid>
 </CsSection>
 
-<PhoneRow caption="The walkthrough and intro screens carry the warm visual identity - Fraunces serif headings, the marigold accent, and Mumbai's skyline silhouette threading through the first-launch sequence.">
-  <PhoneFrame src="/screens/fatafat/app_walkthrough.png" alt="Walkthrough screen with Fraunces serif heading, a feature description, and the warm cream background with marigold accent elements" />
-  <PhoneFrame src="/screens/fatafat/app_intro.png" alt="Intro screen showing the Fatafat brand identity with the train icon mark, feature highlights, and a Get Started button in marigold" />
-</PhoneRow>
+<PhoneFrame
+  src="/screens/fatafat/app_walkthrough.png"
+  alt="Walkthrough screen explaining fast vs. slow trains with a train emoji, plain-language copy, and a marigold Next button - part of the new-rider onboarding sequence"
+  caption="The new-rider walkthrough - plain-language guides that surface under Explore > Basics after onboarding. Each card answers one question a newcomer would actually ask on the platform."
+/>
 
 <CsSection label="Design Principles">
   <CsStatement>
@@ -226,7 +228,7 @@ import PhoneRow from '../../components/PhoneRow.astro';
 
 <PhoneFrame
   src="/screens/fatafat/app_settings.png"
-  alt="Settings screen showing the confidence-mode toggle (New Rider / Commuter), notification preferences, and a Contact Us option for support"
+  alt="Settings screen showing the confidence-mode toggle with New Rider selected (larger type, plain-language guides) and Commuter option (dense, data-only), notification toggles for stop alerts, delays, crowd updates, and last bus alert, plus saved data section showing offline timetable and saved routes"
   caption="Settings houses the confidence-mode toggle - so dismissing the New Rider card on Home is always reversible. The toggle re-flexes every screen in the app, not just Home."
 />
 
