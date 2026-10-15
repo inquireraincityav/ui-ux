@@ -13,7 +13,7 @@ const hasSlot = Astro.slots.has('default');
 <figure class="phone-figure">
   <div class="phone" style={`--phone-scale:${scale}`}>
     <div class="phone-body">
-      <div class="phone-screen" style={`--img-fit:${fit}`}>
+      <div class="phone-screen" style={`--img-fit:${fit};--img-h:${fit === 'contain' ? '98%' : '100%'}`}>
         {src ? (
           <img src={src} alt={alt} loading="lazy" />
         ) : hasSlot ? (
@@ -63,7 +63,7 @@ const hasSlot = Astro.slots.has('default');
   }
   .phone-screen img {
     width: 100%;
-    height: 100%;
+    height: var(--img-h, 100%);
     object-fit: var(--img-fit, cover);
     object-position: top;
     display: block;
