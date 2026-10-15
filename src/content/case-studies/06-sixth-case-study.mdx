@@ -146,16 +146,11 @@ import PhoneRow from '../../components/PhoneRow.astro';
   The "I'm on this train" tap transitions to On Board - a screen that did not exist in the original IA but was added after tracing the end-to-end flow revealed a real gap. Journey Detail tells you about the trip before it starts; nothing previously covered the trip while it is happening. For Arjun, On Board shows a large stop-progress tracker with a countdown to his destination and an explicit alert promise. For Priya, a compact next-stop line and an exit-side tip.
 </CsSection>
 
-<PhoneRow caption="The Explore tab surfaces the network map alongside Mumbai Rail Basics guides, and Journey Detail shows the full route with next-train timing and crowd level.">
+<PhoneRow caption="The full journey arc - Explore surfaces the network map and rail basics, Journey Detail shows next-train timing with crowd level, and the Arrived screen resolves the trip with every stop accounted for.">
   <PhoneFrame src="/screens/fatafat/app_explore.png" alt="Explore tab showing the network map with Western, Central, Harbour, and Metro line filters, an Open full interactive map button, and Mumbai Rail Basics cards for fast vs. slow trains and compartments" />
   <PhoneFrame src="/screens/fatafat/app_journey.png" alt="Churchgate to Mumbai Central journey detail showing Fast and Slow toggle, next train in 3 minutes on Platform 2 with Moderate crowd level, and a 3-stop timeline with arrival times" />
+  <PhoneFrame src="/screens/fatafat/app_arrived.png" alt="Arrived screen with a dark navy background showing the destination Mumbai Central, a progress bar at 100%, and a stop-by-stop timeline with all stations passed marked in orange" />
 </PhoneRow>
-
-<PhoneFrame
-  src="/screens/fatafat/app_arrived.png"
-  alt="Arrived screen with a dark navy background showing the destination Mumbai Central, a progress bar at 100%, and a stop-by-stop timeline with all stations passed marked in orange"
-  caption="The Arrived screen - journey tracking resolves into a completion state with every stop accounted for. The 'Done - back to home' action closes the loop cleanly."
-/>
 
 <CsSection label="Tickets - A Deliberate Trade-Off">
   <CsStatement>
@@ -200,12 +195,6 @@ import PhoneRow from '../../components/PhoneRow.astro';
   </CsCardGrid>
 </CsSection>
 
-<PhoneFrame
-  src="/screens/fatafat/app_walkthrough.png"
-  alt="Walkthrough screen explaining fast vs. slow trains with a train emoji, plain-language copy, and a marigold Next button - part of the new-rider onboarding sequence"
-  caption="The new-rider walkthrough - plain-language guides that surface under Explore > Basics after onboarding. Each card answers one question a newcomer would actually ask on the platform."
-/>
-
 <CsSection label="Design Principles">
   <CsStatement>
     Four principles that emerged from the work rather than being decided upfront - each traceable to a specific screen or decision
@@ -227,11 +216,10 @@ import PhoneRow from '../../components/PhoneRow.astro';
   </CsPrincipleGrid>
 </CsSection>
 
-<PhoneFrame
-  src="/screens/fatafat/app_settings.png"
-  alt="Settings screen showing the confidence-mode toggle with New Rider selected (larger type, plain-language guides) and Commuter option (dense, data-only), notification toggles for stop alerts, delays, crowd updates, and last bus alert, plus saved data section showing offline timetable and saved routes"
-  caption="Settings houses the confidence-mode toggle - so dismissing the New Rider card on Home is always reversible. The toggle re-flexes every screen in the app, not just Home."
-/>
+<PhoneRow caption="The walkthrough teaches new riders one concept at a time, and Settings houses the confidence-mode toggle - so dismissing the New Rider card on Home is always reversible.">
+  <PhoneFrame src="/screens/fatafat/app_walkthrough.png" alt="Walkthrough screen explaining fast vs. slow trains with a train emoji, plain-language copy, and a marigold Next button - part of the new-rider onboarding sequence" />
+  <PhoneFrame src="/screens/fatafat/app_settings.png" alt="Settings screen showing the confidence-mode toggle with New Rider selected (larger type, plain-language guides) and Commuter option (dense, data-only), notification toggles for stop alerts, delays, crowd updates, and last bus alert, plus saved data section showing offline timetable and saved routes" />
+</PhoneRow>
 
 <CsSection label="Reflection & Future Work">
   <CsStatement>
