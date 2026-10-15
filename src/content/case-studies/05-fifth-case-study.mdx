@@ -21,9 +21,9 @@ tools:
   - Next.js
   - React
 outcomes:
-  - "Built a deterministic kit recommendation engine (GearGenie) with three explicit trust states — template match, heuristic assembly, and graceful no-match fallback — that communicates confidence level to the user at every step."
-  - "Designed and shipped a cross-location fulfillment resolver that detects multi-branch cart splits and offers one-tap consolidation — a problem no competitor in the Canadian pro-audio rental space has solved."
-  - "Moved rental terms, deposit requirements, and pricing tiers from a buried FAQ page to inline placement at the point of decision — Gear Detail and Checkout."
+  - "Built a deterministic kit recommendation engine (GearGenie) with three explicit trust states - template match, heuristic assembly, and graceful no-match fallback - that communicates confidence level to the user at every step."
+  - "Designed and shipped a cross-location fulfillment resolver that detects multi-branch cart splits and offers one-tap consolidation - a problem no competitor in the Canadian pro-audio rental space has solved."
+  - "Moved rental terms, deposit requirements, and pricing tiers from a buried FAQ page to inline placement at the point of decision - Gear Detail and Checkout."
   - "Maintained WCAG AA contrast ratios, 44px minimum touch targets, visible focus states, and inline error messaging throughout the flow."
 phoneFrame: true
 coverFit: "contain"
@@ -148,8 +148,8 @@ import PhoneRow from '../../components/PhoneRow.astro';
     <CsCard title="Template Match" dots={1}>
       <ul>
         <li><strong>Trigger:</strong> Event type maps directly to one of four named L&M packages (Standard PA, Panel/Conference, Recording/Hybrid, Presentation + Projector)</li>
-        <li><strong>UI signal:</strong> Green badge — "Matches our [Package Name]"</li>
-        <li><strong>Confidence:</strong> Highest — this is a pre-quoted combination that L&M staff already use</li>
+        <li><strong>UI signal:</strong> Green badge - "Matches our [Package Name]"</li>
+        <li><strong>Confidence:</strong> Highest - this is a pre-quoted combination that L&M staff already use</li>
         <li><strong>Disclosure:</strong> "This matches our pre-built [name]. Items and quantities are based on real packages quoted by Long & McQuade for similar events."</li>
       </ul>
     </CsCard>
@@ -157,21 +157,21 @@ import PhoneRow from '../../components/PhoneRow.astro';
       <ul>
         <li><strong>Trigger:</strong> No template fits, but the heuristic rules table has a row for the event type, guest count, and venue</li>
         <li><strong>UI signal:</strong> "Suggested based on your event size" with tier label</li>
-        <li><strong>Confidence:</strong> Medium — the engine assembled a custom list from target specs (watts/guest, speaker counts, mixer channels)</li>
-        <li><strong>Disclosure:</strong> Shows the underlying rule — e.g. "6-8W/guest, indoor, 300-400 guests. 2 speakers, 2 wireless + 3 wired mics, 8+ mixer channels."</li>
+        <li><strong>Confidence:</strong> Medium - the engine assembled a custom list from target specs (watts/guest, speaker counts, mixer channels)</li>
+        <li><strong>Disclosure:</strong> Shows the underlying rule - e.g. "6-8W/guest, indoor, 300-400 guests. 2 speakers, 2 wireless + 3 wired mics, 8+ mixer channels."</li>
       </ul>
     </CsCard>
     <CsCard title="No Match" dots={3}>
       <ul>
         <li><strong>Trigger:</strong> Parameters fall outside all sizing tiers (extreme guest count, Custom event type with no reasonable fallback)</li>
-        <li><strong>UI signal:</strong> Info icon — "No close match found"</li>
-        <li><strong>Confidence:</strong> N/A — graceful degradation rather than a forced bad recommendation</li>
+        <li><strong>UI signal:</strong> Info icon - "No close match found"</li>
+        <li><strong>Confidence:</strong> N/A - graceful degradation rather than a forced bad recommendation</li>
         <li><strong>Fallback:</strong> Suggests contacting a Long & McQuade location directly, echoing the real L&M flow this screen is otherwise improving on</li>
       </ul>
     </CsCard>
   </CsCardGrid>
 
-  The resolution logic runs in strict priority order: template match first, heuristic fallback second, no-match last. When a guest count falls between two heuristic tiers, the engine defaults to the nearer or larger tier and surfaces which tier it matched. When an item in the suggested list has no confirmed price, it displays "Price to be confirmed" on that line item rather than showing $0 or silently excluding it from the total. The design principle is the same throughout: **if the system is uncertain, say so — do not paper over the gap.**
+  The resolution logic runs in strict priority order: template match first, heuristic fallback second, no-match last. When a guest count falls between two heuristic tiers, the engine defaults to the nearer or larger tier and surfaces which tier it matched. When an item in the suggested list has no confirmed price, it displays "Price to be confirmed" on that line item rather than showing $0 or silently excluding it from the total. The design principle is the same throughout: **if the system is uncertain, say so - do not paper over the gap.**
 </CsSection>
 
 <CsSection label="Cross-Location Fulfillment">
@@ -216,22 +216,22 @@ import PhoneRow from '../../components/PhoneRow.astro';
 
 <CsSection label="Accessibility">
   <CsStatement>
-    Every screen in the flow was built against four accessibility requirements — contrast, touch targets, focus states, and error handling
+    Every screen in the flow was built against four accessibility requirements - contrast, touch targets, focus states, and error handling
   </CsStatement>
 
   <CsCardGrid columns={2}>
     <CsCard title="Contrast & Color" dots={1}>
       <ul>
         <li><strong>WCAG AA compliance:</strong> All body text meets a minimum 4.5:1 contrast ratio against surface colors; large headings meet 3:1</li>
-        <li><strong>Dual-channel status:</strong> Availability indicators (In Stock / Out) and success/warning states use both color and iconography — never color alone</li>
+        <li><strong>Dual-channel status:</strong> Availability indicators (In Stock / Out) and success/warning states use both color and iconography - never color alone</li>
         <li><strong>Surface hierarchy:</strong> Raised cards, input fields, and interactive surfaces maintain contrast against the base background through border and shadow, not just fill color</li>
       </ul>
     </CsCard>
     <CsCard title="Touch & Interaction" dots={2}>
       <ul>
-        <li><strong>44px minimum targets:</strong> All buttons, steppers, toggle controls, and tappable rows maintain a 44x44px minimum touch target — including the quantity steppers in the cart and kit builder</li>
+        <li><strong>44px minimum targets:</strong> All buttons, steppers, toggle controls, and tappable rows maintain a 44x44px minimum touch target - including the quantity steppers in the cart and kit builder</li>
         <li><strong>Visible focus states:</strong> Every interactive element carries a visible focus ring for keyboard and assistive-device navigation</li>
-        <li><strong>Inline error handling:</strong> Form validation errors surface immediately below the relevant field with a descriptive message — not in a disconnected toast or modal that requires context-switching</li>
+        <li><strong>Inline error handling:</strong> Form validation errors surface immediately below the relevant field with a descriptive message - not in a disconnected toast or modal that requires context-switching</li>
       </ul>
     </CsCard>
   </CsCardGrid>
@@ -260,12 +260,12 @@ import PhoneRow from '../../components/PhoneRow.astro';
 
 <CsSection label="Reflection & Future Work">
   <CsStatement>
-    The core bet held up — a single retailer's multi-branch inventory is an asset, not a constraint, if the fulfillment logic is surfaced properly
+    The core bet held up - a single retailer's multi-branch inventory is an asset, not a constraint, if the fulfillment logic is surfaced properly
   </CsStatement>
 
-  GearGenie's three trust states let the system be honest about how much inference went into a recommendation rather than presenting everything with equal confidence. The cross-location fulfillment resolver solves a real logistics gap that peer-to-peer competitors structurally cannot address — their items come from different owners, not different branches of the same retailer.
+  GearGenie's three trust states let the system be honest about how much inference went into a recommendation rather than presenting everything with equal confidence. The cross-location fulfillment resolver solves a real logistics gap that peer-to-peer competitors structurally cannot address - their items come from different owners, not different branches of the same retailer.
 
-  The decision to use deterministic rule matching over an LLM for the recommendation logic was validated in testing: users trusted the output more when they could see the underlying rule ("6-8W/guest, indoor, 300-400 guests") than when they received an opaque "AI-generated" suggestion. The "Why this list" disclosure, initially designed as a pro-user feature, turned out to matter for first-time renters as well — it answered the question "can I trust this?" before it was asked.
+  The decision to use deterministic rule matching over an LLM for the recommendation logic was validated in testing: users trusted the output more when they could see the underlying rule ("6-8W/guest, indoor, 300-400 guests") than when they received an opaque "AI-generated" suggestion. The "Why this list" disclosure, initially designed as a pro-user feature, turned out to matter for first-time renters as well - it answered the question "can I trust this?" before it was asked.
 
   **What is next:** the mobile-first Pickup and Return condition check-in flow (photo capture for pre/post-rental damage documentation), visual polish applying iOS's Liquid Glass design language, expanded heuristic rules for outdoor events and festivals, and real-time inventory sync for live stock status.
 
